@@ -23,6 +23,6 @@ class CategoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
     }
 }

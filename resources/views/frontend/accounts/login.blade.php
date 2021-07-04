@@ -14,21 +14,13 @@
 @endsection
 
 @section('content')
-<nav class="breadcrumb-section theme1 bg-lighten2 pt-110 pb-110">
+<nav class="breadcrumb-section theme1 bg-lighten2 pt-50 pb-50">
   <div class="container">
     <div class="row">
       <div class="col-12">
         <div class="section-title text-center">
-          <h2 class="title pb-4 text-dark text-capitalize">login & register</h2>
+          <h2 class="title pb-4 text-dark text-capitalize">Đăng nhập</h2>
         </div>
-      </div>
-      <div class="col-12">
-        <ol class="breadcrumb bg-transparent m-0 p-0 align-items-center justify-content-center">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">
-            Log in to your account
-          </li>
-        </ol>
       </div>
     </div>
   </div>
@@ -43,10 +35,10 @@
         <div class="login-register-wrapper">
           <div class="login-register-tab-list nav">
             <a class="active" data-toggle="tab" href="#lg1">
-              <h4>login</h4>
+              <h4>Đăng nhập</h4>
             </a>
             <a data-toggle="tab" href="#lg2">
-              <h4>register</h4>
+              <h4>Đăng ký</h4>
             </a>
           </div>
           <div class="tab-content">
@@ -54,16 +46,16 @@
               <div class="login-form-container">
                 <div class="login-register-form">
                   <form action="assets/php/contact.php" method="post">
-                    <input type="text" name="user-name" placeholder="Username">
-                    <input type="password" name="user-password" placeholder="Password">
+                    <input type="email" name="user-name" placeholder="Email">
+                    <input type="password" name="user-password" placeholder="Mật khẩu">
                     <div class="button-box">
                       <div class="login-toggle-btn">
                         <input id="remember" type="checkbox">
-                        <label for="remember">Remember me</label>
-                        <a href="#">Forgot Password?</a>
+                        <label for="remember">Nhớ tài khoản</label>
+                        <a href="#">Quên mật khẩu?</a>
                       </div>
                       <button type="submit" class="btn btn-dark btn--md">
-                        <span>Login</span>
+                        <span>Đang nhập</span>
                       </button>
                     </div>
                   </form>
@@ -74,12 +66,14 @@
               <div class="login-form-container">
                 <div class="login-register-form">
                   <form action="assets/php/contact.php" method="post">
-                    <input type="text" name="user-name" placeholder="Username">
-                    <input type="password" name="user-password" placeholder="Password">
-                    <input name="user-email" placeholder="Email" type="email">
+                    <input type="text" name="user-name" placeholder="Họ tên">
+                    <input type="text" name="user-name" placeholder="Số điện thoại">
+                    <input type="text" name="user-name" placeholder="Địa chỉ">
+                    <input name="user-email" placeholder="Email đăng ký" type="email">
+                    <input type="password" name="user-password" placeholder="Mật khẩu">
                     <div class="button-box">
                       <button type="submit" class="btn btn-dark btn--md">
-                        <span>Register</span>
+                        <span>Đăng ký</span>
                       </button>
                     </div>
                   </form>

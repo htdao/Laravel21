@@ -29,7 +29,7 @@
                 <li>
                     <a href="#"><span class="menu-text">Thương hiệu</span></a>
                     <ul class="offcanvas-submenu">
-                        @foreach($trademarks as $trademark)
+                        @foreach($menuTrademarks as $trademark)
                         <li><a href="">{{$trademark->name}}</a></li>
                         @endforeach
                     </ul>
@@ -37,7 +37,7 @@
                 <li>
                     <a href=""><span class="menu-text">Danh mục</span></a>
                     <ul class="offcanvas-submenu">
-                        @foreach($categories as $category)
+                        @foreach($menuCategories as $category)
                             <li><a href="">{{$category->name}}</a></li>
                         @endforeach
                     </ul>
@@ -104,8 +104,8 @@
       <strong>Subtotal :</strong>
       <span class="amount">$144.00</span>
     </div>
-    <a href="cart.html" class="btn btn-secondary btn--lg d-block d-sm-inline-block mr-sm-2">view cart</a>
-    <a href="checkout.html" class="btn btn-dark btn--lg d-block d-sm-inline-block mt-4 mt-sm-0">checkout</a>
+    <a href="{{route('frontend.product.cart')}}" class="btn btn-secondary btn--lg d-block d-sm-inline-block mr-sm-2">Xem giỏ hàng</a>
+    <a href="checkout.html" class="btn btn-dark btn--lg d-block d-sm-inline-block mt-4 mt-sm-0">Mua hàng</a>
     <p class="minicart-message">Free Shipping on All Orders Over $100!</p>
   </div>
 </div>
@@ -175,7 +175,7 @@
                         <li>
                             <a href="#">Thương hiệu<i class="ion-ios-arrow-down"></i></a>
                             <ul class="sub-menu">
-                                @foreach($trademarks as $trademark)
+                                @foreach($menuTrademarks as $trademark)
                                     <li><a href="">{{$trademark->name}}</a></li>
                                 @endforeach
                             </ul>
@@ -183,7 +183,7 @@
                         <li>
                             <a href="blog-grid-3-column.html">Danh mục<i class="ion-ios-arrow-down"></i></a>
                             <ul class="sub-menu">
-                                @foreach($categories as $category)
+                                @foreach($menuCategories as $category)
                                     <li><a href="">{{$category->name}}</a></li>
                                 @endforeach
                             </ul>

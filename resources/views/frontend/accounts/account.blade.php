@@ -14,19 +14,13 @@ Tài khoản
 @endsection
 
 @section('content')
-<nav class="breadcrumb-section theme1 bg-lighten2 pt-110 pb-110">
+<nav class="breadcrumb-section theme1 bg-lighten2 pt-50 pb-50">
   <div class="container">
     <div class="row">
       <div class="col-12">
         <div class="section-title text-center">
-          <h2 class="title pb-4 text-dark text-capitalize">my account</h2>
+          <h2 class="title pb-4 text-dark text-capitalize">Tài khoản</h2>
         </div>
-      </div>
-      <div class="col-12">
-        <ol class="breadcrumb bg-transparent m-0 p-0 align-items-center justify-content-center">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">my account</li>
-        </ol>
       </div>
     </div>
   </div>
@@ -38,7 +32,7 @@ Tài khoản
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <h3 class="title text-capitalize mb-30 pb-25">my account</h3>
+        <h3 class="title text-capitalize mb-30 pb-25">Tài khoản của tôi</h3>
       </div>
       <!-- My Account Tab Menu Start -->
       <div class="col-lg-3 col-12 mb-30">
@@ -55,7 +49,7 @@ Tài khoản
 
           <a href="#account-info" data-toggle="tab" class="active"><i class="fa fa-user"></i> Account Details</a>
 
-          <a href="login.html"><i class="fa fa-sign-out"></i> Logout</a>
+          <a href=""><i class="fa fa-sign-out"></i> Logout</a>
         </div>
       </div>
       <!-- My Account Tab Menu End -->

@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
+use App\Models\Trademark;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,5 +28,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
+
+        $menuCategories = Category::where('parent_id',0)->get();
+        $menuTrademarks = Trademark::all();
+
+        View::share('menuTrademarks',$menuTrademarks);
+        View::share('menuCategories',$menuCategories);
     }
 }
