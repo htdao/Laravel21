@@ -4,10 +4,9 @@
 Tạo mới danh mục
 @endsection
 @section('css')
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 @endsection
 @section('script')
-
 @endsection
 @section('content-header')
 <div class="container-fluid">
@@ -44,7 +43,7 @@ Tạo mới danh mục
                             <label for="exampleInputEmail1">Tên danh mục</label>
                             <input name="name" value="{{ old('name') }}" type="text" class="form-control" id="" placeholder="Điền tên danh mục ">
                             @error('name')
-                            <div class="alert alert-danger">{{ $message }}</div>
+                            <div style="color: red;">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -55,6 +54,18 @@ Tạo mới danh mục
                                 <option value="{{$cate->parent_id}}">{{$cate->name}}</option>
                                 @endforeach
                             </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Thương hiệu liên quan</label>
+                            @foreach($trademarks as $trademark)
+                                <div class="form-check">
+                                    <input name="trademark_id[]" class="form-check-input" type="checkbox" value="{{$trademark->id}}"  id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        {{$trademark->name}}
+                                    </label>
+                                </div>
+                            @endforeach
                         </div>
 
                         <!-- /.card-body -->

@@ -1,163 +1,314 @@
-<header id="header">
-  <div class="header-container">
 
-    <div class="header-banner">
-      <div class="container">
-        <div class="inner"></div>
-      </div>
+<div id="offcanvas-mobile-menu" class="offcanvas theme1 offcanvas-mobile-menu">
+  <div class="inner">
+    <div class="border-bottom mb-4 pb-4 text-right">
+      <button class="offcanvas-close">×</button>
     </div>
+    <div class="offcanvas-head mb-4">
+      <nav class="offcanvas-top-nav">
+        <ul class="d-flex flex-wrap">
+          <li class="my-2 mx-2">
+            <a class="search search-toggle" href="javascript:void(0)">
+              <i class="icon-magnifier"></i> Search</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <nav class="offcanvas-menu">
+      <ul>
+        <li>
+          <a href="#"><span class="menu-text">Home</span></a>
+          <ul class="offcanvas-submenu">
+            <li><a href="index.html">Home 1</a></li>
+            <li><a href="index-2.html">Home 2</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#"><span class="menu-text">Shop</span></a>
+          <ul class="offcanvas-submenu">
+            <li>
+              <a href="#"><span class="menu-text">Shop Grid</span></a>
+              <ul class="offcanvas-submenu">
+                <li>
+                  <a href="shop-grid-3-column.html">Shop Grid 3 Column</a>
+                </li>
+                <li>
+                  <a href="shop-grid-4-column.html">Shop Grid 4 Column</a>
+                </li>
+                <li>
+                  <a href="shop-grid-left-sidebar.html">Shop Grid Left Sidebar</a>
+                </li>
+                <li>
+                  <a href="shop-grid-right-sidebar.html">Shop Grid Right Sidebar</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#"><span class="menu-text">Shop List</span></a>
+              <ul class="offcanvas-submenu">
+                <li><a href="shop-grid-list.html">Shop List</a></li>
+                <li>
+                  <a href="shop-grid-list-left-sidebar.html">Shop List Left Sidebar</a>
+                </li>
+                <li>
+                  <a href="shop-grid-list-right-sidebar.html">Shop List Right Sidebar</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#"><span class="menu-text">Shop Single</span></a>
+              <ul class="offcanvas-submenu">
+                <li><a href="single-product.html">Shop Single</a></li>
+                <li>
+                  <a href="single-product-configurable.html">Shop Variable</a>
+                </li>
+                <li>
+                  <a href="single-product-affiliate.html">Shop Affiliate</a>
+                </li>
+                <li><a href="single-product-group.html">Shop Group</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#"><span class="menu-text">other pages</span></a>
+              <ul class="offcanvas-submenu">
+                <li><a href="about-us.html">About Page</a></li>
+                <li><a href="cart.html">Cart Page</a></li>
+                <li><a href="checkout.html">Checkout Page</a></li>
+                <li><a href="compare.html">Compare Page</a></li>
+                <li><a href="login.html">Login &amp; Register Page</a></li>
+                <li><a href="myaccount.html">Account Page</a></li>
+                <li><a href="wishlist.html">Wishlist Page</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#"><span class="menu-text">Pages</span></a>
+          <ul class="offcanvas-submenu">
+            <li><a href="about-us.html">About Page</a></li>
+            <li><a href="cart.html">Cart Page</a></li>
+            <li><a href="checkout.html">Checkout Page</a></li>
+            <li><a href="compare.html">Compare Page</a></li>
+            <li><a href="login.html">Login &amp; Register Page</a></li>
+            <li><a href="myaccount.html">Account Page</a></li>
+            <li><a href="wishlist.html">Wishlist Page</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="blog-grid-3-column.html"><span class="menu-text">Blog</span></a>
+          <ul class="offcanvas-submenu">
+            <li>
+              <a href="#"><span class="menu-text">Blog Grid</span></a>
+              <ul class="offcanvas-submenu">
+                <li>
+                  <a href="blog-grid-3-column.html">Blog Grid 3 column</a>
+                </li>
+                <li>
+                  <a href="blog-grid-4-column.html">Blog Grid 4 column</a>
+                </li>
+                <li>
+                  <a href="blog-grid-left-sidebar.html">Blog Grid Left Sidebar</a>
+                </li>
+                <li>
+                  <a href="blog-grid-right-sidebar.html">Blog Grid Right Sidebar</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#"><span class="menu-text">Blog List</span></a>
+              <ul class="offcanvas-submenu">
+                <li>
+                  <a href="blog-list-left-sidebar.html">Blog List Left Sidebar</a>
+                </li>
+                <li>
+                  <a href="blog-list-right-sidebar.html">Blog List Right Sidebar</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#"><span class="menu-text">Blog Single</span></a>
+              <ul class="offcanvas-submenu">
+                <li><a href="single-blog.html">Single Blog</a></li>
+                <li>
+                  <a href="blog-single-left-sidebar.html">Blog Single Left Sidebar</a>
+                </li>
+                <li>
+                  <a href="blog-single-right-sidebar.html">Blog Single Right Sidbar</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </nav>
+    <div class="offcanvas-social py-30">
+      <ul>
+        <li>
+          <a href="#"><i class="icon-social-facebook"></i></a>
+        </li>
+        <li>
+          <a href="#"><i class="icon-social-twitter"></i></a>
+        </li>
+        <li>
+          <a href="#"><i class="icon-social-instagram"></i></a>
+        </li>
+        <li>
+          <a href="#"><i class="icon-social-google"></i></a>
+        </li>
+        <li>
+          <a href="#"><i class="icon-social-instagram"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- offcanvas-mobile-menu end -->
+<!-- OffCanvas Wishlist Start -->
+<!-- OffCanvas Wishlist End -->
 
-    <nav class="header-nav">
-      <div class="topnav">
-        <div class="container">
-          <div class="inner"></div>
+<!-- OffCanvas Cart Start -->
+<div id="offcanvas-cart" class="offcanvas offcanvas-cart theme1">
+  <div class="inner">
+    <div class="head d-flex flex-wrap justify-content-between">
+      <span class="title">Cart</span>
+      <button class="offcanvas-close">×</button>
+    </div>
+    <ul class="minicart-product-list">
+      <li>
+        <a href="single-product.html" class="image"><img src="images/1_2.png" alt="Cart product Image"></a>
+        <div class="content">
+          <a href="single-product.html" class="title">orginal Age Defying Cosmetics Makeup</a>
+          <span class="quantity-price">1 x <span class="amount">$100.00</span></span>
+          <a href="#" class="remove">×</a>
         </div>
-      </div>
+      </li>
+      <li>
+        <a href="single-product.html" class="image"><img src="images/2_2.png" alt="Cart product Image"></a>
+        <div class="content">
+          <a href="single-product.html" class="title">On Trend Makeup and Beauty Cosmetics</a>
+          <span class="quantity-price">1 x <span class="amount">$35.00</span></span>
+          <a href="#" class="remove">×</a>
+        </div>
+      </li>
+      <li>
+        <a href="single-product.html" class="image"><img src="images/3_1.png" alt="Cart product Image"></a>
+        <div class="content">
+          <a href="single-product.html" class="title">orginal Age Defying Cosmetics Makeup</a>
+          <span class="quantity-price">1 x <span class="amount">$9.00</span></span>
+          <a href="#" class="remove">×</a>
+        </div>
+      </li>
+    </ul>
+    <div class="sub-total d-flex flex-wrap justify-content-between">
+      <strong>Subtotal :</strong>
+      <span class="amount">$144.00</span>
+    </div>
+    <a href="cart.html" class="btn btn-secondary btn--lg d-block d-sm-inline-block mr-sm-2">view cart</a>
+    <a href="checkout.html" class="btn btn-dark btn--lg d-block d-sm-inline-block mt-4 mt-sm-0">checkout</a>
+    <p class="minicart-message">Free Shipping on All Orders Over $100!</p>
+  </div>
+</div>
+<!-- OffCanvas Cart End -->
 
-      <div class="bottomnav">
-        <div class="container">
-          <div class="inner">
-            <div class="row ApRow  " style>
-              <div class="col-xl-7 col-lg-6 col-md-6 col-sm-5 col-xs-3 col-sp-3 pullright ApColumn ">
-                <div class="log-in">
-                  <div class="sign-in">
-                    <a class="signin" href="{{route('frontend.login')}}" title="Log in to your customer account" rel="nofollow">
-                      <i class="fa fa-user"></i>
-                      <span>Đăng nhập</span>
-                    </a>
-                  </div>
+<!-- header start -->
+<header>
+  <!-- header top start -->
+  <div class="header-top theme1 bg-dark py-15">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 col-sm-6 order-last order-sm-first">
+          <div class="d-flex justify-content-center justify-content-sm-start align-items-center">
+            <div class="social-network2">
+              <ul class="d-flex">
+                <li>
+                  <a href="https://www.facebook.com/" target="_blank"><span class="icon-social-facebook"></span></a>
+                </li>
+                <li>
+                  <a href="https://twitter.com/" target="_blank"><span class="icon-social-twitter"></span></a>
+                </li>
+                <li>
+                  <a href="https://www.youtube.com/" target="_blank"><span class="icon-social-youtube"></span></a>
+                </li>
+                <li class="mr-0">
+                  <a href="https://www.instagram.com/" target="_blank"><span class="icon-social-instagram"></span></a>
+                </li>
+              </ul>
+            </div>
+            <div class="media static-media ml-4 d-flex align-items-center">
+              <div class="media-body">
+                <div class="phone">
+                  <a href="tel:(+123)4567890" class="text-white"><i class="icon-call-out mr-1"></i> (+123)4567890</a>
                 </div>
-                <div class="userinfo-selector links dropdown js-dropdown popup-over float-xs-left float-md-left">
-                  <a href="javascript:void(0)" data-toggle="dropdown" class="popup-title" title="Account">
-                    <i class="fa fa-user hidden-xl-up"></i>
-                    <span class="hidden-xl-up">Tài khoản</span>
-                  </a>
-                  <ul class="popup-content dropdown-menu user-info">
-                    <li>
-                      <a class=" dropdown-item" href="https://apollotran.com/prestashop/leo_cosmetics/en/my-account" title="Log in to your customer account" rel="nofollow">
-                        <span>Đăng suất</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="myacount dropdown-item" href="https://apollotran.com/prestashop/leo_cosmetics/en/my-account" title="My account" rel="nofollow">
-                        <span>Tài khoản của tôi</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="checkout dropdown-item" href="{{route('frontend.home.contact')}}" title="Checkout" rel="nofollow">
-                        <span>Liên hệ</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div><!-- @file modules\appagebuilder\views\templates\hook\ApGenCode -->
-                <!-- @file modules\appagebuilder\views\templates\hook\ApBlockLink -->
-                <div class="block ApLink contact ApBlockLink">
-
-                  <ul>
-                    <li>
-                      <a href="{{route('frontend.home.contact')}}" target="_self">Liên hệ</a>
-                    </li>
-                  </ul>
-                </div>
-
-              </div><!-- @file modules\appagebuilder\views\templates\hook\ApColumn -->
-              <div class="col-xl-5 col-lg-6 col-md-6 col-sm-7 col-xs-9 col-sp-9 pulleft ApColumn ">
-                <div id="search_widget" class="search-widget js-dropdown popup-over" data-search-controller-url="//apollotran.com/prestashop/leo_cosmetics/en/search">
-                  <a href="javascript:void(0)" data-toggle="dropdown" class="float-xs-right popup-title search-btn">
-                    <i class="fa fa-search "></i>
-                  </a>
-                  <form method="get" action="//apollotran.com/prestashop/leo_cosmetics/en/search" class="popup-content dropdown-menu" id="search_form">
-                    <input type="hidden" name="controller" value="search">
-                    <input type="hidden" name="orderby" value="position">
-                    <input type="hidden" name="orderway" value="desc">
-                    <input type="text" name="s" id="search_query_top" value placeholder="Search" aria-label="Search">
-                    <button type="submit" name="submit_search" class="btn btn-default button-search">
-                      <span><i class="fa fa-search"></i></span>
-                    </button>
-                  </form>
-                </div>
-                <!-- /Block search module TOP -->
               </div>
             </div>
           </div>
         </div>
+        <div class="col-lg-6 col-sm-6">
+          <nav class="navbar-top pb-2 pb-sm-0 position-relative">
+            <ul class="d-flex justify-content-center justify-content-md-end align-items-center">
+                  <li><a href="myaccount.html">Tài Khoản</a></li>
+                  <li><a href="checkout.html">Đơn đặt hàng</a></li>
+                  <li><a href="login.html">Đăng xuất</a></li>
+            </ul>
+          </nav>
+        </div>
       </div>
-    </nav>
-
-    <div class="header-top">
-      <div class="container">
-        <div class="inner"><!-- @file modules\appagebuilder\views\templates\hook\ApRow -->
-          <div class="row ApRow  " style>
-            <!-- @file modules\appagebuilder\views\templates\hook\ApColumn -->
-            <div class="col-xl-2 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-sp-12 top-left-header  ApColumn ">
-              <!-- @file modules\appagebuilder\views\templates\hook\ApGenCode -->
-
-              <div class="header_logo">
-                <a href="https://apollotran.com/prestashop/leo_cosmetics/">
-                  <img class="logo img-fluid" src="/frontend/images/leo-cosmestic-logo-1516035079.jpg" alt="Leo Cosmetics logo">
-                </a>
-              </div>
-
-            </div><!-- @file modules\appagebuilder\views\templates\hook\ApColumn -->
-            <div class="col-xl-7 col-lg-8 col-md-8 col-sm-6 col-xs-6 col-sp-6 top-header ApColumn ">
-              <!-- @file modules\appagebuilder\views\templates\hook\ApSlideShow -->
-              <div id="memgamenu-form_8397064537333739" class="ApMegamenu">
-                <nav data-megamenu-id="8397064537333739" class="leo-megamenu cavas_menu navbar navbar-default disable-canvas " role="navigation">
-                  <!-- Brand and toggle get grouped for better mobile display -->
-                  <div class="navbar-header">
-                    <button type="button" class="navbar-toggler hidden-lg-up" data-toggle="collapse" data-target=".megamenu-off-canvas-8397064537333739"><span class="sr-only">Toggle navigation</span>&#9776;</button>
-                  </div>
-                  <!-- Collect the nav links, forms, and other content for toggling -->
-                  <div class="leo-top-menu collapse navbar-toggleable-md megamenu-off-canvas megamenu-off-canvas-8397064537333739">
-                    <ul class="nav navbar-nav megamenu horizontal">
-                      <li class="nav-item   ">
-                        <a href="{{route('frontend.home')}}" target="_self" class="nav-link has-category">
-                          <span class="menu-title">Trang chủ </span>
-                        </a>
-                      </li>
-                        @foreach($categories as $category)
-                            <li class="nav-item   ">
-                                <a href="{{route('frontend.product.index')}}" target="_self" class="nav-link has-category">
-                                    <span class="menu-title">{{$category->name}}</span>
-                                </a>
-                            </li>
-                        @endforeach
-                  </ul>
-                </div>
-              </nav>
-              <script type="text/javascript">
-                list_menu_tmp.id = 8397064537333739;
-                list_menu_tmp.type = 'horizontal';
-
-              				// var show_cavas = 0;
-              				list_menu_tmp.show_cavas =0;
-
-                      list_menu_tmp.list_tab = list_tab;
-                      list_menu.push(list_menu_tmp);
-                      list_menu_tmp = {};
-                      list_tab = {};
-                    </script>
-                  </div>
-
-                </div><!-- @file modules\appagebuilder\views\templates\hook\ApColumn -->
-                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-6 col-sp-6 top-right-header  ApColumn ">
-                  <!-- @file modules\appagebuilder\views\templates\hook\ApModule -->
-                  <div id="cart-block">
-                    <div class="blockcart cart-preview inactive" data-refresh-url="//apollotran.com/prestashop/leo_cosmetics/en/module/ps_shoppingcart/ajax">
-                      <div class="header">
-                        <i class="shopping-cart fa fa-shopping-cart"></i>
-                        <span class="cart-products-count">
-                          <span class="zero">0</span>
-                          <span class="cart-count-title">Sản Phẩm Trong Giỏ Hàng </span>
-                          <span class="empty"> - 0 VND</span>
-                        </span>
-                      </div>
-                    </div>
-                </div>
+    </div>
+  </div>
+  <!-- header top end -->
+  <!-- header-middle satrt -->
+  <div id="sticky" class="header-middle theme1 py-15 py-lg-0">
+    <div class="container position-relative">
+      <div class="row align-items-center">
+        <div class="col-6 col-lg-2 col-xl-2">
+          <div class="logo">
+            <a href="index.html"><img src="images/logo.png" alt="logo"></a>
+          </div>
+        </div>
+        <div class="col-xl-8 col-lg-7 d-none d-lg-block">
+          <ul class="main-menu d-flex justify-content-center">
+            <li class="active ml-0">
+              <a href="index.html" class="pl-0">Trang chủ</a>
+            </li>
+            <li><a href="contact.html">Liên hệ</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-3 col-xl-2">
+          <!-- search-form end -->
+          <div class="d-flex align-items-center justify-content-end">
+            <!-- static-media end -->
+            <div class="cart-block-links theme1 d-none d-sm-block">
+              <ul class="d-flex">
+                <li>
+                  <a href="javascript:void(0)" class="search search-toggle">
+                    <i class="icon-magnifier"></i>
+                  </a>
+                </li>
+                <li class="mr-xl-0 cart-block position-relative">
+                  <a class="offcanvas-toggle" href="#offcanvas-cart">
+                    <span class="position-relative">
+                      <i class="icon-bag"></i>
+                      <span class="badge cbdg1">3</span>
+                    </span>
+                  </a>
+                </li>
+                <!-- cart block end -->
+              </ul>
+            </div>
+            <div class="mobile-menu-toggle theme1 d-lg-none">
+              <a href="#offcanvas-mobile-menu" class="offcanvas-toggle">
+                <svg viewbox="0 0 700 550">
+                  <path d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200" id="top"/>
+                  <path d="M300,320 L540,320" id="middle"/>
+                  <path d="M300,210 C300,210 520,210 540,210 C740,210 640,530 520,410 C440,330 300,190 300,190" id="bottom" transform="translate(480, 320) scale(1, -1) translate(-480, -318)"/>
+                </svg>
+              </a>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <!-- header-middle end -->
 </header>

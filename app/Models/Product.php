@@ -23,6 +23,8 @@ class Product extends Model
         'category_id',
         'status',
         'content_more',
+        'trademark_id',
+        'amount'
     ];
 
     const STATUS_INIT = 0;
@@ -34,6 +36,21 @@ class Product extends Model
         self::STATUS_BUY => 'Đang bán',
         self::STATUS_STOP => 'Ngừng bán'
     ];
+
+    public function getStatusTextAttribute(){
+        if ($this->status == 0){
+            return 'Đang nhập';
+        } elseif ($this->status == 1){
+            return 'Đang bán';
+        } else{
+            return 'Dừng bán';
+        }
+    }
+
+    public function getContentMoreJsonAttribute(){
+        $content_json = json_decode($this->content_more, true);
+        return $content_json;
+    }
 
     public function category(){
         return $this->belongsTo(Category::class);

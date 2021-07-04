@@ -64,13 +64,23 @@ class User extends Authenticatable
 
     protected $table = 'users';
 
+    public function getRoleTextAttribute(){
+        if ($this->role == 0){
+            return 'Quản lý';
+        } elseif ($this->role == 1){
+            return 'Nhân viên';
+        } else {
+            return 'Khách hàng';
+        }
+    }
+
     const ADMIN = 0;
     const USER1 = 1;
     const USER2 = 2;
 
-    public static $status_text = [
+    public static $role_text = [
         self::ADMIN => 'Quản lý',
-        self::USER1 => 'Người bán',
+        self::USER1 => 'Nhân viên',
         self::USER2 => 'Khách hàng',
     ];
 

@@ -32,9 +32,6 @@ Cập nhật danh mục
         <div class="col-md-12">
             <!-- general form elements -->
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Cập nhật</h3>
-                </div>
                 <!-- /.card-header -->
                 <!-- form start -->
                 <form role="form" method="post" action="{{ route('backend.category.update', ['id' => $category->id]) }}">
@@ -50,12 +47,31 @@ Cập nhật danh mục
                         <div class="form-group">
                             <label>Danh mục cha</label>
                             <select name="parent_id" class="form-control select2" style="width: 100%;">
-                                <option value="{{ $category->parent_id }}">{{ $category->name }}</option>
-                                <option value="0">Danh mục cha</option>
-                                @foreach($categories as $category)
-                                <option value="{{$category->parent_id}}">{{$category->name}}</option>
+                                <option value="0">Chọn danh mục</option>
+                                @foreach($categories as $cate)
+                                    <option value="{{ $cate->id }}"
+                                    @if($cate->id == $category->parent_id)
+                                        {{ 'selected' }}
+                                        @endif
+                                    >{{ $cate->name }}</option>
                                 @endforeach
                             </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Thương hiệu liên quan</label>
+                            @for($i=0;$i<count($trademarks);$i++)
+                                <div class="form-check">
+                                    <input name="trademark_id[]" value="{{$trademarks[$i]->id}}" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                                    @for($j=0;$j<count($category->trademarks);$j++)
+                                        @if($category->trademarks[$j]->id == $trademarks[$i]->id)
+                                            {{'checked'}}
+                                            @endif
+                                        @endfor
+                                    >
+                                    <label class="form-check-label" for="defaultCheck1">{{$trademarks[$i]->name}}</label>
+                                </div>
+                            @endfor
                         </div>
 
                         <!-- /.card-body -->

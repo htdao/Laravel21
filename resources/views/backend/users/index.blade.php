@@ -71,22 +71,15 @@ Người dùng
                                 </td>
                                 <td><a href="">{{$value->name}}</a></td>
                                 <td>{{$value->email}}</td>
-                                <td>
-                                    @foreach(\App\Models\User::$status_text as $key => $v)
-                                        @if($key == $value->role)
-                                            <p>{{$v}}</p>
-                                        @endif
-                                    @endforeach
-
-                                </td>
-                                <td>{{$value->updated_at}}</td>
+                                <td>{{ $value->role_text }}</td>
+                                <td>{{date('d/m/Y', strtotime($value->created_at))}}</td>
                                 <td>
                                     <a href="{{route('backend.user.show', ['id' => $value->id])}}" class="badge btn btn-info"><i class="material-icons">remove_red_eye</i></a>
                                     <a href="{{route('backend.user.edit', ['user' => $value->id])}}" class=" badge btn btn-success"><i class="material-icons">edit</i></a>
-                                    <form action="{{route('backend.user.destroy', ['id' => $value->id])}}" method="POST" class="d-inline-block">
+                                    <form action="{{route('backend.user.destroy', ['user' => $value->id])}}" method="POST" class="d-inline-block">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
-                                        <button type="submit" class="badge btn btn-danger"><i class="material-icons">delete</i></button>
+                                        <button class="badge btn btn-danger"><i class="material-icons">delete</i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -105,4 +98,35 @@ Người dùng
         </div>
         <!-- /.row (main row) -->
     </div>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+@if(Session::has('success'))
+    <script>
+        toastr.success("{!! Session::get('success') !!}");
+    </script>
+@elseif(Session::has('error'))
+    <script>
+        toastr.success("{!! Session::get('error') !!}");
+    </script>
+@endif
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script>
+    $('.delete_confirm').click(function(event){
+        var form = $(this).closest('form');
+        var name = $(this).data('name');
+        event.preventDefault();
+        swal({
+            title: 'Bạn có muốn xoá không?',
+            text: 'Nếu bạn xoá nó, bạn sẽ không thể khoi phục lại được',
+            icon: 'error',
+            buttons: ['không', 'xoá'],
+            dangerMode: true,
+        })
+            .then((willDelete)=>{
+                if(willDelete){
+                    form.submit();
+                }
+            });
+    });
+</script>
 @endsection

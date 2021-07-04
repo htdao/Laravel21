@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use Illuminate\Database\Eloquent\Model;
+use App\Http\Requests\StoreCategoryRequest;
+use App\Models\Product;
+use App\Models\Trademark;
 use Illuminate\Http\Request;
+use App\Models\Category;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -17,8 +21,10 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::orderBy('updated_at', 'desc')->paginate(10);
-        return view('backend.categories.index', [
-            'categories'=>$categories
+        $parents = Category::where('parent_id',0)->get();
+        return view('backend.categories.index',[
+            'categories' => $categories,
+            'parents' => $parents,
         ]);
     }
 
@@ -29,9 +35,11 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::where('parent_id',0)->get();
+        $trademarks = Trademark::all();
         return view('backend.categories.create', [
             'categories' => $categories,
+            'trademarks' => $trademarks,
         ]);
     }
 
@@ -41,15 +49,24 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        $category = new Category();
-        $category->name = $request->get('name');
-        $category->slug = \Illuminate\Support\Str::slug($request->get('name'));
-        $category->parent_id = $request->get('parent_id');
-        $category->save();
+        $data = $request->except('_token');
+        $data['slug'] = Str::slug($data['name']);
+        $category = Category::create($data);
 
-        return redirect()->route('backend.category.index');
+        if(!empty($data['trademark_id'])){
+            $category->trademarks()->attach($data['trademark_id'], [
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+
+        if($category){
+            return redirect()->route('backend.category.index')->with("success", "Thêm mới thành công!");
+        }
+        return redirect()->route('backend.category.index')->with("error", "Thêm mới thất bại!");
+
     }
 
     /**
@@ -60,11 +77,11 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $categories = Category::all();
-        $category = Category::find(id);
+        $category = Category::find($id);
+        $parent = Category::where('id',$category->parent_id)->get();
         return view('backend.categories.show', [
-            'categories' => $categories,
             'category' => $category,
+            'parent' => $parent,
         ]);
     }
 
@@ -76,11 +93,13 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+        $trademarks = Trademark::all();
         $category = Category::find($id);
         $categories = Category::all();
         return view('backend.categories.edit', [
-            'categories' => $categories,
             'category' => $category,
+            'categories' => $categories,
+            'trademarks' => $trademarks,
         ]);
     }
 
@@ -91,15 +110,28 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreCategoryRequest $request, $id)
     {
         $category = Category::find($id);
-        $category->name = $request->get('name');
-        $category->slug = \Illuminate\Support\Str::slug($request->get('name'));
-        $category->parent_id = $request->get('parent_id');
-        $category->save();
+        $data = $request->except('_token');
+        $data['slug'] = Str::slug($request->get('name'));
+        $data['updated_at'] = Carbon::now();
 
-        return redirect()->route('backend.category.index');
+        $category->update($data);
+
+        if(!empty($data['trademark_id'])){
+            $category->trademarks()->sync($data['trademark_id'],[
+                'updated_at' => Carbon::now(),
+            ]);
+
+        }else{
+            $category->trademarks()->detach();
+        }
+
+        if($category){
+            return redirect()->route('backend.category.index')->with("success", "Cập nhật thành công!");
+        }
+        return redirect()->route('backend.category.index')->with("error", "Cập nhật thất bại!");
     }
 
     /**
@@ -110,9 +142,29 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category= Category::find($id);
+        $category = Category::find($id);
+        $children = Category::where('parent_id', $category->id)->get();
+        $products = Product::where('category_id', $category->id)->get();
+        if(count($children) > 0){
+            foreach ($children as $child){
+                $child->parent_id = 0;
+                $child->save();
+            }
+        }
+        if(count($products) > 0){
+            foreach ($products as $product){
+                $product->category_id = 0;
+                $product->save();
+            }
+        }
+        $category->trademarks()->detach();
         $category->delete();
 
-        return redirect()->route('backend.category.index');
+        if($category){
+            return redirect()->route('backend.category.index')->with("success", "Xoá thành công!");
+        }
+        return redirect()->route('backend.category.index')->with("error", "Xoá thất bại!");
     }
+
+
 }

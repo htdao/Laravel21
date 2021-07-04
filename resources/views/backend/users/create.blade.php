@@ -76,8 +76,8 @@ Thêm người dùng
                                 <label>Quyền</label>
                                 <select name="role" class="form-control select2" style="width: 100%;">
                                     <option>--Chọn quyền---</option>
-                                    @foreach(\App\Models\User::$status_text as $key => $v)
-                                        <option value="{{$key}}">{{$v}}</option>
+                                    @foreach(\App\Models\User::$role_text as $key => $value)
+                                        <option value="{{ $key }}">{{ $value }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -85,8 +85,8 @@ Thêm người dùng
                         <!-- /.card-body -->
 
                         <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Tạo mới</button>
                             <a href="{{ route('backend.product.index') }}" class="btn btn-default">Huỷ bỏ</a>
-                            <button type="submit" class="btn btn-sucess">Tạo mới</button>
                         </div>
                     </form>
                 </div>

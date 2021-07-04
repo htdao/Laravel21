@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -32,6 +33,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', User::class);
          return view('backend.users.create');
     }
 
@@ -41,7 +43,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
         $user = new User();
         $user->name = $request->get('name');
@@ -88,7 +90,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-//        $this->authorize('update', $user);
+        $this->authorize('update', $user);
 //        $user = User::find(id);
         return view('backend.users.edit',[
             'user' => $user,
@@ -102,7 +104,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(StoreUserRequest $request, User $user)
     {
 //        $user = User::find(id);
         $user->name = $request->get('name');
@@ -133,9 +135,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        $user= User::find($id);
+        $this->authorize('update', $user);
+//        $user= User::find($id);
         $user->delete();
 
         return redirect()->route('backend.user.index');

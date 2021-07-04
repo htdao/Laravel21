@@ -75,9 +75,13 @@ Cập nhật người dùng
                             <div class="form-group">
                                 <label>Quyền</label>
                                 <select name="role" class="form-control select2" style="width: 100%;">
-                                    <option>--Chọn quyền---</option>
-                                    @foreach(\App\Models\User::$status_text as $key => $v)
-                                        <option value="{{$key}}">{{$v}}</option>
+                                    <option>Chọn quyền</option>
+                                    @foreach(\App\Models\User::$role_text as $key => $value)
+                                        <option value="{{ $key }}"
+                                                @if($user->role == $key)
+                                                selected
+                                            @endif
+                                        >{{ $value }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -85,8 +89,8 @@ Cập nhật người dùng
                         <!-- /.card-body -->
 
                         <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Cập nhật</button>
                             <a href="{{ route('backend.user.index') }}" class="btn btn-default">Huỷ bỏ</a>
-                            <button type="submit" class="btn btn-sucess">Cập nhật</button>
                         </div>
                     </form>
                 </div>

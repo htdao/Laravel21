@@ -18,7 +18,7 @@ Admin
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                    <li class="breadcrumb-item active"></li>
+                    <li class="breadcrumb-item active">Bảng điêu khiển</li>
                 </ol>
             </div><!-- /.col -->
         </div>
@@ -141,11 +141,13 @@ Admin
                                     <td>{{ number_format($product->sale_price) }}</td>
                                     <td>{{ date('d/m/Y', strtotime($product->created_at)) }}</td>
                                     <td>
-                                        @foreach(\App\Models\Product::$status_text as $key => $v)
-                                            @if($key == $product->status)
-                                                <p>{{$v}}</p>
-                                            @endif
-                                        @endforeach
+                                        @if($product->status == 0)
+                                            <span class="badge bg-warning widspan">{{ $product->status_text }}</span>
+                                        @elseif($product->status == 1)
+                                            <span class="badge bg-info widspan">{{ $product->status_text }}</span>
+                                        @else
+                                            <span class="badge bg-danger widspan">{{ $product->status_text }}</span>
+                                        @endif
                                     </td>
                                 </tr>
                                 @php

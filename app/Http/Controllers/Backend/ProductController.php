@@ -3,13 +3,17 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProductRequest;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Product;
+use App\Models\Trademark;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -20,9 +24,11 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $trademarks = Trademark::all();
         $products = Product::orderBy('updated_at', 'desc')->paginate(10);
         return view('backend.products.index', [
             'products'=>$products,
+            'trademarks' => $trademarks,
         ]);
     }
 
@@ -34,8 +40,10 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $trademarks = Trademark::all();
         return view('backend.products.create', [
-            'categories' => $categories
+            'categories' => $categories,
+            'trademarks' => $trademarks,
         ]);
     }
 
@@ -45,40 +53,48 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        $product = new Product();
-        $product->name = $request->get('name');
-        $product->slug = \Illuminate\Support\Str::slug($request->get('name'));
-        $product->category_id = $request->get('category_id');
-        $product->origin_price = $request->get('origin_price');
-        $product->sale_price = $request->get('sale_price');
-        $product->content = $request->get('content');
-        $product->status = $request->get('status');
-        $product->user_id = Auth::user()->id;
-        $product->save();
+        $data = $request->except('_token');
+        if ($request->has('key') || $request->has('val')) {
+            $key = $request->get('key');
+            $val = $request->get('val');
+            $list = [];
+            $merge = [];
+            for ($i = 0; $i < count($key); $i++) {
+                $list = [$key[$i] => $val[$i]];
+                $merge = array_merge($merge, $list);
+            }
+            $data['content_more'] = json_encode($merge, JSON_UNESCAPED_UNICODE);
+        }
 
-        if ($request->hasFile('image')){
+        $data['slug'] = Str::slug($request->get('name'));
+        $data['user_id'] = Auth::user()->id;
+        $data['created_at'] = Carbon::now();
 
+        $product = Product::create($data);
+
+        if ($request->hasFile('image')) {
             $files = $request->file('image');
 
             foreach ($files as $file) {
                 $name = $file->getClientOriginalName();
-                $disk_name = 'public';
-                $path = Storage::disk('public')->putFileAs('images', $file, $name);
+                $disk = 'public';
+                $path = Storage::disk($disk)->putFileAs('images', $file, $name);
 
                 $image = new Image();
                 $image->name = $name;
-                $image->disk = $disk_name;
+                $image->disk = $disk;
                 $image->path = $path;
                 $image->product_id = $product->id;
                 $image->save();
             }
-        }else{
-            dd('khong co file');
         }
 
-        return redirect()->route('backend.product.index');
+        if ($product) {
+            return redirect()->route('backend.product.index')->with("success", 'Tạo mới thành công');
+        }
+        return redirect()->route('backend.product.index')->with("error", 'Tạo mới thất bại');
     }
 
     /**
@@ -89,10 +105,18 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
-        return view('backend.products.show', [
-            'product' => $product,
-        ]);
+//        $product = Product::find($id);
+//        $trademarks = Trademark::all();
+//        $trademark = null;
+//        for ($i=0;$i<count($trademarks);$i++) {
+//            if($product->trademark_id == $trademarks[$i]) $trademark = $trademarks[$i]->name;
+//            else $trademark = 'null';
+//        }
+//        dd($trademark);
+//        return view('backend.products.show', [
+//            'product' => $product,
+//            'trademark' => $trademark,
+//        ]);
     }
 
     /**
@@ -101,15 +125,18 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
+//        $product = Product::find($id);
+        $this->authorize('update', $product);
         $categories = Category::all();
-        $product = Product::find($id);
+        $trademarks = Trademark::all();
         $category = Category::find($product->category_id);
         return view('backend.products.edit', [
             'categories' => $categories,
             'product' => $product,
             'category' => $category,
+            'trademarks' => $trademarks,
         ]);
     }
 
@@ -120,45 +147,60 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreProductRequest $request, Product $product)
     {
-        $product = Product::find($id);
-        $product->name = $request->get('name');
-        $product->slug = \Illuminate\Support\Str::slug($request->get('name'));
-        $product->category_id = $request->get('category_id');
-        $product->origin_price = $request->get('origin_price');
-        $product->sale_price = $request->get('sale_price');
-        $product->content = $request->get('content');
-        $product->status = $request->get('status');
-        $product->user_id = Auth::user()->id;
-        $product->save();
+//        $product = Product::find($id);
 
-        if ($request->hasFile('image')){
+        $data = $request->except('_token');
 
+        if ($request->has('key')) {
+            $key = $request->get('key');
+            $val = $request->get('val');
+            $list = [];
+            $merge = [];
+            for ($i = 0; $i < count($key); $i++) {
+                $list = [$key[$i] => $val[$i]];
+                $merge = array_merge($merge, $list);
+            }
+            $data['content_more'] = json_encode($merge, JSON_UNESCAPED_UNICODE);
+        } else {
+            $data['content_more'] = null;
+        }
+
+        $data['slug'] = Str::slug($request->get('name'));
+        $data['updated_at'] = Carbon::now();
+
+        $product->update($data);
+
+        if ($request->hasFile('image')) {
             $files = $request->file('image');
 
-            foreach ($files as $file){
+            foreach ($files as $file) {
                 $name = $file->getClientOriginalName();
-                $disk_name='public';
-                $path = Storage::disk('public')->putFileAs('images', $file, $name);
-                $image = Image::where('product_id', $product->id)->first();
+                $disk = 'public';
+                $path = Storage::disk($disk)->putFileAs('images', $file, $name);
 
-                if(!$image){
-                    $image = new Image();
-                }
+                $image = new Image();
                 $image->name = $name;
-                $image->disk = $disk_name;
+                $image->disk = $disk;
                 $image->path = $path;
                 $image->product_id = $product->id;
                 $image->save();
-                // dd($path);
             }
-
-        }else{
-            dd('khong co file');
+        }
+        $deleteImg = $request->delete_img;
+        if (!empty($deleteImg)) {
+            foreach ($deleteImg as $dete) {
+                $imgDelete = Image::find($dete);
+                Storage::disk('public')->delete($imgDelete->path);
+                $imgDelete->delete();
+            }
         }
 
-        return redirect()->route('backend.product.index');
+        if ($product) {
+            return redirect()->route('backend.product.index')->with("success", 'Thay đổi thành công');
+        }
+        return redirect()->route('backend.product.index')->with("error", 'Thay đổi thất bại');
     }
 
     /**
@@ -167,11 +209,22 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        $product= Product::find($id);
+//        $product= Product::find($id);
+        $this->authorize('delete', $product);
+        $deleteImg = Image::where('product_id', $product->id)->get();
+        if (!empty($deleteImg)) {
+            foreach ($deleteImg as $dete) {
+                Storage::disk('public')->delete($dete->path);
+                $dete->delete();
+            }
+        }
         $product->delete();
 
-        return redirect()->route('backend.product.index');
+        if ($product) {
+            return redirect()->route('backend.product.index')->with("success", 'Xóa thành công');
+        }
+        return redirect()->route('backend.product.index')->with("error", 'Xóa thất bại');
     }
 }

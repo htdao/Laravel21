@@ -6,7 +6,38 @@ Sản phẩm
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 @endsection
 @section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+    <script>
+        $('.delete-confirm').click(function (event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            swal({
+                title: `Bạn có muốn xóa không?`,
+                text: "Nếu bạn xóa nó, bạn sẽ không thể khôi phục lại được",
+                icon: "error",
+                buttons: ["Không", "Xóa"],
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        form.submit();
+                    }
+                });
+        });
+    </script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    @if(Session::has('success'))
+        <script>
+            toastr.success("{!! Session::get('success') !!}");
+        </script>
+    @elseif(Session::has('error'))
+        <script>
+            toastr.error("{!! Session::get('error') !!}");
+        </script>
+    @endif
 @endsection
 @section('content-header')
 <div class="container-fluid">
@@ -33,12 +64,6 @@ Sản phẩm
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Sản phẩm mới nhập</h3>
-{{--                        @if(session()->has('success'))--}}
-{{--                            <div class="col-6 alert-success">Thêm mới thành công</div>--}}
-{{--                        @elseif(session()->has('error'))--}}
-{{--                            <div class="alert alert-danger">{{$re->session()->get('error')}}</div>--}}
-{{--                        @endif--}}
-
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 150px;">
                                 <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
@@ -54,45 +79,53 @@ Sản phẩm
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>STT</th>
                                 <th>Hình ảnh</th>
                                 <th>Tên sản phẩm</th>
                                 <th>Giá bán</th>
-                                <th>Thời gian</th>
                                 <th>Trạng thái</th>
+                                <th>Thời gian</th>
                                 <th>Hành động</th>
 
                             </tr>
                             </thead>
                             <tbody>
+                            @php
+                            $i=1;
+                            @endphp
                             @foreach($products as $value)
                             <tr>
-                                <td>{{$value->id}}</td>
+                                <td>{{$i}}</td>
                                 <td>
                                     @if(count($value->images) > 0)
                                         <img src="{{$value->images[0]->image_url}}" width="40px">
                                     @endif
                                 </td>
-                                <td><a href="{{ route('backend.product.edit', ['id' => $value->id]) }}">{{$value->name}}</a></td>
-                                <td>{{number_format($value->sale_price)}}</td>
-                                <td>{{ date('d-m-Y', strtotime($value->updated_at)) }}</td>
+                                <td><a href="{{ route('backend.product.show', ['id' => $value->id]) }}">{{$value->name}}</a></td>
+                                <td>{{number_format($value->sale_price,3)}}</td>
                                 <td>
-                                    @foreach(\App\Models\Product::$status_text as $key => $v)
-                                        @if($key == $value->status)
-                                            <p>{{$v}}</p>
-                                        @endif
-                                    @endforeach
+                                    @if($value->status == 0)
+                                        <span class="badge bg-warning widspan">{{ $value->status_text }}</span>
+                                    @elseif($value->status == 1)
+                                        <span class="badge bg-info widspan">{{ $value->status_text }}</span>
+                                    @else
+                                        <span class="badge bg-danger widspan">{{ $value->status_text }}</span>
+                                    @endif
                                 </td>
+                                <td>{{ date('d/m/Y', strtotime($value->updated_at)) }}</td>
                                 <td>
                                     <a href="{{route('backend.product.show', ['id' => $value->id])}}" class="badge btn btn-info"><i class="material-icons">remove_red_eye</i></a>
-                                    <a href="{{route('backend.product.edit', ['id' => $value->id])}}" class=" badge btn btn-success"><i class="material-icons">edit</i></a>
-                                    <form action="{{route('backend.product.destroy', ['id' => $value->id])}}" method="POST" class="d-inline-block">
+                                    <a href="{{route('backend.product.edit', ['product' => $value->id])}}" class=" badge btn btn-success"><i class="material-icons">edit</i></a>
+                                        <form action="{{route('backend.product.destroy', ['product' => $value->id])}}" method="POST" class="d-inline-block">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
-                                        <button type="submit" class="badge btn btn-danger"><i class="material-icons">delete</i></button>
+                                        <button class="badge btn btn-danger delete-confirm"><i class="material-icons">delete</i></button>
                                     </form>
                                 </td>
                             </tr>
+                            @php
+                                $i++;
+                            @endphp
                             @endforeach
                             </tbody>
                         </table>

@@ -11,7 +11,17 @@ class Category extends Model
 
     protected $table = 'categories';
 
+    protected $fillable = [
+        'name',
+        'slug',
+        'parent_id',
+        'depth',
+    ];
+
     public function products(){
         return $this->hasMany(Product::class);
+    }
+    public function trademarks(){
+        return $this->belongsToMany(Trademark::class);
     }
 }
