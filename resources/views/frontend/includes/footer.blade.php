@@ -7,7 +7,7 @@
           <div class="footer-widget mx-w-400">
             <div class="footer-logo mb-25">
               <a href="index.html">
-                <img src="images/logo.png" alt="footer logo">
+                <img src="/frontend/images/logo.png" alt="footer logo">
               </a>
             </div>
             <p class="text mb-30">

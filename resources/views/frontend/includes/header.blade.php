@@ -1,177 +1,77 @@
 
 <div id="offcanvas-mobile-menu" class="offcanvas theme1 offcanvas-mobile-menu">
-  <div class="inner">
-    <div class="border-bottom mb-4 pb-4 text-right">
-      <button class="offcanvas-close">×</button>
+    <div class="inner">
+        <div class="border-bottom mb-4 pb-4 text-right">
+            <button class="offcanvas-close">×</button>
+        </div>
+        <div class="offcanvas-head mb-4">
+            <nav class="offcanvas-top-nav">
+                <ul class="d-flex flex-wrap">
+                    <li class="my-2 mx-2">
+                        <a href="{{route('frontend.product.cart')}}">
+                            <i class="icon-bag"></i> Giỏ hàng <span>(0)</span></a>
+                    </li>
+                    <li class="my-2 mx-2">
+                        <a class="search search-toggle" href="javascript:void(0)">
+                            <i class="icon-magnifier"></i> Tìm kiếm</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <nav class="offcanvas-menu">
+            <ul>
+                <li>
+                    <a href="{{route('frontend.home')}}"><span class="menu-text">Trang chủ</span></a>
+                </li>
+                <li>
+                    <a href="{{route('frontend.product.index')}}"><span class="menu-text">Cửa hàng</span></a>
+                </li>
+                <li>
+                    <a href="#"><span class="menu-text">Thương hiệu</span></a>
+                    <ul class="offcanvas-submenu">
+                        @foreach($trademarks as $trademark)
+                        <li><a href="">{{$trademark->name}}</a></li>
+                        @endforeach
+                    </ul>
+                </li>
+                <li>
+                    <a href=""><span class="menu-text">Danh mục</span></a>
+                    <ul class="offcanvas-submenu">
+                        @foreach($categories as $category)
+                            <li><a href="">{{$category->name}}</a></li>
+                        @endforeach
+                    </ul>
+                </li>
+                <li><a href="contact.html">Liên hệ</a></li>
+            </ul>
+        </nav>
+        <div class="offcanvas-social py-30">
+            <ul>
+                <li>
+                    <a href="#"><i class="icon-social-facebook"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="icon-social-twitter"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="icon-social-instagram"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="icon-social-google"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="icon-social-instagram"></i></a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="offcanvas-head mb-4">
-      <nav class="offcanvas-top-nav">
-        <ul class="d-flex flex-wrap">
-          <li class="my-2 mx-2">
-            <a class="search search-toggle" href="javascript:void(0)">
-              <i class="icon-magnifier"></i> Search</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-    <nav class="offcanvas-menu">
-      <ul>
-        <li>
-          <a href="#"><span class="menu-text">Home</span></a>
-          <ul class="offcanvas-submenu">
-            <li><a href="index.html">Home 1</a></li>
-            <li><a href="index-2.html">Home 2</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="#"><span class="menu-text">Shop</span></a>
-          <ul class="offcanvas-submenu">
-            <li>
-              <a href="#"><span class="menu-text">Shop Grid</span></a>
-              <ul class="offcanvas-submenu">
-                <li>
-                  <a href="shop-grid-3-column.html">Shop Grid 3 Column</a>
-                </li>
-                <li>
-                  <a href="shop-grid-4-column.html">Shop Grid 4 Column</a>
-                </li>
-                <li>
-                  <a href="shop-grid-left-sidebar.html">Shop Grid Left Sidebar</a>
-                </li>
-                <li>
-                  <a href="shop-grid-right-sidebar.html">Shop Grid Right Sidebar</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#"><span class="menu-text">Shop List</span></a>
-              <ul class="offcanvas-submenu">
-                <li><a href="shop-grid-list.html">Shop List</a></li>
-                <li>
-                  <a href="shop-grid-list-left-sidebar.html">Shop List Left Sidebar</a>
-                </li>
-                <li>
-                  <a href="shop-grid-list-right-sidebar.html">Shop List Right Sidebar</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#"><span class="menu-text">Shop Single</span></a>
-              <ul class="offcanvas-submenu">
-                <li><a href="single-product.html">Shop Single</a></li>
-                <li>
-                  <a href="single-product-configurable.html">Shop Variable</a>
-                </li>
-                <li>
-                  <a href="single-product-affiliate.html">Shop Affiliate</a>
-                </li>
-                <li><a href="single-product-group.html">Shop Group</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#"><span class="menu-text">other pages</span></a>
-              <ul class="offcanvas-submenu">
-                <li><a href="about-us.html">About Page</a></li>
-                <li><a href="cart.html">Cart Page</a></li>
-                <li><a href="checkout.html">Checkout Page</a></li>
-                <li><a href="compare.html">Compare Page</a></li>
-                <li><a href="login.html">Login &amp; Register Page</a></li>
-                <li><a href="myaccount.html">Account Page</a></li>
-                <li><a href="wishlist.html">Wishlist Page</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="#"><span class="menu-text">Pages</span></a>
-          <ul class="offcanvas-submenu">
-            <li><a href="about-us.html">About Page</a></li>
-            <li><a href="cart.html">Cart Page</a></li>
-            <li><a href="checkout.html">Checkout Page</a></li>
-            <li><a href="compare.html">Compare Page</a></li>
-            <li><a href="login.html">Login &amp; Register Page</a></li>
-            <li><a href="myaccount.html">Account Page</a></li>
-            <li><a href="wishlist.html">Wishlist Page</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="blog-grid-3-column.html"><span class="menu-text">Blog</span></a>
-          <ul class="offcanvas-submenu">
-            <li>
-              <a href="#"><span class="menu-text">Blog Grid</span></a>
-              <ul class="offcanvas-submenu">
-                <li>
-                  <a href="blog-grid-3-column.html">Blog Grid 3 column</a>
-                </li>
-                <li>
-                  <a href="blog-grid-4-column.html">Blog Grid 4 column</a>
-                </li>
-                <li>
-                  <a href="blog-grid-left-sidebar.html">Blog Grid Left Sidebar</a>
-                </li>
-                <li>
-                  <a href="blog-grid-right-sidebar.html">Blog Grid Right Sidebar</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#"><span class="menu-text">Blog List</span></a>
-              <ul class="offcanvas-submenu">
-                <li>
-                  <a href="blog-list-left-sidebar.html">Blog List Left Sidebar</a>
-                </li>
-                <li>
-                  <a href="blog-list-right-sidebar.html">Blog List Right Sidebar</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#"><span class="menu-text">Blog Single</span></a>
-              <ul class="offcanvas-submenu">
-                <li><a href="single-blog.html">Single Blog</a></li>
-                <li>
-                  <a href="blog-single-left-sidebar.html">Blog Single Left Sidebar</a>
-                </li>
-                <li>
-                  <a href="blog-single-right-sidebar.html">Blog Single Right Sidbar</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li><a href="contact.html">Contact Us</a></li>
-      </ul>
-    </nav>
-    <div class="offcanvas-social py-30">
-      <ul>
-        <li>
-          <a href="#"><i class="icon-social-facebook"></i></a>
-        </li>
-        <li>
-          <a href="#"><i class="icon-social-twitter"></i></a>
-        </li>
-        <li>
-          <a href="#"><i class="icon-social-instagram"></i></a>
-        </li>
-        <li>
-          <a href="#"><i class="icon-social-google"></i></a>
-        </li>
-        <li>
-          <a href="#"><i class="icon-social-instagram"></i></a>
-        </li>
-      </ul>
-    </div>
-  </div>
 </div>
-<!-- offcanvas-mobile-menu end -->
-<!-- OffCanvas Wishlist Start -->
-<!-- OffCanvas Wishlist End -->
 
 <!-- OffCanvas Cart Start -->
 <div id="offcanvas-cart" class="offcanvas offcanvas-cart theme1">
   <div class="inner">
     <div class="head d-flex flex-wrap justify-content-between">
-      <span class="title">Cart</span>
+      <span class="title">Giỏ hàng</span>
       <button class="offcanvas-close">×</button>
     </div>
     <ul class="minicart-product-list">
@@ -209,9 +109,7 @@
     <p class="minicart-message">Free Shipping on All Orders Over $100!</p>
   </div>
 </div>
-<!-- OffCanvas Cart End -->
 
-<!-- header start -->
 <header>
   <!-- header top start -->
   <div class="header-top theme1 bg-dark py-15">
@@ -247,9 +145,9 @@
         <div class="col-lg-6 col-sm-6">
           <nav class="navbar-top pb-2 pb-sm-0 position-relative">
             <ul class="d-flex justify-content-center justify-content-md-end align-items-center">
-                  <li><a href="myaccount.html">Tài Khoản</a></li>
-                  <li><a href="checkout.html">Đơn đặt hàng</a></li>
-                  <li><a href="login.html">Đăng xuất</a></li>
+                  <li><a href="{{route('frontend.account')}}">Tài Khoản</a></li>
+                  <li><a href="{{route('frontend.product.checkout')}}">Đơn đặt hàng</a></li>
+                  <li><a href="{{route('frontend.login')}}">Đăng xuất</a></li>
             </ul>
           </nav>
         </div>
@@ -258,57 +156,76 @@
   </div>
   <!-- header top end -->
   <!-- header-middle satrt -->
-  <div id="sticky" class="header-middle theme1 py-15 py-lg-0">
-    <div class="container position-relative">
-      <div class="row align-items-center">
-        <div class="col-6 col-lg-2 col-xl-2">
-          <div class="logo">
-            <a href="index.html"><img src="images/logo.png" alt="logo"></a>
-          </div>
-        </div>
-        <div class="col-xl-8 col-lg-7 d-none d-lg-block">
-          <ul class="main-menu d-flex justify-content-center">
-            <li class="active ml-0">
-              <a href="index.html" class="pl-0">Trang chủ</a>
-            </li>
-            <li><a href="contact.html">Liên hệ</a></li>
-          </ul>
-        </div>
-        <div class="col-6 col-lg-3 col-xl-2">
-          <!-- search-form end -->
-          <div class="d-flex align-items-center justify-content-end">
-            <!-- static-media end -->
-            <div class="cart-block-links theme1 d-none d-sm-block">
-              <ul class="d-flex">
-                <li>
-                  <a href="javascript:void(0)" class="search search-toggle">
-                    <i class="icon-magnifier"></i>
-                  </a>
-                </li>
-                <li class="mr-xl-0 cart-block position-relative">
-                  <a class="offcanvas-toggle" href="#offcanvas-cart">
+    <div id="sticky" class="header-middle theme1 py-15 py-lg-0">
+        <div class="container position-relative">
+            <div class="row align-items-center">
+                <div class="col-6 col-lg-2 col-xl-2">
+                    <div class="logo">
+                        <a href="index.html"><img src="/frontend/images/logo.png" alt="logo"></a>
+                    </div>
+                </div>
+                <div class="col-xl-8 col-lg-7 d-none d-lg-block">
+                    <ul class="main-menu d-flex justify-content-center">
+                        <li class="active ml-0">
+                            <a href="{{route('frontend.home')}}" class="pl-0">Trang chủ</a>
+                        </li>
+                        <li class="position-static">
+                            <a href="{{route('frontend.product.index')}}">Cửa hàng</a>
+                        </li>
+                        <li>
+                            <a href="#">Thương hiệu<i class="ion-ios-arrow-down"></i></a>
+                            <ul class="sub-menu">
+                                @foreach($trademarks as $trademark)
+                                    <li><a href="">{{$trademark->name}}</a></li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="blog-grid-3-column.html">Danh mục<i class="ion-ios-arrow-down"></i></a>
+                            <ul class="sub-menu">
+                                @foreach($categories as $category)
+                                    <li><a href="">{{$category->name}}</a></li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        <li><a href="{{route('frontend.home.contact')}}">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-3 col-xl-2">
+                    <!-- search-form end -->
+                    <div class="d-flex align-items-center justify-content-end">
+                        <!-- static-media end -->
+                        <div class="cart-block-links theme1 d-none d-sm-block">
+                            <ul class="d-flex">
+                                <li>
+                                    <a href="javascript:void(0)" class="search search-toggle">
+                                        <i class="icon-magnifier"></i>
+                                    </a>
+                                </li>
+                                <li class="mr-xl-0 cart-block position-relative">
+                                    <a class="offcanvas-toggle" href="#offcanvas-cart">
                     <span class="position-relative">
                       <i class="icon-bag"></i>
                       <span class="badge cbdg1">3</span>
                     </span>
-                  </a>
-                </li>
-                <!-- cart block end -->
-              </ul>
+                                    </a>
+                                </li>
+                                <!-- cart block end -->
+                            </ul>
+                        </div>
+                        <div class="mobile-menu-toggle theme1 d-lg-none">
+                            <a href="#offcanvas-mobile-menu" class="offcanvas-toggle">
+                                <svg viewbox="0 0 700 550">
+                                    <path d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200" id="top"/>
+                                    <path d="M300,320 L540,320" id="middle"/>
+                                    <path d="M300,210 C300,210 520,210 540,210 C740,210 640,530 520,410 C440,330 300,190 300,190" id="bottom" transform="translate(480, 320) scale(1, -1) translate(-480, -318)"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="mobile-menu-toggle theme1 d-lg-none">
-              <a href="#offcanvas-mobile-menu" class="offcanvas-toggle">
-                <svg viewbox="0 0 700 550">
-                  <path d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200" id="top"/>
-                  <path d="M300,320 L540,320" id="middle"/>
-                  <path d="M300,210 C300,210 520,210 540,210 C740,210 640,530 520,410 C440,330 300,190 300,190" id="bottom" transform="translate(480, 320) scale(1, -1) translate(-480, -318)"/>
-                </svg>
-              </a>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
   <!-- header-middle end -->
 </header>
