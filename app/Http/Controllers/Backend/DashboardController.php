@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Trademark;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -15,15 +17,20 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        $products = Product::orderBy('updated_at', 'desc')->get();
         $users = User::all();
-        $products = Product::orderBy('updated_at', 'desc')->paginate(10);
-        $categories = Category::orderBy('updated_at', 'DESC')->get();
+        $categories = Category::all();
+        $trademarks = Trademark::all();
+        $revenue = session('revenue');
         return view('backend.dashboard')->with([
             'users'         => $users,
             'products'      => $products,
-            'categories'    => $categories
+            'categories'    => $categories,
+            'trademarks'    => $trademarks,
+            'revenue'       => $revenue,
         ]);
     }
 
@@ -92,4 +99,20 @@ class DashboardController extends Controller
     {
         //
     }
+
+//    public function search(Request $request){
+//        $search = $request->input('search');
+////        dd($search);
+//        $products = Product::query()
+////            ->where('name', 'LIKE', "%{$search}%")
+//            ->where('category_id', 'LIKE', "%{$search}%")
+////            ->orWhere('trademark_id', 'LIKE', "%{$search}%")
+////            ->orWhere('status', 'LIKE', "%{$search}%")
+//        ->get();
+//        dd($products);
+//        // Return the search view with the resluts compacted
+//        return redirect()->route('backend.dashboard',[
+//            'products' => $products,
+//        ]);
+//    }
 }

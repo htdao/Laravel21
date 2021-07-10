@@ -22,13 +22,33 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->input('search');
+        $trademark = $request->input('trademark');
+        $category = $request->input('category');
         $trademarks = Trademark::all();
-        $products = Product::orderBy('updated_at', 'desc')->paginate(10);
+        $categories = Category::all();
+        if(!empty($search)){
+            $products = Product::query()
+                ->where('name', 'LIKE', "%{$search}%")
+                ->orderBy('updated_at', 'desc')->paginate(10);
+        }elseif (!empty($trademark)){
+            $products = Product::query()
+                ->where('trademark_id', 'LIKE', "%{$trademark}%")
+                ->orderBy('updated_at', 'desc')->paginate(10);
+        }elseif (!empty($category)){
+            $products = Product::query()
+                ->where('category_id', 'LIKE', "%{$category}%")
+                ->orderBy('updated_at', 'desc')->paginate(10);
+        }
+        else{
+            $products = Product::orderBy('updated_at', 'desc')->paginate(10);
+        }
         return view('backend.products.index', [
             'products'=>$products,
             'trademarks' => $trademarks,
+            'categories' => $categories,
         ]);
     }
 
@@ -227,4 +247,5 @@ class ProductController extends Controller
         }
         return redirect()->route('backend.product.index')->with("error", 'Xóa thất bại');
     }
+
 }

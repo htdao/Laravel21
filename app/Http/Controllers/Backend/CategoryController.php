@@ -18,9 +18,16 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::orderBy('updated_at', 'desc')->paginate(10);
+        $search = $request->input('search');
+        if(!empty($search)){
+            $categories = Category::query()
+                ->where('name', 'LIKE', "%{$search}%")
+                ->orderBy('updated_at', 'desc')->paginate(10);
+        }else{
+            $categories = Category::orderBy('updated_at', 'desc')->paginate(10);
+        }
         $parents = Category::where('parent_id',0)->get();
         return view('backend.categories.index',[
             'categories' => $categories,

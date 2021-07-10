@@ -57,12 +57,13 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="assets/php/contact.php" method="post">
-                                        <input type="text" name="user-name" placeholder="Email">
-                                        <input type="password" name="user-password" placeholder="Mật khẩu">
+                                    <form action="{{ route('login.store') }}" method="post">
+                                        @csrf
+                                        <input type="email" name="email" placeholder="Email">
+                                        <input type="password" name="password" placeholder="Mật khẩu">
                                         <div class="button-box">
                                             <div class="login-toggle-btn">
-                                                <input id="remember" type="checkbox">
+                                                <input id="remember" name="remember" type="checkbox">
                                                 <label for="remember">Nhớ tài khoản</label>
                                                 <a href="#">Quên mật khẩu?</a>
                                             </div>

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -14,7 +17,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::orderBy('status', 'asc')->paginate(10);
+        return view('backend.orders.index',[
+            'orders' => $orders,
+        ]);
     }
 
     /**
@@ -46,7 +52,15 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::find($id);
+        $products = $order->products()->get();
+        $user = User::find($order->user_id);
+//        dd($user);
+        return view('backend.orders.show',[
+            'order' => $order,
+            'user' => $user,
+            'products' => $products,
+            ]);
     }
 
     /**
@@ -82,4 +96,32 @@ class OrderController extends Controller
     {
         //
     }
+
+    public function status($id, Request $request)
+    {
+
+        $order = Order::find($id);
+        if ($order->status == 0){
+            $order->status = 2;
+        } elseif ($order->status == 2){
+            $order->status = 3;
+            if ($request->session()->has('revenue')) {
+                $s = session('revenue');
+                $s = $s + $order->total_price;
+//                dd($s);
+                session(['revenue' => $s]);
+            }else{
+                session(['revenue' => $order->total_price]);
+//                $s = session('revenue');
+//                dd($s);
+            }
+
+        }elseif ($order->status == 1){
+            $order->status = 4;
+        }
+        $order->save();
+        return redirect()->route('backend.order.index');
+    }
+
+
 }

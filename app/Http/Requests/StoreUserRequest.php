@@ -28,7 +28,7 @@ class StoreUserRequest extends FormRequest
             'avatar' => 'required',
             'email' => 'required|min:15|max:30',
             'password' => 'required|min:6|max:20',
-            'phone' => 'required|numberic|min:10|max:10',
+            'phone' => 'required|min:9|max:11',
             'address' => 'required|min:20|max:100',
         ];
     }
@@ -54,7 +54,7 @@ class StoreUserRequest extends FormRequest
             'phone.required' => 'Không được để trống!',
             'phone.min' => 'Không phải số điện thoại!',
             'phone.max' => 'Không phải số điện thoại!',
-            'phone.numberic' => 'Không phải số điện thoại!',
+//            'phone.numeric' => 'Không phải số điện thoại!',
 
             'address.required' => 'Không được để trống!',
             'address.min' => 'Địa chỉ phải có ít nhất 20 kí tự!',

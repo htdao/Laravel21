@@ -110,6 +110,7 @@ Thêm sản phẩm mới
                                     <label>Danh mục sản phẩm</label>
                                     <select name="category_id" class="form-control select2" style="width: 100%;">
                                         <option value="0">Chọn danh mục</option>
+                                        <option value="0">Danh mục cha</option>
                                         @foreach($categories as $cate)
                                             <option value="{{$cate->id}}">{{$cate->name}}</option>
                                         @endforeach
@@ -132,7 +133,7 @@ Thêm sản phẩm mới
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label>Giá gốc</label>
-                                        <input value="{{ old('origin_price') }}" name="origin_price" type="text" class="form-control" placeholder="Điền giá khuyến mại">
+                                        <input value="{{ old('origin_price') }}" name="origin_price" type="text" class="form-control" placeholder="Điền giá gốc">
                                         @error('origin_price')
                                         <div style="color: red">{{ $message }}</div>
                                         @enderror
@@ -141,7 +142,7 @@ Thêm sản phẩm mới
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label>Giá khuyến mại</label>
-                                        <input value="{{ old('sale_price') }}" type="text" name="sale_price" class="form-control" placeholder="Điền giá gốc">
+                                        <input value="{{ old('sale_price') }}" type="text" name="sale_price" class="form-control" placeholder="Điền giá khuyến mại">
                                         @error('sale_price')
                                         <div style="color: red">{{ $message }}</div>
                                         @enderror

@@ -17,10 +17,16 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-
-        $users = User::orderBy('updated_at', 'desc')->paginate(10);
+        $search = $request->input('search');
+        if(!empty($search)){
+            $users = User::query()
+                ->where('name', 'LIKE', "%{$search}%")
+                ->orderBy('updated_at', 'desc')->paginate(10);
+        }else{
+            $users = User::orderBy('updated_at', 'desc')->paginate(10);
+        }
         return view('backend.users.index', [
                 'users'=>$users
             ]);
@@ -150,5 +156,14 @@ class UserController extends Controller
             'products' => $products
         ]);
         // dd($products);
+    }
+
+    public function account($id){
+        $user = User::find($id);
+        $products = Product::all();
+        return view('backend.users.user',[
+            'user' => $user,
+            'products' => $products,
+        ]);
     }
 }

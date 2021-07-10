@@ -42,23 +42,38 @@ Thêm người dùng
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Tên</label>
-                                <input name="name" type="text" class="form-control" id="" placeholder="Tên người dùng">
+                                <input name="name" value="{{old('name')}}" type="text" class="form-control" id="" placeholder="Tên người dùng">
+                                @error('name')
+                                <div style="color: red">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label  for="exampleInputEmail1">Email</label>
-                                <input name="email" type="email" class="form-control" id="" placeholder="Email">
+                                <input name="email" value="{{old('email')}}" type="email" class="form-control" id="" placeholder="Email">
+                                @error('email')
+                                <div style="color: red">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Mật khẩu</label>
-                                <input name="password" type="password" class="form-control" id="">
+                                <input name="password" value="{{old('password')}}" type="password" class="form-control" id="">
+                                @error('password')
+                                <div style="color: red">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Địa chỉ</label>
-                                <input type="text" name="address" class="form-control" id="">
+                                <input type="text" value="{{old('address')}}" name="address" class="form-control" id="">
+                                @error('address')
+                                <div style="color: red">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Điện thoại</label>
-                                <input type="text" name="phone" class="form-control" id="">
+                                <input type="text" value="{{old('phone')}}" name="phone" class="form-control" id="">
+                                @error('phone')
+                                <div style="color: red">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputFile">Ảnh đại diện</label>
@@ -71,6 +86,9 @@ Thêm người dùng
                                         <span class="input-group-text" id="">Upload</span>
                                     </div>
                                 </div>
+                                @error('avatar')
+                                <div style="color: red">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label>Quyền</label>

@@ -17,9 +17,16 @@ class TrademarkController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $trademarks = Trademark::orderBy('updated_at', 'DESC')->paginate(10);
+        $search = $request->input('search');
+        if(!empty($search)){
+            $trademarks = Trademark::query()
+                ->where('name', 'LIKE', "%{$search}%")
+                ->orderBy('updated_at', 'desc')->paginate(10);
+        }else{
+            $trademarks = Trademark::orderBy('updated_at', 'desc')->paginate(10);
+        }
         return view('backend.trademarks.index', [
             'trademarks' => $trademarks,
         ]);

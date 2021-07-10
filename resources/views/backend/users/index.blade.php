@@ -34,15 +34,16 @@ Người dùng
                     <div class="card-header">
                         <h3 class="card-title">Danh sách người dùng</h3>
 
-                        <div class="card-tools">
-                            <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                        <form action="{{route('backend.user.index')}}" method="get" class="d-inline-block float-right col-9">
+                            <div class="card-tools row float-right">
+                                <div class="input-group input-group-sm" style="padding: 0">
+                                    <input type="text" name="search" class="col-8 form-control float-left" placeholder="Tìm kiếm">
+                                    <div class="input-group-append col-4" style="padding: 0">
+                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">

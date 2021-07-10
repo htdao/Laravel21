@@ -76,20 +76,11 @@ Cửa hàng
                     <div class="product-thumbnail position-relative">
                         <span class="badge badge-success top-left">-10%</span>
                         <span class="badge badge-danger top-right">onsale</span>
-                      <a href="">
+                      <a href="{{route('frontend.product.show',['id' => $product->id])}}">
                           @if(count($product->images) > 0)
                               <img src="{{$product->images[0]->image_url}}">
                           @endif
                       </a>
-                      <!-- product links -->
-                      <ul class="actions d-flex justify-content-center">
-                        </li>
-                        <li>
-                          <a class="action" href="#" data-toggle="modal" data-target="#quick-view">
-                            <span data-toggle="tooltip" data-placement="bottom" title="Quick view" class="icon-magnifier"></span>
-                          </a>
-                        </li>
-                      </ul>
                       <!-- product links end-->
                     </div>
                     <div class="product-desc py-0 px-0">
@@ -119,9 +110,11 @@ Cửa hàng
                             <del class="del">{{number_format($product->origin_price)}}</del>
                             <span class="onsale">{{number_format($product->sale_price)}}</span>
                         </span>
-                        <button class="pro-btn" data-toggle="modal" data-target="#add-to-cart">
-                          <i class="icon-basket"></i>
-                        </button>
+                          <a href="{{route('frontend.product.add', ['id' => $product->id])}}">
+                            <button type="button" class="pro-btn" data-toggle="modal" data-target="#add-to-cart">
+                              <i class="icon-basket"></i>
+                            </button>
+                          </a>
                       </div>
                     </div>
                   </div>
@@ -142,19 +135,12 @@ Cửa hàng
                       <div class="product-thumbnail position-relative">
                         <span class="badge badge-success top-left">-10%</span>
                         <span class="badge badge-danger top-right">onsale</span>
-                        <a href="single-product.html">
+                        <a href="{{route('frontend.product.show',['id' => $product->id])}}">
                             @if(count($product->images) > 0)
                                 <img src="{{$product->images[0]->image_url}}">
                             @endif
                         </a>
                         <!-- product links -->
-                        <ul class="actions d-flex justify-content-center">
-                          <li>
-                            <a class="action" href="#" data-toggle="modal" data-target="#quick-view">
-                              <span data-toggle="tooltip" data-placement="bottom" title="Quick view" class="icon-magnifier"></span>
-                            </a>
-                          </li>
-                        </ul>
                         <!-- product links end-->
                       </div>
                       <div class="media-body pl-md-4">
@@ -170,9 +156,13 @@ Cửa hàng
                             <span class="ion-ios-star de-selected"></span>
                           </div>
                             <span class="product-price">
-                            <del class="del">{{number_format($product->origin_price)}}</del>
-                            <span class="onsale">{{number_format($product->sale_price)}}</span>
-                        </span>
+                                <del class="del">
+                                    @if($product->sale_price != $product->origin_price)
+                                        {{number_format($product->origin_price,0,'.','.')}}
+                                    @endif
+                                </del>
+                                <span class="onsale">{{number_format($product->sale_price,0,'.','.')}}đ</span>
+                            </span>
                         </div>
 
                         <ul class="product-list-des">
@@ -193,9 +183,11 @@ Cửa hàng
                         <div class="availability-list mb-20">
                           <p>Availability: <span>1200 In Stock</span></p>
                         </div>
-                        <button class="btn btn-dark btn--xl" data-toggle="modal" data-target="#add-to-cart">
-                          Thêm vào giỏ hàng
-                        </button>
+                          <a href="{{route('frontend.product.add', ['id' => $product->id])}}">
+                              <button type="button" class="pro-btn" data-toggle="modal" data-target="#add-to-cart">
+                                  <i class="icon-basket"></i>
+                              </button>
+                          </a>
                       </div>
                     </div>
                   </div>

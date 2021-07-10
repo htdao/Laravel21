@@ -9,11 +9,8 @@
                 <ul class="d-flex flex-wrap">
                     <li class="my-2 mx-2">
                         <a href="{{route('frontend.product.cart')}}">
-                            <i class="icon-bag"></i> Giỏ hàng <span>(0)</span></a>
-                    </li>
-                    <li class="my-2 mx-2">
-                        <a class="search search-toggle" href="javascript:void(0)">
-                            <i class="icon-magnifier"></i> Tìm kiếm</a>
+                            <i class="icon-bag"></i> Giỏ hàng <span>({{\Gloudemans\Shoppingcart\Facades\Cart::count()}})</span>
+                        </a>
                     </li>
                 </ul>
             </nav>
@@ -30,7 +27,7 @@
                     <a href="#"><span class="menu-text">Thương hiệu</span></a>
                     <ul class="offcanvas-submenu">
                         @foreach($menuTrademarks as $trademark)
-                        <li><a href="">{{$trademark->name}}</a></li>
+                        <li><a href="{{route('frontend.product.index')}}">{{$trademark->name}}</a></li>
                         @endforeach
                     </ul>
                 </li>
@@ -50,66 +47,10 @@
                 <li>
                     <a href="#"><i class="icon-social-facebook"></i></a>
                 </li>
-                <li>
-                    <a href="#"><i class="icon-social-twitter"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="icon-social-instagram"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="icon-social-google"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="icon-social-instagram"></i></a>
-                </li>
             </ul>
         </div>
     </div>
 </div>
-
-<!-- OffCanvas Cart Start -->
-<div id="offcanvas-cart" class="offcanvas offcanvas-cart theme1">
-  <div class="inner">
-    <div class="head d-flex flex-wrap justify-content-between">
-      <span class="title">Giỏ hàng</span>
-      <button class="offcanvas-close">×</button>
-    </div>
-    <ul class="minicart-product-list">
-      <li>
-        <a href="single-product.html" class="image"><img src="images/1_2.png" alt="Cart product Image"></a>
-        <div class="content">
-          <a href="single-product.html" class="title">orginal Age Defying Cosmetics Makeup</a>
-          <span class="quantity-price">1 x <span class="amount">$100.00</span></span>
-          <a href="#" class="remove">×</a>
-        </div>
-      </li>
-      <li>
-        <a href="single-product.html" class="image"><img src="images/2_2.png" alt="Cart product Image"></a>
-        <div class="content">
-          <a href="single-product.html" class="title">On Trend Makeup and Beauty Cosmetics</a>
-          <span class="quantity-price">1 x <span class="amount">$35.00</span></span>
-          <a href="#" class="remove">×</a>
-        </div>
-      </li>
-      <li>
-        <a href="single-product.html" class="image"><img src="images/3_1.png" alt="Cart product Image"></a>
-        <div class="content">
-          <a href="single-product.html" class="title">orginal Age Defying Cosmetics Makeup</a>
-          <span class="quantity-price">1 x <span class="amount">$9.00</span></span>
-          <a href="#" class="remove">×</a>
-        </div>
-      </li>
-    </ul>
-    <div class="sub-total d-flex flex-wrap justify-content-between">
-      <strong>Subtotal :</strong>
-      <span class="amount">$144.00</span>
-    </div>
-    <a href="{{route('frontend.product.cart')}}" class="btn btn-secondary btn--lg d-block d-sm-inline-block mr-sm-2">Xem giỏ hàng</a>
-    <a href="checkout.html" class="btn btn-dark btn--lg d-block d-sm-inline-block mt-4 mt-sm-0">Mua hàng</a>
-    <p class="minicart-message">Free Shipping on All Orders Over $100!</p>
-  </div>
-</div>
-
 <header>
   <!-- header top start -->
   <div class="header-top theme1 bg-dark py-15">
@@ -121,15 +62,6 @@
               <ul class="d-flex">
                 <li>
                   <a href="https://www.facebook.com/" target="_blank"><span class="icon-social-facebook"></span></a>
-                </li>
-                <li>
-                  <a href="https://twitter.com/" target="_blank"><span class="icon-social-twitter"></span></a>
-                </li>
-                <li>
-                  <a href="https://www.youtube.com/" target="_blank"><span class="icon-social-youtube"></span></a>
-                </li>
-                <li class="mr-0">
-                  <a href="https://www.instagram.com/" target="_blank"><span class="icon-social-instagram"></span></a>
                 </li>
               </ul>
             </div>
@@ -145,9 +77,14 @@
         <div class="col-lg-6 col-sm-6">
           <nav class="navbar-top pb-2 pb-sm-0 position-relative">
             <ul class="d-flex justify-content-center justify-content-md-end align-items-center">
-                  <li><a href="{{route('frontend.account')}}">Tài Khoản</a></li>
-                  <li><a href="{{route('frontend.product.checkout')}}">Đơn đặt hàng</a></li>
-                  <li><a href="{{route('frontend.login')}}">Đăng xuất</a></li>
+                @if(\Illuminate\Support\Facades\Auth::check())
+                  <li>
+                      <img style="height: 30px" src="/storage/{{ \Illuminate\Support\Facades\Auth::User()->avatar }}" alt="User Image">
+                      <a style="padding: 0" href="{{route('frontend.account', ['id' => \Illuminate\Support\Facades\Auth::user()->id])}}">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
+                  </li>
+                @else
+                  <li><a href="{{route('user.login.form')}}">Đăng nhập</a></li>
+                @endif
             </ul>
           </nav>
         </div>
@@ -203,14 +140,11 @@
                                     </a>
                                 </li>
                                 <li class="mr-xl-0 cart-block position-relative">
-                                    <a class="offcanvas-toggle" href="#offcanvas-cart">
-                    <span class="position-relative">
-                      <i class="icon-bag"></i>
-                      <span class="badge cbdg1">3</span>
-                    </span>
+                                    <a class="" href="{{route('frontend.product.cart')}}">
+                                            <i class="icon-bag"></i>
+                                            <span class="badge cbdg1">{{\Gloudemans\Shoppingcart\Facades\Cart::count()}}</span>
                                     </a>
                                 </li>
-                                <!-- cart block end -->
                             </ul>
                         </div>
                         <div class="mobile-menu-toggle theme1 d-lg-none">

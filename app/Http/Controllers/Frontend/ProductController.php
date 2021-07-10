@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Trademark;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -19,8 +20,12 @@ class ProductController extends Controller
         ]);
     }
 
-    public function detail(){
-        return view('frontend.products.product');
+    public function show($id){
+        $product = Product::find($id);
+        $product->content_more = json_decode($product->content_more, true);
+        return view('frontend.products.product',[
+            'product' => $product,
+        ]);
     }
 
     public function cart(){
@@ -28,6 +33,7 @@ class ProductController extends Controller
     }
 
     public function checkout(){
-        return view('frontend.products.checkout');
+        $items = Cart::content();
+        return view('frontend.products.checkout')->with(['items' => $items]);
     }
 }

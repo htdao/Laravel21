@@ -1,7 +1,7 @@
 @extends('frontend.layouts.master')
 
 @section('title')
-Tài khoản
+Chi tiết
 @endsection
 
 @section('css')
@@ -14,23 +14,15 @@ Tài khoản
 @endsection
 
 @section('content')
-<nav class="breadcrumb-section theme1 bg-lighten2 pt-110 pb-110">
+<nav class="breadcrumb-section theme1 bg-lighten2 pt-50 pb-50">
   <div class="container">
     <div class="row">
       <div class="col-12">
         <div class="section-title text-center">
           <h2 class="title pb-4 text-dark text-capitalize">
-            Beauty & Cosmetics
+            Chi tiết sản phẩm
           </h2>
         </div>
-      </div>
-      <div class="col-12">
-        <ol class="breadcrumb bg-transparent m-0 p-0 align-items-center justify-content-center">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">
-            Beauty & Cosmetics
-          </li>
-        </ol>
       </div>
     </div>
   </div>
@@ -42,69 +34,31 @@ Tài khoản
     <div class="row">
       <div class="col-lg-6 mb-5 mb-lg-0">
         <div>
-          <div class="position-relative">
-            <span class="badge badge-danger top-right">New</span>
-          </div>
           <div class="product-sync-init mb-20">
+            @for($i=0;$i<count($product->images);$i++)
             <div class="single-product">
               <div class="product-thumb">
-                <img src="images/1_1.jpg" alt="product-thumb">
+                <img src="{{$product->images[$i]->image_url}}" alt="product-thumb">
               </div>
             </div>
-            <!-- single-product end -->
-            <div class="single-product">
-              <div class="product-thumb">
-                <img src="images/2.jpg" alt="product-thumb">
-              </div>
-            </div>
-            <!-- single-product end -->
-            <div class="single-product">
-              <div class="product-thumb">
-                <img src="images/3.jpg" alt="product-thumb">
-              </div>
-            </div>
-            <!-- single-product end -->
-            <div class="single-product">
-              <div class="product-thumb">
-                <img src="images/4.jpg" alt="product-thumb">
-              </div>
-            </div>
-            <!-- single-product end -->
+            @endfor
           </div>
         </div>
         <div class="product-sync-nav single-product">
+            @for($i=0;$i<count($product->images);$i++)
           <div class="single-product">
             <div class="product-thumb">
               <a href="javascript:void(0)">
-                <img src="images/1.1.jpg" alt="product-thumb"></a>
+                  <img src="{{$product->images[$i]->image_url}}" alt="product-thumb"></a>
             </div>
           </div>
-          <!-- single-product end -->
-          <div class="single-product">
-            <div class="product-thumb">
-              <a href="javascript:void(0)">
-                <img src="images/2.1.jpg" alt="product-thumb"></a>
-            </div>
-          </div>
-          <!-- single-product end -->
-          <div class="single-product">
-            <div class="product-thumb">
-              <a href="javascript:void(0)"><img src="images/3.1.jpg" alt="product-thumb"></a>
-            </div>
-          </div>
-          <!-- single-product end -->
-          <div class="single-product">
-            <div class="product-thumb">
-              <a href="javascript:void(0)"><img src="images/4.1.jpg" alt="product-thumb"></a>
-            </div>
-          </div>
-          <!-- single-product end -->
+            @endfor
         </div>
       </div>
       <div class="col-lg-6">
         <div class="single-product-info">
           <div class="single-product-head">
-            <h2 class="title mb-20">Originals Windbreaker Winter Face Cream</h2>
+            <h2 class="title mb-20">{{$product->name}}</h2>
             <div class="star-content mb-20">
               <span class="star-on"><i class="ion-ios-star"></i> </span>
               <span class="star-on"><i class="ion-ios-star"></i> </span>
@@ -112,74 +66,51 @@ Tài khoản
               <span class="star-on"><i class="ion-ios-star"></i> </span>
               <span class="star-on"><i class="ion-ios-star"></i> </span>
               <a href="#" id="write-comment"><span class="ml-2"><i class="far fa-comment-dots"></i></span>
-                Read reviews <span>(1)</span></a>
-              <a href="#" data-toggle="modal" data-target="#exampleModalCenter"><span class="edite"><i class="far fa-edit"></i></span> Write a
-                review</a>
+                Đánh giá <span>(24)</span></a>
             </div>
           </div>
           <div class="product-body mb-40">
             <div class="d-flex align-items-center mb-30">
-              <span class="product-price mr-20"><del class="del">$23.90</del>
-                <span class="onsale">$21.51</span></span>
-              <span class="badge position-static bg-dark rounded-0">Save 10%</span>
+              <span class="product-price mr-20"><del class="del">
+                      @if($product->sale_price != $product->origin_price)
+                          {{number_format($product->origin_price,0,'.','.')}}
+                      @endif</del>
+                <span class="onsale">
+                    {{number_format($product->sale_price,0,'.','.')}}đ
+                </span>
+              </span>
             </div>
-            <p>
-              Block out the haters with the fresh adidas® Originals Kaval
-              Windbreaker Face Cream.
-            </p>
-            <ul>
-              <li>Part of the Kaval Collection.</li>
-              <li>
-                Regular fit is eased, but not sloppy, and perfect for any
-                activity.
-              </li>
-              <li>
-                Plain-woven Face Cream specifically constructed for freedom of
-                movement.
-              </li>
-            </ul>
+              <div class="product-anotherinfo-wrapper">
+                  <ul>
+                     @if(!empty($product->content_more))
+                        @foreach($product->content_more as $key => $value)
+                          <li><span>{{$key}}</span>{{$value}}</li>
+                        @endforeach
+                      @endif
+                  </ul>
+              </div>
           </div>
           <div class="product-footer">
             <div class="product-count style d-flex flex-column flex-sm-row mt-30 mb-30">
-              <div class="count d-flex">
-                <input type="number" min="1" max="10" step="1" value="1">
-                <div class="button-group">
-                  <button class="count-btn increment">
-                    <i class="fas fa-chevron-up"></i>
-                  </button>
-                  <button class="count-btn decrement">
-                    <i class="fas fa-chevron-down"></i>
-                  </button>
-                </div>
+                <form action="{{route('frontend.product.add', ['id' => $product->id])}}" method="get">
+              <div class="count d-flex" style="margin-bottom: 20px">
+                    <input name="qty" type="number" min="1" max="10" step="1" value="1">
+                    <div class="button-group">
+                      <button type="button" class="count-btn increment">
+                        <i class="fas fa-chevron-up"></i>
+                      </button>
+                      <button type="button" class="count-btn decrement">
+                        <i class="fas fa-chevron-down"></i>
+                      </button>
+                    </div>
               </div>
               <div>
-                <button class="btn btn-dark btn--xl mt-5 mt-sm-0">
-                  <span class="mr-2"><i class="ion-android-add"></i></span>
-                  Add to cart
-                </button>
+                    <button type="submit" class="btn btn-dark btn--xl mt-5 mt-sm-0">
+                      <span class="mr-2"><i class="ion-android-add"></i></span>
+                     Thêm vào giỏ hàng
+                    </button>
               </div>
-            </div>
-            <div class="addto-whish-list">
-              <a href="#"><i class="icon-heart"></i> Add to wishlist</a>
-              <a href="#"><i class="icon-shuffle"></i> Add to compare</a>
-            </div>
-            <div class="pro-social-links mt-10">
-              <ul class="d-flex align-items-center">
-                <li class="share">Share</li>
-                <li>
-                  <a href="#"><i class="ion-social-facebook"></i></a>
-                </li>
-                <li>
-                  <a href="#"><i class="ion-social-twitter"></i></a>
-                </li>
-                <li>
-                  <a href="#"><i class="ion-social-google"></i></a>
-                </li>
-                <li>
-                  <a href="#"><i class="ion-social-pinterest"></i></a>
-                </li>
-              </ul>
-            </div>
+                </form>
           </div>
         </div>
       </div>
@@ -196,13 +127,13 @@ Tài khoản
           <nav class="product-tab-menu single-product">
             <ul class="nav nav-pills justify-content-center" id="pills-tab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Description</a>
+                <a class="nav-link " id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Mô tả sản phẩm</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Product Details</a>
+                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Chi tiết sản phẩm</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Reviews</a>
+                <a class="nav-link active" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Đánh giá</a>
               </li>
             </ul>
           </nav>
@@ -215,30 +146,20 @@ Tài khoản
         <div class="tab-content" id="pills-tabContent">
           <!-- first tab-pane -->
           <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-            <div class="single-product-desc">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commo consequat. Duis aute irure dolor in
-                reprehend in voluptate velit esse cillum dolore eu fugiat nulla
-                pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-                in culpa qui officia deserunt
-              </p>
-            </div>
+              <div class="single-product-desc">
+              {!! $product->content !!}
+              </div>
           </div>
           <!-- second tab-pane -->
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
             <div class="single-product-desc">
               <div class="product-anotherinfo-wrapper">
                 <ul>
-                  <li><span>Weight</span> 400 g</li>
-                  <li><span>Dimensions</span>10 x 10 x 15 cm</li>
-                  <li><span>Materials</span> 60% cotton, 40% polyester</li>
-                  <li>
-                    <span>Other Info</span> American heirloom jean shorts pug
-                    seitan letterpress
-                  </li>
+                    @if(!empty($product->content_more))
+                    @foreach($product->content_more as $key => $value)
+                  <li><span>{{$key}}</span>{{$value}}</li>
+                    @endforeach
+                    @endif
                 </ul>
               </div>
             </div>
@@ -367,8 +288,7 @@ Tài khoản
     <div class="row">
       <div class="col-12">
         <div class="section-title text-center">
-          <h2 class="title pb-3 mb-3">You might also like</h2>
-          <p class="text mt-10">Add Related products to weekly line up</p>
+          <h2 class="title pb-3 mb-3">Có thể bạn thích</h2>
         </div>
       </div>
       <div class="col-12">
@@ -380,7 +300,7 @@ Tài khoản
                   <div class="product-thumbnail position-relative">
                     <span class="badge badge-danger top-right">New</span>
                     <a href="single-product.html">
-                      <img class="first-img" src="images/1_2.png" alt="thumbnail">
+                      <img class="first-img" src="/frontend/images/1_2.png" alt="thumbnail">
                     </a>
                     <!-- product links -->
                     <ul class="actions d-flex justify-content-center">
@@ -427,228 +347,6 @@ Tài khoản
               </div>
             </div>
           </div>
-          <!-- slider-item end -->
-          <div class="slider-item">
-            <div class="card product-card">
-              <div class="card-body p-0">
-                <div class="media flex-column">
-                  <div class="product-thumbnail position-relative">
-                    <span class="badge badge-danger top-right">New</span>
-                    <a href="single-product.html">
-                      <img class="first-img" src="images/2_2.png" alt="thumbnail">
-                    </a>
-                    <!-- product links -->
-                    <ul class="actions d-flex justify-content-center">
-                      <li>
-                        <a class="action" href="wishlist.html">
-                          <span data-toggle="tooltip" data-placement="bottom" title="add to wishlist" class="icon-heart">
-                          </span>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="action" href="#" data-toggle="modal" data-target="#compare">
-                          <span data-toggle="tooltip" data-placement="bottom" title="Add to compare" class="icon-shuffle"></span>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="action" href="#" data-toggle="modal" data-target="#quick-view">
-                          <span data-toggle="tooltip" data-placement="bottom" title="Quick view" class="icon-magnifier"></span>
-                        </a>
-                      </li>
-                    </ul>
-                    <!-- product links end-->
-                  </div>
-                  <div class="media-body">
-                    <div class="product-desc">
-                      <h3 class="title">
-                        <a href="shop-grid-4-column.html">On Trend Makeup and Beauty Cosmetics</a>
-                      </h3>
-                      <div class="star-rating">
-                        <span class="ion-ios-star"></span>
-                        <span class="ion-ios-star"></span>
-                        <span class="ion-ios-star"></span>
-                        <span class="ion-ios-star"></span>
-                        <span class="ion-ios-star de-selected"></span>
-                      </div>
-                      <div class="d-flex align-items-center justify-content-between">
-                        <span class="product-price">$11.90</span>
-                        <button class="pro-btn" data-toggle="modal" data-target="#add-to-cart">
-                          <i class="icon-basket"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- slider-item end -->
-          <div class="slider-item">
-            <div class="card product-card">
-              <div class="card-body p-0">
-                <div class="media flex-column">
-                  <div class="product-thumbnail position-relative">
-                    <span class="badge badge-danger top-right">New</span>
-                    <a href="single-product.html">
-                      <img class="first-img" src="images/3_1.png" alt="thumbnail">
-                    </a>
-                    <!-- product links -->
-                    <ul class="actions d-flex justify-content-center">
-                      <li>
-                        <a class="action" href="wishlist.html">
-                          <span data-toggle="tooltip" data-placement="bottom" title="add to wishlist" class="icon-heart">
-                          </span>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="action" href="#" data-toggle="modal" data-target="#compare">
-                          <span data-toggle="tooltip" data-placement="bottom" title="Add to compare" class="icon-shuffle"></span>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="action" href="#" data-toggle="modal" data-target="#quick-view">
-                          <span data-toggle="tooltip" data-placement="bottom" title="Quick view" class="icon-magnifier"></span>
-                        </a>
-                      </li>
-                    </ul>
-                    <!-- product links end-->
-                  </div>
-                  <div class="media-body">
-                    <div class="product-desc">
-                      <h3 class="title">
-                        <a href="shop-grid-4-column.html">The Cosmetics and Beauty brand Shoppe</a>
-                      </h3>
-                      <div class="star-rating">
-                        <span class="ion-ios-star"></span>
-                        <span class="ion-ios-star"></span>
-                        <span class="ion-ios-star"></span>
-                        <span class="ion-ios-star"></span>
-                        <span class="ion-ios-star de-selected"></span>
-                      </div>
-                      <div class="d-flex align-items-center justify-content-between">
-                        <span class="product-price">$21.51</span>
-                        <button class="pro-btn" data-toggle="modal" data-target="#add-to-cart">
-                          <i class="icon-basket"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- slider-item end -->
-          <div class="slider-item">
-            <div class="card product-card">
-              <div class="card-body p-0">
-                <div class="media flex-column">
-                  <div class="product-thumbnail position-relative">
-                    <span class="badge badge-danger top-right">New</span>
-                    <a href="single-product.html">
-                      <img class="first-img" src="images/4_1.png" alt="thumbnail">
-                    </a>
-                    <!-- product links -->
-                    <ul class="actions d-flex justify-content-center">
-                      <li>
-                        <a class="action" href="wishlist.html">
-                          <span data-toggle="tooltip" data-placement="bottom" title="add to wishlist" class="icon-heart">
-                          </span>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="action" href="#" data-toggle="modal" data-target="#compare">
-                          <span data-toggle="tooltip" data-placement="bottom" title="Add to compare" class="icon-shuffle"></span>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="action" href="#" data-toggle="modal" data-target="#quick-view">
-                          <span data-toggle="tooltip" data-placement="bottom" title="Quick view" class="icon-magnifier"></span>
-                        </a>
-                      </li>
-                    </ul>
-                    <!-- product links end-->
-                  </div>
-                  <div class="media-body">
-                    <div class="product-desc">
-                      <h3 class="title">
-                        <a href="shop-grid-4-column.html">orginal Age Defying Cosmetics Makeup</a>
-                      </h3>
-                      <div class="star-rating">
-                        <span class="ion-ios-star"></span>
-                        <span class="ion-ios-star"></span>
-                        <span class="ion-ios-star"></span>
-                        <span class="ion-ios-star"></span>
-                        <span class="ion-ios-star de-selected"></span>
-                      </div>
-                      <div class="d-flex align-items-center justify-content-between">
-                        <span class="product-price">$11.90</span>
-                        <button class="pro-btn" data-toggle="modal" data-target="#add-to-cart">
-                          <i class="icon-basket"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- slider-item end -->
-          <div class="slider-item">
-            <div class="card product-card">
-              <div class="card-body p-0">
-                <div class="media flex-column">
-                  <div class="product-thumbnail position-relative">
-                    <span class="badge badge-danger top-right">New</span>
-                    <a href="single-product.html">
-                      <img class="first-img" src="images/5.png" alt="thumbnail">
-                      <img class="second-img" src="images/6_1.png" alt="thumbnail">
-                    </a>
-                    <!-- product links -->
-                    <ul class="actions d-flex justify-content-center">
-                      <li>
-                        <a class="action" href="wishlist.html">
-                          <span data-toggle="tooltip" data-placement="bottom" title="add to wishlist" class="icon-heart">
-                          </span>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="action" href="#" data-toggle="modal" data-target="#compare">
-                          <span data-toggle="tooltip" data-placement="bottom" title="Add to compare" class="icon-shuffle"></span>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="action" href="#" data-toggle="modal" data-target="#quick-view">
-                          <span data-toggle="tooltip" data-placement="bottom" title="Quick view" class="icon-magnifier"></span>
-                        </a>
-                      </li>
-                    </ul>
-                    <!-- product links end-->
-                  </div>
-                  <div class="media-body">
-                    <div class="product-desc">
-                      <h3 class="title">
-                        <a href="shop-grid-4-column.html">orginal Clear Water Cosmetics On Trend</a>
-                      </h3>
-                      <div class="star-rating">
-                        <span class="ion-ios-star"></span>
-                        <span class="ion-ios-star"></span>
-                        <span class="ion-ios-star"></span>
-                        <span class="ion-ios-star"></span>
-                        <span class="ion-ios-star de-selected"></span>
-                      </div>
-                      <div class="d-flex align-items-center justify-content-between">
-                        <span class="product-price">$11.90</span>
-                        <button class="pro-btn" data-toggle="modal" data-target="#add-to-cart">
-                          <i class="icon-basket"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- slider-item end -->
         </div>
       </div>
     </div>

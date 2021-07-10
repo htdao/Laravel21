@@ -28,24 +28,39 @@ Route::group([
 
     //Sản Phẩm
     Route::get('/products', 'ProductController@index')->name('frontend.product.index');
-    Route::get('/products/detail', 'ProductController@detail')->name('frontend.product.detail');
-    Route::get('/products/cart', 'ProductController@cart')->name('frontend.product.cart');
+    Route::get('/products/show/{id}', 'ProductController@show')->name('frontend.product.show');
     Route::get('/products/checkout', 'ProductController@checkout')->name('frontend.product.checkout');
 
+    //Giỏ hàng
+    Route::get('/products/cart', 'CartController@index')->name('frontend.product.cart');
+    Route::get('/products/cart/add/{id}', 'CartController@add')->name('frontend.product.add');
+    Route::get('/products/cart/remove/{id}', 'CartController@remove')->name('frontend.product.remove');
+    Route::get('/products/cart/destroy', 'CartController@destroy')->name('frontend.product.destroy');
+    Route::get('/products/cart/increment/{id}', 'CartController@increment')->name('frontend.product.increment');
+    Route::get('/products/cart/decrement/{id}', 'CartController@decrement')->name('frontend.product.decrement');
+    //Thêm đơn hàng vào database
+    Route::post('/products/order/store', 'CartController@store')->name('frontend.order.store');
 
     //tài khoản
-    Route::get('/login', 'AccountController@loginForm')->name('frontend.login');
-    Route::get('/register', 'AccountController@register')->name('frontend.register');
-    Route::get('/account', 'AccountController@index')->name('frontend.account');
+    Route::get('/login', 'AccountController@loginForm')->name('frontend.loginForm');
+    Route::post('/login', 'AccountController@login')->name('frontend.login');
+    Route::get('/register', 'AccountController@registerForm')->name('frontend.register');
+    Route::get('/account/{id}', 'AccountController@index')->name('frontend.account');
 
 
 });
 
+//Đăng nhập trang admin
 Route::get('admin/login', 'Auth\LoginController@showLoginForm')->name('login.form');
-Route::post('admin/store', 'Auth\LoginController@login')->name('login.store');
+Route::post('/', 'Auth\LoginController@login')->name('login.store');
 Route::get('admin/logout', 'Auth\LogoutController@logout')->name('logout');
-Route::get('admin/register', 'Auth\RegisterController@showForm')->name('register.form');
-Route::post('admin/register', 'Auth\RegisterController@register')->name('register.store');
+
+//Đăng nhập-Đăng ký trang người dùng
+Route::get('/login', 'Auth\LoginController@showLoginFormUser')->name('user.login.form');
+Route::post('/login/store', 'Auth\LoginController@userLogin')->name('user.login.store');
+Route::get('/logout', 'Auth\UserLogoutController@logout')->name('user.logout');
+Route::get('/register', 'Auth\RegisterController@showForm')->name('register.form');
+Route::post('/user/register', 'Auth\RegisterController@register')->name('register.store');
 
 //Trang quản lý
 Route::group([
@@ -69,6 +84,7 @@ Route::group([
             ->middleware('can:delete,product');
         Route::get('/show/{id}', 'ProductController@show')->name('backend.product.show');
         Route::get('/{id}/image', 'ProductController@showImages')->name('backend.product.image');
+
     });
 
     //Quản lý người dùng
@@ -82,6 +98,7 @@ Route::group([
         Route::delete('/delete/{user}', 'UserController@destroy')->name('backend.user.destroy')
             ->middleware('can:delete,user');
         Route::get('/show/{id}', 'UserController@show')->name('backend.user.show');
+        Route::get('/account/{id}', 'UserController@account')->name('backend.user.account');
         Route::get('/{id}/product', 'UserController@showProducts')->name('backend.user.product');
     });
 
@@ -109,7 +126,11 @@ Route::group([
 
     //Quản lý đơn hàng
     Route::group(['prefix' => 'orders'], function(){
-        Route::get('/{id}/product', 'OrderController@showProducts')->name('backend.order.product');
+        Route::get('/', 'OrderController@index')->name('backend.order.index');
+        Route::get('/show/{id}', 'OrderController@show')->name('backend.order.show');
+        Route::get('/edit/{id}', 'OrderController@edit')->name('backend.order.edit');
+        Route::post('/update/{id}', 'OrderController@update')->name('backend.order.update');
+        Route::post('/status/{id}', 'OrderController@status')->name('backend.order.status');
     });
 });
 

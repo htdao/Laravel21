@@ -64,15 +64,39 @@ Sản phẩm
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Sản phẩm mới nhập</h3>
-                        <div class="card-tools">
-                            <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                        <form action="{{route('backend.product.index')}}" method="get" class="d-inline-block float-right col-9">
+                            <div class="card-tools row float-right">
+                                <div class="input-group input-group-sm col-4">
+                                    <select name="trademark" class="col-8 form-control select2" style="width: 100%; padding: 0" >
+                                        <option value="0">Chọn thương hiệu</option>
+                                        @foreach($trademarks as $trademark)
+                                            <option value="{{$trademark->id}}">{{$trademark->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="input-group-append col-4" style="padding: 0">
+                                        <button type="submit" class="btn btn-default">Lọc</button>
+                                    </div>
+                                </div>
+                                <div class="input-group input-group-sm col-4">
+                                    <select name="category" class="col-8 form-control select2" style="width: 100%;padding: 0">
+                                        <option value="0">Chọn danh mục</option>
+                                        <option value="0">Danh mục cha</option>
+                                        @foreach($categories as $cate)
+                                            <option value="{{$cate->id}}">{{$cate->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="input-group-append" style="padding: 0">
+                                        <button type="submit" class="btn btn-default">Lọc</button>
+                                    </div>
+                                </div>
+                                <div class="input-group input-group-sm col-4" style="padding: 0">
+                                    <input type="text" name="search" class="col-8 form-control float-left" placeholder="Tìm kiếm">
+                                    <div class="input-group-append col-4" style="padding: 0">
+                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">
@@ -101,8 +125,8 @@ Sản phẩm
                                         <img src="{{$value->images[0]->image_url}}" width="40px">
                                     @endif
                                 </td>
-                                <td><a href="{{ route('backend.product.show', ['id' => $value->id]) }}">{{$value->name}}</a></td>
-                                <td>{{number_format($value->sale_price,3)}}</td>
+                                <td><a href="{{ route('frontend.product.show', ['id' => $value->id]) }}">{{$value->name}}</a></td>
+                                <td>{{number_format($value->sale_price)}}</td>
                                 <td>
                                     @if($value->status == 0)
                                         <span class="badge bg-warning widspan">{{ $value->status_text }}</span>
@@ -114,13 +138,16 @@ Sản phẩm
                                 </td>
                                 <td>{{ date('d/m/Y', strtotime($value->updated_at)) }}</td>
                                 <td>
-                                    <a href="{{route('backend.product.show', ['id' => $value->id])}}" class="badge btn btn-info"><i class="material-icons">remove_red_eye</i></a>
+                                    <a href="{{route('frontend.product.show', ['id' => $value->id])}}" class="badge btn btn-info"><i class="material-icons">remove_red_eye</i></a>
+                                    @can('update', $value)
                                     <a href="{{route('backend.product.edit', ['product' => $value->id])}}" class=" badge btn btn-success"><i class="material-icons">edit</i></a>
-                                        <form action="{{route('backend.product.destroy', ['product' => $value->id])}}" method="POST" class="d-inline-block">
+                                    <form action="{{route('backend.product.destroy', ['product' => $value->id])}}" method="POST" class="d-inline-block">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <button class="badge btn btn-danger delete-confirm"><i class="material-icons">delete</i></button>
                                     </form>
+                                    @endcan
+
                                 </td>
                             </tr>
                             @php

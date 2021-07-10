@@ -1,0 +1,62 @@
+$(document).ready(function(){
+    $("#pf").on("click", function(){
+        $("#update").css({
+            "display":"none"
+        })
+        $("#profile").css({
+            "display":"block"
+        })
+        $("#product").css({
+            "display":"none"
+        })
+        $("#pf").css({
+            "background-color":"#007bff"
+        })
+        $("#ud").css({
+            "background-color":"white"
+        })
+        $("#pd").css({
+            "background-color":"white"
+        })
+    })
+    $("#ud").on("click", function(){
+        $("#update").css({
+            "display":"block"
+        })
+        $("#profile").css({
+            "display":"none"
+        })
+        $("#product").css({
+            "display":"none"
+        })
+        $("#ud").css({
+            "background-color":"#007bff"
+        })
+        $("#pf").css({
+            "background-color":"white"
+        })
+        $("#pd").css({
+            "background-color": "white"
+        })
+    })
+    $("#pd").on("click", function(){
+        $("#update").css({
+            "display":"none"
+        })
+        $("#profile").css({
+            "display":"none"
+        })
+        $("#product").css({
+            "display":"block"
+        })
+        $("#pd").css({
+            "background-color":"#007bff"
+        })
+        $("#pf").css({
+            "background-color":"white"
+        })
+        $("#ud").css({
+            "background-color":"white"
+        })
+    })
+})

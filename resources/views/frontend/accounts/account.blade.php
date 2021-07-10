@@ -8,6 +8,19 @@ Tài khoản
 @endsection
 
 @section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    @if(Session::has('success'))
+        <script>
+            toastr.success("{!! Session::get('success') !!}");
+        </script>
+    @elseif(Session::has('error'))
+        <script>
+            toastr.success("{!! Session::get('error') !!}");
+        </script>
+    @endif
 @endsection
 
 @section('banner')
@@ -37,19 +50,11 @@ Tài khoản
       <!-- My Account Tab Menu Start -->
       <div class="col-lg-3 col-12 mb-30">
         <div class="myaccount-tab-menu nav" role="tablist">
-          <a href="#dashboad" data-toggle="tab"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+          <a href="#orders" data-toggle="tab" class="active"><i class="fa fa-cart-arrow-down active"></i> Đơn hàng</a>
 
-          <a href="#orders" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Orders</a>
+          <a href="#account-info" data-toggle="tab" class=""><i class="fa fa-user"></i> Chỉnh sửa thông tin</a>
 
-          <a href="#download" data-toggle="tab"><i class="fas fa-cloud-download-alt"></i> Download</a>
-
-          <a href="#payment-method" data-toggle="tab"><i class="fa fa-credit-card"></i> Payment Method</a>
-
-          <a href="#address-edit" data-toggle="tab"><i class="fa fa-map-marker"></i> address</a>
-
-          <a href="#account-info" data-toggle="tab" class="active"><i class="fa fa-user"></i> Account Details</a>
-
-          <a href=""><i class="fa fa-sign-out"></i> Logout</a>
+          <a href="{{route('user.logout')}}"><i class="fa fa-sign-out"></i> Đăng xuất</a>
         </div>
       </div>
       <!-- My Account Tab Menu End -->
@@ -58,191 +63,102 @@ Tài khoản
       <div class="col-lg-9 col-12 mb-30">
         <div class="tab-content" id="myaccountContent">
           <!-- Single Tab Content Start -->
-          <div class="tab-pane fade" id="dashboad" role="tabpanel">
+          <div class="tab-pane fade active show" id="orders" role="tabpanel">
             <div class="myaccount-content">
-              <h3>Dashboard</h3>
-
-              <div class="welcome mb-20">
-                <p>
-                  Hello, <strong>Alex Tuntuni</strong> (If Not
-                  <strong>Tuntuni !</strong><a href="login-register.html" class="logout"> Logout</a>)
-                </p>
-              </div>
-
-              <p class="mb-0">
-                From your account dashboard. you can easily check &amp; view
-                your recent orders, manage your shipping and billing addresses
-                and edit your password and account details.
-              </p>
-            </div>
-          </div>
-          <!-- Single Tab Content End -->
-
-          <!-- Single Tab Content Start -->
-          <div class="tab-pane fade" id="orders" role="tabpanel">
-            <div class="myaccount-content">
-              <h3>Orders</h3>
-
+              <h3>Danh sách đơn hàng</h3>
               <div class="myaccount-table table-responsive text-center">
-                <table class="table table-bordered">
-                  <thead class="thead-light">
-                    <tr>
-                      <th>No</th>
-                      <th>Name</th>
-                      <th>Date</th>
-                      <th>Status</th>
-                      <th>Total</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Mostarizing Oil</td>
-                      <td>Aug 22, 2018</td>
-                      <td>Pending</td>
-                      <td>$45</td>
-                      <td>
-                        <a href="shopping-cart.html" class="ht-btn black-btn">View</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Katopeno Altuni</td>
-                      <td>July 22, 2018</td>
-                      <td>Approved</td>
-                      <td>$100</td>
-                      <td>
-                        <a href="shopping-cart.html" class="ht-btn black-btn">View</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Murikhete Paris</td>
-                      <td>June 12, 2017</td>
-                      <td>On Hold</td>
-                      <td>$99</td>
-                      <td>
-                        <a href="shopping-cart.html" class="ht-btn black-btn">View</a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+{{--                  @dd($orders)--}}
+                  @php
+                  $j=1;
+                  @endphp
+                  @foreach($orders as $od)
+{{--                      @dd($od->products);--}}
+                      <p style="text-align: left; font-weight: bold">Đơn hàng: {{$j}}</p>
+                      <p style="text-align: left">Trạng thái: &nbsp;
+                      @if($od->status == 0)
+                          <span class="badge bg-warning widspan">{{ $od->order_status }}</span>
+                      @elseif($od->status == 3)
+                          <span class="badge bg-info widspan">{{ $od->order_status }}</span>
+                      @elseif($od->status == 2)
+                          <span class="badge bg-success widspan">{{ $od->order_status }}</span>
+                      @elseif($od->status == 1)
+                          <span class="badge bg-danger widspan">{{ $od->order_status }}</span>
+                      @else
+                          <span class="badge bg-dark widspan">{{ $od->order_status }}</span>
+                      @endif</p>
+                    <table class="table table-bordered">
+                        @php
+                            $i=1;
+                        @endphp
+                    @foreach($od->products as $product)
+                        <tr>
+                          <td>{{$i}}</td>
+                          <td>
+                              <img src="{{$product->images[0]->image_url}}" style="height: 40px">
+                          </td>
+                          <td>{{$product->name}} x {{$product->pivot->quality}}</td>
+                          <td>{{number_format($product->sale_price*$product->pivot->quality,0,'.','.')}}đ</td>
+                        </tr>
+                            @php
+                                $i++;
+                            @endphp
+                    @endforeach
+                        <tr>
+                            <td colspan="3">Tổng tiền</td>
+                            <td colspan="">{{number_format($od->total_price,0,'.','.')}}đ</td>
+                        </tr>
+                    </table>
+                      @php
+                      $j++;
+                      @endphp
+                  @endforeach
               </div>
             </div>
           </div>
           <!-- Single Tab Content End -->
 
           <!-- Single Tab Content Start -->
-          <div class="tab-pane fade" id="download" role="tabpanel">
+          <div class="tab-pane fade" id="account-info" role="tabpanel">
             <div class="myaccount-content">
-              <h3>Downloads</h3>
-
-              <div class="myaccount-table table-responsive text-center">
-                <table class="table table-bordered">
-                  <thead class="thead-light">
-                    <tr>
-                      <th>Product</th>
-                      <th>Date</th>
-                      <th>Expire</th>
-                      <th>Download</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    <tr>
-                      <td>Mostarizing Oil</td>
-                      <td>Aug 22, 2018</td>
-                      <td>Yes</td>
-                      <td>
-                        <a href="#" class="ht-btn black-btn">Download File</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Katopeno Altuni</td>
-                      <td>Sep 12, 2018</td>
-                      <td>Never</td>
-                      <td>
-                        <a href="#" class="ht-btn black-btn">Download File</a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <!-- Single Tab Content End -->
-
-          <!-- Single Tab Content Start -->
-          <div class="tab-pane fade" id="payment-method" role="tabpanel">
-            <div class="myaccount-content">
-              <h3>Payment Method</h3>
-
-              <p class="saved-message">
-                You Can't Saved Your Payment Method yet.
-              </p>
-            </div>
-          </div>
-          <!-- Single Tab Content End -->
-
-          <!-- Single Tab Content Start -->
-          <div class="tab-pane fade" id="address-edit" role="tabpanel">
-            <div class="myaccount-content">
-              <h3>Billing Address</h3>
-
-              <address>
-                <p><strong>Alex Tuntuni</strong></p>
-                <p>
-                  1355 Market St, Suite 900 <br>
-                  San Francisco, CA 94103
-                </p>
-                <p>Mobile: (123) 456-7890</p>
-              </address>
-
-              <a href="#" class="ht-btn black-btn d-inline-block edit-address-btn"><i class="fa fa-edit"></i>Edit Address</a>
-            </div>
-          </div>
-          <!-- Single Tab Content End -->
-
-          <!-- Single Tab Content Start -->
-          <div class="tab-pane fade active show" id="account-info" role="tabpanel">
-            <div class="myaccount-content">
-              <h3>Account Details</h3>
+              <h3>Thông tin chi tiết</h3>
 
               <div class="account-details-form">
                 <form action="#">
                   <div class="row">
-                    <div class="col-lg-6 col-12 mb-30">
-                      <input id="first-name" placeholder="First Name" type="text">
+                    <div class="col-lg-12 col-12 mb-30">
+                        <label>Họ Tên</label>
+                      <input id="name" name="name" value="{{$user->name}}" type="text">
                     </div>
 
-                    <div class="col-lg-6 col-12 mb-30">
-                      <input id="last-name" placeholder="Last Name" type="text">
-                    </div>
-
-                    <div class="col-12 mb-30">
-                      <input id="display-name" placeholder="Display Name" type="text">
-                    </div>
-
-                    <div class="col-12 mb-30">
-                      <input id="email" placeholder="Email Address" type="email">
+                    <div class="col-lg-12 col-12 mb-30">
+                        <label>Số điện thoại</label>
+                      <input id="last-name" name="phone" value="{{$user->phone}}" type="text">
                     </div>
 
                     <div class="col-12 mb-30">
-                      <h4>Password change</h4>
+                        <label>Địa chỉ</label>
+                      <input id="display-name" name="address" value="{{$user->address}}" type="text">
                     </div>
 
                     <div class="col-12 mb-30">
-                      <input id="current-pwd" placeholder="Current Password" type="password">
+                        <label>Email</label>
+                      <input id="email" name="email" value="{{$user->email}}" type="email">
+                    </div>
+
+                    <div class="col-12 mb-30">
+                      <h4>Đổi mật khẩu</h4>
+                    </div>
+
+                    <div class="col-12 mb-30">
+                      <input id="current-pwd" placeholder="Nhập mật khẩu cũ..." name="current-pwd" type="password">
                     </div>
 
                     <div class="col-lg-6 col-12 mb-30">
-                      <input id="new-pwd" placeholder="New Password" type="password">
+                      <input id="new-pwd" name="new-pwd" placeholder="Nhập mật khẩu mới..." type="password">
                     </div>
 
                     <div class="col-lg-6 col-12 mb-30">
-                      <input id="confirm-pwd" placeholder="Confirm Password" type="password">
+                      <input id="confirm-pwd" name="confirm-pwd" placeholder="Nhập lại mật khẩu..." type="password">
                     </div>
 
                     <div class="col-12">
