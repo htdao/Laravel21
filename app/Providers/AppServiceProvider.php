@@ -29,7 +29,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
-
+        $menuCategories = [];
+        $menuTrademarks = [];
         if(Schema::hasTable('categories') && Schema::hasTable('trademarks')) {
             $menuCategories = Category::where('parent_id',0)->get();
             $menuTrademarks = Trademark::all();
