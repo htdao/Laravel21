@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdatePassWordRequestFE;
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -20,9 +22,15 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
+        $role = $request->input('role');
         if(!empty($search)){
             $users = User::query()
                 ->where('name', 'LIKE', "%{$search}%")
+                ->orderBy('updated_at', 'desc')->paginate(10);
+        }
+        if(!empty($role)){
+            $users = User::query()
+                ->where('role', $role)
                 ->orderBy('updated_at', 'desc')->paginate(10);
         }else{
             $users = User::orderBy('updated_at', 'desc')->paginate(10);
@@ -54,7 +62,7 @@ class UserController extends Controller
         $user = new User();
         $user->name = $request->get('name');
         $user->email = $request->get('email');
-        $user->password = $request->get('password');
+        $user->password = bcrypt($request->get('password'));
         $user->address = $request->get('address');
         $user->phone = $request->get('phone');
         $user->role = $request->get('role');
@@ -74,7 +82,10 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('backend.user.index');
+        if($user){
+            return redirect()->route('backend.user.index')->with("success", "Thêm mới thành công!");
+        }
+        return redirect()->route('backend.user.index')->with("error", "Thêm mới thất bại!");
     }
 
     /**
@@ -85,7 +96,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-
+        $user = User::find($id);
+        return view('backend.users.show', [
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -110,11 +124,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, $id)
     {
-//        $user = User::find(id);
+        $user = User::find($id);
         $user->name = $request->get('name');
         $user->email = $request->get('email');
+        $user->password = bcrypt($request->get('password'));
         $user->address = $request->get('address');
         $user->phone = $request->get('phone');
         $user->role = $request->get('role');
@@ -127,12 +142,13 @@ class UserController extends Controller
 
             $user->avatar = $path;
 
-        }else{
-            dd('khong co file');
         }
         $user->save();
 
-        return redirect()->route('backend.user.index');
+        if($user){
+            return redirect()->route('backend.user.index')->with("success", "Cập nhật thành công!");
+        }
+        return redirect()->route('backend.user.index')->with("error", "Cập nhật thất bại!");
     }
 
     /**
@@ -165,5 +181,38 @@ class UserController extends Controller
             'user' => $user,
             'products' => $products,
         ]);
+    }
+
+    public function updateAcc(Request $request, $id){
+        $user = User::find($id);
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->address = $request->get('address');
+        $user->phone = $request->get('phone');
+        if ($request->hasFile('avatar')){
+            $file = $request->file('avatar');
+            $name = $file->getClientOriginalName();
+            $disk_name = 'public';
+            $path = Storage::disk('public')->putFileAs('images', $file, $name);
+
+            $user->avatar = $path;
+
+        }
+        $user->save();
+        if($user){
+            return redirect()->route('backend.user.account',$user->id)->with("success", "Cập nhật thành công!");
+        }
+        return redirect()->route('backend.user.account',$user->id)->with("error", "Cập nhật thất bại!");
+    }
+
+    public function updatePass(UpdatePassWordRequestFE $request, $id){
+        dd('a');
+        $user = User::find($id);
+        $user->password = bcrypt($request->new_pwd);
+        $user->save();
+        if($user){
+            return redirect()->route('backend.user.account', $user->id)->with("success", "Cập nhật thành công!");
+        }
+        return redirect()->route('backend.user.account', $user->id)->with("error", "Cập nhật thất bại!");
     }
 }

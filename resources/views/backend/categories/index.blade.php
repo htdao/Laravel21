@@ -63,7 +63,7 @@ Danh mục
                             @foreach($categories as $cate)
                             <tr>
                                 <td>{{$i}}</td>
-                                <td><a href="">{{$cate->name}}</a></td>
+                                <td><a href="{{route('backend.category.show', $cate->id)}}">{{$cate->name}}</a></td>
                                 <td>
                                     @if($cate->parent_id==0)
                                         <div class="col-md-10">
@@ -82,12 +82,14 @@ Danh mục
                                 <td>{{ date('d/m/Y', strtotime($cate->updated_at)) }}</td>
                                 <td>
                                     <a href="{{route('backend.category.show', ['id' => $cate->id])}}" class="badge btn btn-info"><i class="material-icons">remove_red_eye</i></a>
+                                    @if(\Illuminate\Support\Facades\Auth::user()->role == 0)
                                     <a href="{{route('backend.category.edit', ['id' => $cate->id])}}" class=" badge btn btn-success"><i class="material-icons">edit</i></a>
                                     <form action="{{route('backend.category.destroy', ['id' => $cate->id])}}" method="POST" class="d-inline-block">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <button class="badge btn btn-danger delete_confirm"><i class="material-icons">delete</i></button>
                                     </form>
+                                    @endif
                                 </td>
                             </tr>
                             @php

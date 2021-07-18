@@ -37,14 +37,20 @@
                                 background-color: #007bff;
                             }
                         </style>
-                        <li id="pf" style="background-color: #007bff" class="list-group-item">Hồ sơ</li>
-                        <li id="ud" class="list-group-item">Cập nhật hồ sơ</li>
+                        <div class="list-group-item">
+                            <div style="width: 100%; height: 260px; background-color: white">
+                                <img src="/storage/{{$user->avatar}}" width="200px"style="border-radius: 50%; margin-left: 17%; margin-top: 5px">
+                                <h3 class="text-center font-weight-bold">{{$user->name}}</h3>
+                            </div>
+                        </div>
+                        <li id="ud" class="list-group-item" style="background-color: #007bff">Cập nhật thông tin</li>
                         <li id="pd" class="list-group-item">Danh sách sản phẩm</li>
-                        <li class="list-group-item">Đăng xuất</li>
+                        <li id="pf" class="list-group-item">Đổi mật khẩu</li>
+                        <li  class="list-group-item"><a href="{{route('logout')}}" style="color: black">Đăng xuất</a></li>
                     </ul>
                 </div>
                 <div class="col-9 float-right" style="background-color: white; border: 1px solid lightgrey; border-radius: 4px">
-                    <form style="display: none" id="update" role="form" method="post" action="{{ route('backend.user.update', ['user' => $user->id]) }}" enctype="multipart/form-data" >
+                    <form style="display: block" id="update" role="form" method="post" action="{{ route('backend.user.updateAcc', $user->id) }}" enctype="multipart/form-data" >
                         @csrf
                         <div class="card-body">
                             <div class="form-group">
@@ -75,38 +81,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <label>Thay đổi mật khẩu</label>
-                            <div class="row" style="">
-                                <div class=" col-6 float-left">
-                                    <input name="password" type="password" class="form-control" placeholder="Nhập mật khẩu cũ" id="">
-                                </div>
-                                <div class=" col-6 float-right">
-                                    <input name="password" type="password" class="form-control" placeholder="Nhập mật khẩu mới"  id="">
-                                </div>
-                            </div>
                         </div>
-                        <!-- /.card-body -->
-
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Cập nhật</button>
-                            <a href="{{ route('backend.user.index') }}" class="btn btn-default">Huỷ bỏ</a>
                         </div>
                     </form>
-                    <div id="profile" style="">
-                        <div class="left col-12 float-left" style="padding: 20px 0">
-                            <div class="col-6 float-left" style="border-right: 1px solid lightgrey">
-                                <img src="/storage/{{$user->avatar}}" width="250px" style="margin-left: 20%; margin-bottom: 10px; border-radius: 50%">
-                                <h3 class="text-center font-weight-bold">{{$user->name}}</h3>
-                                <p class="text-center">Email: {{$user->email}}</p>
-                                <p class="text-center">Số điện thoại: {{$user->phone}}</p>
-                                <p class="text-center">Địa chỉ: {{$user->address}}</p>
-                                <p class="text-center">Vị trí: {{$user->role_text}}</p>
-                            </div>
-                            <div class="col-6 float-right">
-                                <h3 class="text-center font-weight-bold">Doanh thu</h3>
-                            </div>
-                        </div>
-                    </div>
                     <div style="display: none" id="product" class="col-12 float-right">
                         <div class="">
                             <div class="card-header">
@@ -163,6 +142,30 @@
                             <!-- /.card-body -->
                         </div>
                         <!-- /.card -->
+                    </div>
+                    <form style="display: none" id="profile" role="form" method="post" action="{{ route('backend.user.updatePass', $user->id) }}" enctype="multipart/form-data" >
+                    @csrf
+                        <div class="col-12" >
+                        <div class="left col-12 float-left" style="padding: 20px 0">
+                            <label>Thay đổi mật khẩu</label>
+                            <div class="card-body" style="">
+                                <div class=" col-6 float-left">
+                                    <input name="new_pwd" type="password" class="form-control" placeholder="Nhập mật khẩu mới" id="">
+                                    @error('new_pwd')
+                                    <div style="color: red;">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class=" col-6 float-right">
+                                    <input name="confirm_pwd" type="password" class="form-control" placeholder="Nhập lại mật khẩu"  id="">
+                                    @error('confirm_pwd')
+                                    <div style="color: red;">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Cập nhật</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>

@@ -32,7 +32,7 @@
                 <div class="card">
                     <div class="card-header" style="height: 50px">
                         <h3 class="card-title">Thông tin đơn hàng</h3>
-                        <form action="{{route('backend.order.status', ['id' => $order->id])}}" method="post" class="d-inline-block float-right col-9">
+                        <form action="{{route('backend.order.status', ['id' => $order->id])}}" method="post" class="d-inline-block float-left col-7">
                             @csrf
                             <div class="card-tools row float-right">
                                 <div class="input-group input-group-sm" style="padding: 0">
@@ -54,6 +54,12 @@
                                 </div>
                             </div>
                         </form>
+                        @if($order->status == 2)
+                            <form action="{{route('backend.order.cancellation', ['id' => $order->id])}}" method="post" class="d-inline-block float-left col-2">
+                                @csrf
+                                &nbsp;<button type="submit" style="border: none; width: 50px; height: 30px; border-radius: 4px; line-height: 100%" class="bg-danger" >Huỷ</button>
+                            </form>
+                        @endif
                     </div>
                     <div class="card-body">
                         <p>Mã đơn hàng: {{$order->id}}</p>

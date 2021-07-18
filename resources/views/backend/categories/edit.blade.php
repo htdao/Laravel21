@@ -41,7 +41,7 @@ Cập nhật danh mục
                             <label for="exampleInputEmail1">Tên danh mục</label>
                             <input name="name" value="{{ $category->name }}" type="text" class="form-control" id="" placeholder="Điền tên danh mục ">
                             @error('name')
-                            <div class="alert alert-danger">{{ $message }}</div>
+                            <div style="color: red;">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -77,8 +77,8 @@ Cập nhật danh mục
                         <!-- /.card-body -->
 
                         <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Cập nhật</button>
                             <a href="{{ route('backend.category.index') }}" class="btn btn-default">Huỷ bỏ</a>
-                            <button type="submit" class="btn btn-sucess">Cập nhật</button>
                         </div>
                     </div>
                     </form>

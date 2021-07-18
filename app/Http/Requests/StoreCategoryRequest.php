@@ -24,7 +24,7 @@ class StoreCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:10|max:255',
+            'name' => 'required|min:3|max:255|unique:categories,name',
             ''
         ];
     }
@@ -34,8 +34,10 @@ class StoreCategoryRequest extends FormRequest
 
         return[
             'name.required' => 'Không được để trống!',
-            'name.min' => 'Tên phải có ít nhất 10 kí tự!',
+            'name.min' => 'Tên phải có ít nhất 3 kí tự!',
             'name.max' => 'Tên có tối đa 50 kí tự!',
+            'name.unique' => 'Danh mục đã tồn tại!',
+
         ];
     }
 

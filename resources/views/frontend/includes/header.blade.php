@@ -1,4 +1,12 @@
+@php
+    use Illuminate\Support\Facades\Request;
+    use Illuminate\Support\Facades\Route;
 
+    $prefix = Request::route()->getPrefix();
+
+    $route = Route::current()->getName();
+
+@endphp
 <div id="offcanvas-mobile-menu" class="offcanvas theme1 offcanvas-mobile-menu">
     <div class="inner">
         <div class="border-bottom mb-4 pb-4 text-right">
@@ -27,7 +35,7 @@
                     <a href="#"><span class="menu-text">Thương hiệu</span></a>
                     <ul class="offcanvas-submenu">
                         @foreach($menuTrademarks as $trademark)
-                        <li><a href="{{route('frontend.product.index')}}">{{$trademark->name}}</a></li>
+                        <li><a href="{{route('frontend.trademark', $trademark->id)}}">{{$trademark->name}}</a></li>
                         @endforeach
                     </ul>
                 </li>
@@ -35,17 +43,17 @@
                     <a href=""><span class="menu-text">Danh mục</span></a>
                     <ul class="offcanvas-submenu">
                         @foreach($menuCategories as $category)
-                            <li><a href="">{{$category->name}}</a></li>
+                            <li><a href="{{route('frontend.category', $category->id)}}">{{$category->name}}</a></li>
                         @endforeach
                     </ul>
                 </li>
-                <li><a href="contact.html">Liên hệ</a></li>
+                <li><a href="{{route('frontend.home.contact')}}">Liên hệ</a></li>
             </ul>
         </nav>
         <div class="offcanvas-social py-30">
             <ul>
                 <li>
-                    <a href="#"><i class="icon-social-facebook"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=100041834506020"><i class="icon-social-facebook"></i></a>
                 </li>
             </ul>
         </div>
@@ -61,7 +69,7 @@
             <div class="social-network2">
               <ul class="d-flex">
                 <li>
-                  <a href="https://www.facebook.com/" target="_blank"><span class="icon-social-facebook"></span></a>
+                  <a href="https://www.facebook.com/profile.php?id=100041834506020" target="_blank"><span class="icon-social-facebook"></span></a>
                 </li>
               </ul>
             </div>
@@ -80,7 +88,7 @@
                 @if(\Illuminate\Support\Facades\Auth::check())
                   <li>
                       <img style="height: 30px" src="/storage/{{ \Illuminate\Support\Facades\Auth::User()->avatar }}" alt="User Image">
-                      <a style="padding: 0" href="{{route('frontend.account', ['id' => \Illuminate\Support\Facades\Auth::user()->id])}}">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
+                      <a style="padding: 0" href="{{route('frontend.account', [\Illuminate\Support\Facades\Auth::user()->id])}}">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
                   </li>
                 @else
                   <li><a href="{{route('user.login.form')}}">Đăng nhập</a></li>
@@ -98,34 +106,34 @@
             <div class="row align-items-center">
                 <div class="col-6 col-lg-2 col-xl-2">
                     <div class="logo">
-                        <a href="index.html"><img src="/frontend/images/logo.png" alt="logo"></a>
+                        <a href="{{route('frontend.home')}}"><img src="/frontend/images/logo.png" alt="logo"></a>
                     </div>
                 </div>
                 <div class="col-xl-8 col-lg-7 d-none d-lg-block">
                     <ul class="main-menu d-flex justify-content-center">
-                        <li class="active ml-0">
+                        <li class="{{($route=='frontend.home')?'active':''}} ml-0">
                             <a href="{{route('frontend.home')}}" class="pl-0">Trang chủ</a>
                         </li>
-                        <li class="position-static">
+                        <li class="position-static {{($route=='frontend.product.index')?'active':''}}">
                             <a href="{{route('frontend.product.index')}}">Cửa hàng</a>
                         </li>
-                        <li>
-                            <a href="#">Thương hiệu<i class="ion-ios-arrow-down"></i></a>
+                        <li class="{{($route=='frontend.trademark')?'active':''}}">
+                            <a class="{{($route=='frontend.trademark')?'active':''}}" href="#">Thương hiệu<i class="ion-ios-arrow-down"></i></a>
                             <ul class="sub-menu">
                                 @foreach($menuTrademarks as $trademark)
-                                    <li><a href="">{{$trademark->name}}</a></li>
+                                    <li><a href="{{route('frontend.trademark', $trademark->id)}}">{{$trademark->name}}</a></li>
                                 @endforeach
                             </ul>
                         </li>
-                        <li>
-                            <a href="blog-grid-3-column.html">Danh mục<i class="ion-ios-arrow-down"></i></a>
+                        <li class="{{($route=='frontend.category')?'active':''}}">
+                            <a class="{{($route=='frontend.category')?'active':''}}" href="">Danh mục<i class="ion-ios-arrow-down"></i></a>
                             <ul class="sub-menu">
                                 @foreach($menuCategories as $category)
-                                    <li><a href="">{{$category->name}}</a></li>
+                                    <li><a href="{{route('frontend.category', $category->id)}}">{{$category->name}}</a></li>
                                 @endforeach
                             </ul>
                         </li>
-                        <li><a href="{{route('frontend.home.contact')}}">Liên hệ</a></li>
+{{--                        <li class="{{($route=='frontend.home.contact')?'active':''}}"><a href="{{route('frontend.home.contact')}}">Liên hệ</a></li>--}}
                     </ul>
                 </div>
                 <div class="col-6 col-lg-3 col-xl-2">
@@ -135,9 +143,9 @@
                         <div class="cart-block-links theme1 d-none d-sm-block">
                             <ul class="d-flex">
                                 <li>
-                                    <a href="javascript:void(0)" class="search search-toggle">
-                                        <i class="icon-magnifier"></i>
-                                    </a>
+{{--                                    <a href="javascript:void(0)" class="search search-toggle">--}}
+{{--                                        <i class="icon-magnifier"></i>--}}
+{{--                                    </a>--}}
                                 </li>
                                 <li class="mr-xl-0 cart-block position-relative">
                                     <a class="" href="{{route('frontend.product.cart')}}">
@@ -163,3 +171,30 @@
     </div>
   <!-- header-middle end -->
 </header>
+{{--<script>--}}
+{{--    $(document).ready(function (){--}}
+{{--        var cate_id = $('.tabpro').data('id');--}}
+{{--        var _token = $('input[name="_token"]').val();--}}
+{{--        $.ajax({--}}
+{{--            url:'{{route('frontend.producTab')}}',--}}
+{{--            method:'POST',--}}
+{{--            data:{cate_id:cate_id, _token:_token},--}}
+{{--            success:function (data){--}}
+{{--                $('#tabs_product').html(data);--}}
+{{--            }--}}
+{{--        });--}}
+
+{{--        $('.tabs_pro').click(function (){--}}
+{{--            var cate_id = $(this).data('id');--}}
+{{--            var _token = $('input[name="_token"]').val();--}}
+{{--            $.ajax({--}}
+{{--                url:'{{route('frontend.producTab')}}',--}}
+{{--                method:'POST',--}}
+{{--                data:{cate_id:cate_id, _token:_token},--}}
+{{--                success:function (data){--}}
+{{--                    $('#tabs_product').html(data);--}}
+{{--                }--}}
+{{--            });--}}
+{{--        });--}}
+{{--    });--}}
+{{--</script>--}}

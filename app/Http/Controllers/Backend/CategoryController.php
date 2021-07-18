@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Product;
 use App\Models\Trademark;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -100,14 +102,18 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $trademarks = Trademark::all();
-        $category = Category::find($id);
-        $categories = Category::all();
-        return view('backend.categories.edit', [
-            'category' => $category,
-            'categories' => $categories,
-            'trademarks' => $trademarks,
-        ]);
+        if (Auth::user()->role == 0) {
+            $trademarks = Trademark::all();
+            $category = Category::find($id);
+            $categories = Category::all();
+            return view('backend.categories.edit', [
+                'category' => $category,
+                'categories' => $categories,
+                'trademarks' => $trademarks,
+            ]);
+        }else{
+            return redirect()->route('backend.category.index')->with("error", "Không có quyền sửa!");
+        }
     }
 
     /**
@@ -117,28 +123,33 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreCategoryRequest $request, $id)
+    public function update(UpdateCategoryRequest $request, $id)
     {
-        $category = Category::find($id);
-        $data = $request->except('_token');
-        $data['slug'] = Str::slug($request->get('name'));
-        $data['updated_at'] = Carbon::now();
+        if (Auth::user()->role == 0) {
+            $category = Category::find($id);
+            $data = $request->except('_token');
+            $data['slug'] = Str::slug($request->get('name'));
+            $data['updated_at'] = Carbon::now();
 
-        $category->update($data);
+            $category->update($data);
 
-        if(!empty($data['trademark_id'])){
-            $category->trademarks()->sync($data['trademark_id'],[
-                'updated_at' => Carbon::now(),
-            ]);
+            if (!empty($data['trademark_id'])) {
+                $category->trademarks()->sync($data['trademark_id'], [
+                    'updated_at' => Carbon::now(),
+                ]);
 
-        }else{
-            $category->trademarks()->detach();
+            } else {
+                $category->trademarks()->detach();
+            }
+
+            if ($category) {
+                return redirect()->route('backend.category.index')->with("success", "Cập nhật thành công!");
+            }
+            return redirect()->route('backend.category.index')->with("error", "Cập nhật thất bại!");
         }
-
-        if($category){
-            return redirect()->route('backend.category.index')->with("success", "Cập nhật thành công!");
+        else{
+            return redirect()->route('backend.category.index')->with("error", "Không có quyền cập nhật!");
         }
-        return redirect()->route('backend.category.index')->with("error", "Cập nhật thất bại!");
     }
 
     /**
@@ -149,28 +160,32 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::find($id);
-        $children = Category::where('parent_id', $category->id)->get();
-        $products = Product::where('category_id', $category->id)->get();
-        if(count($children) > 0){
-            foreach ($children as $child){
-                $child->parent_id = 0;
-                $child->save();
+        if (Auth::user()->role == 0) {
+            $category = Category::find($id);
+            $children = Category::where('parent_id', $category->id)->get();
+            $products = Product::where('category_id', $category->id)->get();
+            if (count($children) > 0) {
+                foreach ($children as $child) {
+                    $child->parent_id = 0;
+                    $child->save();
+                }
             }
-        }
-        if(count($products) > 0){
-            foreach ($products as $product){
-                $product->category_id = 0;
-                $product->save();
+            if (count($products) > 0) {
+                foreach ($products as $product) {
+                    $product->category_id = 0;
+                    $product->save();
+                }
             }
-        }
-        $category->trademarks()->detach();
-        $category->delete();
+            $category->trademarks()->detach();
+            $category->delete();
 
-        if($category){
-            return redirect()->route('backend.category.index')->with("success", "Xoá thành công!");
+            if ($category) {
+                return redirect()->route('backend.category.index')->with("success", "Xoá thành công!");
+            }
+            return redirect()->route('backend.category.index')->with("error", "Xoá thất bại!");
+        }else{
+            return redirect()->route('backend.category.index')->with("error", "Không được quyền xoá!");
         }
-        return redirect()->route('backend.category.index')->with("error", "Xoá thất bại!");
     }
 
 

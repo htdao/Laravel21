@@ -64,39 +64,55 @@ Sản phẩm
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Sản phẩm mới nhập</h3>
-                        <form action="{{route('backend.product.index')}}" method="get" class="d-inline-block float-right col-9">
+                        <form action="{{route('backend.product.index')}}" method="get" class="d-inline-block float-right">
                             <div class="card-tools row float-right">
-                                <div class="input-group input-group-sm col-4">
-                                    <select name="trademark" class="col-8 form-control select2" style="width: 100%; padding: 0" >
-                                        <option value="0">Chọn thương hiệu</option>
+                                <div class="input-group input-group-sm col-3">
+                                    <select name="trademark" class="col-9 form-control select2" style="width: 100%; padding: 0" >
+                                        <option selected value="">Chọn thương hiệu</option>
+                                        </option>
                                         @foreach($trademarks as $trademark)
-                                            <option value="{{$trademark->id}}">{{$trademark->name}}</option>
+                                            <option
+                                                value="{{$trademark->id}}">{{ $trademark->name }}</option>
                                         @endforeach
                                     </select>
-                                    <div class="input-group-append col-4" style="padding: 0">
+                                    <div class="input-group-append col-3" style="padding: 0">
                                         <button type="submit" class="btn btn-default">Lọc</button>
                                     </div>
                                 </div>
-                                <div class="input-group input-group-sm col-4">
-                                    <select name="category" class="col-8 form-control select2" style="width: 100%;padding: 0">
-                                        <option value="0">Chọn danh mục</option>
-                                        <option value="0">Danh mục cha</option>
-                                        @foreach($categories as $cate)
-                                            <option value="{{$cate->id}}">{{$cate->name}}</option>
+                                <div class="input-group input-group-sm col-3">
+                                    <select name="category" class="col-9 form-control select2" style="width: 100%;padding: 0">
+                                        <option selected value="">Chọn danh mục</option>
+                                        </option>
+                                        @foreach($categories as $category)
+                                            <option
+                                                value="{{$category->id}}">{{ $category->name }}</option>
                                         @endforeach
                                     </select>
-                                    <div class="input-group-append" style="padding: 0">
+                                    <div class="input-group-append col-3" style="padding: 0">
                                         <button type="submit" class="btn btn-default">Lọc</button>
                                     </div>
                                 </div>
-                                <div class="input-group input-group-sm col-4" style="padding: 0">
-                                    <input type="text" name="search" class="col-8 form-control float-left" placeholder="Tìm kiếm">
+                                <div class="input-group input-group-sm col-3">
+                                    <select name="status" class="col-9 form-control select2" style="width: 100%;padding: 0">
+                                        <option selected value="">Chọn trạng thái</option>
+                                        @foreach(\App\Models\Product::$status_text as $key => $value)
+                                            <option value="{{$key}}">{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="input-group-append col-3" style="padding: 0">
+                                        <button type="submit" class="btn btn-default">Lọc</button>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 input-group input-group-sm" style="padding: 0">
+                                    <input type="text" name="search" class="col-8 form-control float-left" value="" placeholder="Tìm kiếm">
                                     <div class="input-group-append col-4" style="padding: 0">
                                         <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                            </form>
+
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">
@@ -106,7 +122,8 @@ Sản phẩm
                                 <th>STT</th>
                                 <th>Hình ảnh</th>
                                 <th>Tên sản phẩm</th>
-                                <th>Giá bán</th>
+                                <th>Danh mục</th>
+                                <th>Thương hiệu</th>
                                 <th>Trạng thái</th>
                                 <th>Thời gian</th>
                                 <th>Hành động</th>
@@ -126,9 +143,15 @@ Sản phẩm
                                     @endif
                                 </td>
                                 <td><a href="{{ route('frontend.product.show', ['id' => $value->id]) }}">{{$value->name}}</a></td>
-                                <td>{{number_format($value->sale_price)}}</td>
+                                <td>{{$value->category->name}}</td>
                                 <td>
-                                    @if($value->status == 0)
+                                    @for($i=0;$i<count($trademarks);$i++)
+                                        @if($value->trademark_id == $trademarks[$i]->id){{$trademarks[$i]->name}}
+                                        @endif
+                                    @endfor
+                                </td>
+                                <td>
+                                    @if($value->status == -1)
                                         <span class="badge bg-warning widspan">{{ $value->status_text }}</span>
                                     @elseif($value->status == 1)
                                         <span class="badge bg-info widspan">{{ $value->status_text }}</span>

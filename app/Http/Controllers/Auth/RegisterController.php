@@ -34,14 +34,17 @@ class RegisterController extends Controller
         $user = new User();
         $user->name = $request->get('name');
         $user->email = $request->get('email');
-        $user->password = $request->get('password');
+        $user->password = bcrypt($request->get('password'));
         $user->address = $request->get('address');
         $user->phone = $request->get('phone');
         $user->role = 2;
         $user->avatar = 'images/auto.jpg';
 
         $user->save();
-        return redirect()->route('user.login.form');
+        if($user){
+            return redirect()->route('user.login.form',$user->id)->with("success", "Đăng ký thành công!");
+        }
+        return redirect()->route('user.login.form',$user->id)->with("error", "Đăng ký thất bại!");
     }
 
 }

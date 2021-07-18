@@ -20,7 +20,7 @@
             <div class="social-network">
               <ul class="d-flex">
                 <li>
-                  <a href="https://www.facebook.com/" target="_blank"><span class="icon-social-facebook"></span></a>
+                  <a href="https://www.facebook.com/profile.php?id=100041834506020" target="_blank"><span class="icon-social-facebook"></span></a>
                 </li>
               </ul>
             </div>
@@ -35,11 +35,11 @@
             </div>
             <!-- footer-menu start -->
             <ul class="footer-menu">
-              <li><a href="about-us.html">Trang chủ</a></li>
-                <li><a href="#">Cửa hàng</a></li>
-              <li><a href="#">Thương hiệu</a></li>
-              <li><a href="contact.html">Dạnh mục</a></li>
-              <li><a href="#">Liên hệ</a></li>
+              <li><a href="{{route('frontend.home')}}">Trang chủ</a></li>
+                <li><a href="{{route('frontend.product.index')}}">Cửa hàng</a></li>
+              <li><a>Thương hiệu</a></li>
+              <li><a>Dạnh mục</a></li>
+{{--              <li><a href="{{route('frontend.home.contact')}}">Liên hệ</a></li>--}}
             </ul>
             <!-- footer-menu end -->
           </div>
@@ -55,8 +55,8 @@
             <ul class="footer-menu">
 {{--              <li><a href="#">Mới</a></li>--}}
 {{--              <li><a href="#">Phổ biến</a></li>--}}
-              <li><a href="login.html">Đăng nhập</a></li>
-              <li><a href="myaccount.html">Tài khoản</a></li>
+              <li><a href="{{route('user.login.form')}}">Đăng nhập</a></li>
+              <li><a href="{{route('register.form')}}">Đăng ký</a></li>
             </ul>
             <!-- footer-menu end -->
           </div>
@@ -69,10 +69,9 @@
               </div>
             </div>
               <ul class="footer-menu">
-                  <li><a href="#">Điện thoại: </a></li>
-                  <li><a href="#">Email: </a></li>
-                  <li><a href="login.html">Website: </a></li>
-                  <li><a href="myaccount.html">Facebook: </a></li>
+                  <li><a href="#">Điện thoại: (+123)4567890</a></li>
+                  <li><a href="#">Email: htdao00@gmail.com</a></li>
+                  <li><a href="">Facebook: https://www.facebook.com/profile.php?id=100041834506020</a></li>
               </ul>
           </div>
         </div>

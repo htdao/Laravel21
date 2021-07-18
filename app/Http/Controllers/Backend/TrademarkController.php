@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTrademarkRequest;
+use App\Http\Requests\UpdateTrademarkRequest;
 use App\Models\Product;
 use App\Models\Trademark;
 use Illuminate\Http\Request;
@@ -96,7 +97,7 @@ class TrademarkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreTrademarkRequest $request, $id)
+    public function update(UpdateTrademarkRequest $request, $id)
     {
         $trademark = Trademark::find($id);
         $data = $request->except('_token');

@@ -21,7 +21,7 @@ class LoginController extends Controller
         return view('frontend.accounts.login');
     }
 
-    public function login(Request $request)
+    public function login(StoreLoginRequest $request)
     {
         $data = $request ->validate([
             'email' => ['required', 'email'],
@@ -42,12 +42,12 @@ class LoginController extends Controller
 
         }else{
             return back()->withErrors([
-                'email' => 'Thông tin user không đúng'
+                'login' => 'Thông tin user không đúng'
             ]);
         }
     }
 
-    public function userLogin(Request $request)
+    public function userLogin(StoreLoginRequest $request)
     {
         $data = $request ->validate([
             'email' => ['required', 'email'],
@@ -63,7 +63,7 @@ class LoginController extends Controller
 
         }else{
             return back()->withErrors([
-                'email' => 'Thông tin user không đúng'
+                'login' => 'Thông tin tài khoản không đúng'
             ]);
         }
     }

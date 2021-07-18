@@ -37,28 +37,43 @@ Cập nhật người dùng
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form role="form" method="post" action="{{ route('backend.user.update', ['user' => $user->id]) }}" enctype="multipart/form-data" >
+                    <form role="form" method="post" action="{{ route('backend.user.update',$user->id) }}" enctype="multipart/form-data" >
                         @csrf
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Tên</label>
                                 <input name="name" type="text" class="form-control" id="" value="{{$user->name}}">
+                                @error('name')
+                                <div style="color: red;">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label  for="exampleInputEmail1">Email</label>
                                 <input name="email" type="email" class="form-control" id="" value="{{$user->email}}">
+                                @error('email')
+                                <div style="color: red;">{{ $message }}</div>
+                                @enderror
                             </div>
-{{--                            <div class="form-group">--}}
-{{--                                <label for="exampleInputEmail1">Mật khẩu</label>--}}
-{{--                                <input name="password" type="password" class="form-control" id="">--}}
-{{--                            </div>--}}
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Mật khẩu</label>
+                                <input name="password" type="password" class="form-control" id="" value="$user->password">
+                                @error('password')
+                                <div style="color: red;">{{ $message }}</div>
+                                @enderror
+                            </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Địa chỉ</label>
                                 <input type="text" name="address" class="form-control" id="" value="{{$user->address}}">
+                                @error('address')
+                                <div style="color: red;">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Điện thoại</label>
                                 <input type="text" name="phone" class="form-control" id="" value="{{$user->phone}}">
+                                @error('phone')
+                                <div style="color: red;">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputFile">Ảnh đại diện</label>

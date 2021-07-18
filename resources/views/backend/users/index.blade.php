@@ -16,7 +16,7 @@ Người dùng
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
                     <li class="breadcrumb-item"><a href="#">Người dùng</a></li>
                     <li class="breadcrumb-item active">Danh sách</li>
                 </ol>
@@ -31,11 +31,21 @@ Người dùng
 
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Danh sách người dùng</h3>
-
-                        <form action="{{route('backend.user.index')}}" method="get" class="d-inline-block float-right col-9">
-                            <div class="card-tools row float-right">
+                    <div class="card-header row">
+                        <h3 class="card-title col-8">Danh sách người dùng</h3>
+                        <form action="{{route('backend.user.index')}}" method="get" class="d-inline-block float-right col-4">
+                            <div class="input-group input-group-sm col-6 float-left">
+                                <select name="role" class="col-8 form-control select2" style="width: 100%;padding: 0">
+                                    <option selected value="">Chọn quyền</option>
+                                    @foreach(\App\Models\User::$role_text as $key => $value)
+                                        <option value="{{$key}}">{{ $value }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="input-group-append col-4" style="padding: 0">
+                                    <button type="submit" class="btn btn-default">Lọc</button>
+                                </div>
+                            </div>
+                            <div class="card-tools float-right col-6">
                                 <div class="input-group input-group-sm" style="padding: 0">
                                     <input type="text" name="search" class="col-8 form-control float-left" placeholder="Tìm kiếm">
                                     <div class="input-group-append col-4" style="padding: 0">
@@ -64,29 +74,33 @@ Người dùng
                             $i=1;
                             @endphp
                             @foreach($users as $value)
+                                @if($value->id != \Illuminate\Support\Facades\Auth::user()->id)
                             <tr>
                                 <td>{{$i}}</td>
                                 <td>
                                     <img src="/storage/{{$value->avatar}}" width="40px">
 {{--                                    <span >{{$value->avatar}}</span>--}}
                                 </td>
-                                <td><a href="">{{$value->name}}</a></td>
+                                <td><a href="{{route('backend.user.show', $value->id)}}">{{$value->name}}</a></td>
                                 <td>{{$value->email}}</td>
                                 <td>{{ $value->role_text }}</td>
                                 <td>{{date('d/m/Y', strtotime($value->created_at))}}</td>
                                 <td>
-                                    <a href="{{route('backend.user.show', ['id' => $value->id])}}" class="badge btn btn-info"><i class="material-icons">remove_red_eye</i></a>
-                                    <a href="{{route('backend.user.edit', ['user' => $value->id])}}" class=" badge btn btn-success"><i class="material-icons">edit</i></a>
-                                    <form action="{{route('backend.user.destroy', ['user' => $value->id])}}" method="POST" class="d-inline-block">
+                                    <a href="{{route('backend.user.show', $value->id)}}" class="badge btn btn-info"><i class="material-icons">remove_red_eye</i></a>
+                                    @if($value->role != 0)
+                                    <a href="{{route('backend.user.edit', $value->id)}}" class=" badge btn btn-success"><i class="material-icons">edit</i></a>
+                                    <form action="{{route('backend.user.destroy', $value->id)}}" method="POST" class="d-inline-block">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
-                                        <button class="badge btn btn-danger"><i class="material-icons">delete</i></button>
+                                        <button class="badge btn btn-danger delete_confirm"><i class="material-icons">delete</i></button>
                                     </form>
+                                    @endif
                                 </td>
                             </tr>
                                 @php
                                 $i++;
                                 @endphp
+                                @endif
                             @endforeach
                             </tbody>
                         </table>

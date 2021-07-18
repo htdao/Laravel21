@@ -13,7 +13,7 @@ class StoreLoginRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,21 +24,30 @@ class StoreLoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'remember' => 'accepted'
+            'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i',
+            'password' => 'required',
         ];
     }
 
     public function messages()
     {
 
-        return[
-            'remember.accepted' => 'Nhớ tài khoản!',
+        return [
+
+            'email.required' => 'Nhập email!',
+            'email.email' => 'Không đúng định dạng!',
+            'email.regex' => 'Không đúng định dạng!',
+
+            'password.required' => 'Nhập mật khẩu!',
         ];
     }
 
-    public function attributes(){
+    public function attributes()
+    {
         return [
-            'remember' => 'Nhớ tài khoản',
+            'email' => 'email',
+            'password' => 'mật khẩu',
         ];
+
     }
 }

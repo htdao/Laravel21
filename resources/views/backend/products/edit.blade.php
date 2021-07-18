@@ -98,8 +98,8 @@ Cập nhật sản phẩm
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label>Giá khuyến mại</label>
-                                        <input value="{{ $product->sale_price }}"  type="text" name="sale_price" class="form-control" placeholder="Điền giá khuyến mại">
+                                        <label>Giá bán</label>
+                                        <input value="{{ $product->sale_price }}"  type="text" name="sale_price" class="form-control" placeholder="Điền giá bán">
                                         @error('sale_price')
                                         <div style="color: red">{{ $message }}</div>
                                         @enderror

@@ -24,7 +24,7 @@ class StoreTrademarkRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:50|min:2'
+            'name' => 'required|max:50|min:2|unique:trademarks,name'
         ];
     }
 
@@ -35,6 +35,8 @@ class StoreTrademarkRequest extends FormRequest
             'name.required' => 'Không được để trống!',
             'name.min' => 'Tên phải có ít nhất 2 kí tự!',
             'name.max' => 'Tên có tối đa 50 kí tự!',
+            'name.unique' => 'Thương hiệu đã tồn tại!!',
+
         ];
     }
 

@@ -52,7 +52,9 @@ Thương hiệu
                                 <th>STT</th>
                                 <th>Tên thương hiệu</th>
                                 <th>Thời gian</th>
+                                @if(\Illuminate\Support\Facades\Auth::user()->role == 2)
                                 <th>Hành động</th>
+                                @endif
                             </tr>
                             </thead>
                             <tbody>
@@ -62,8 +64,9 @@ Thương hiệu
                             @foreach($trademarks as $trademark)
                             <tr>
                                 <td>{{$i}}</td>
-                                <td><a href="">{{$trademark->name}}</a></td>
+                                <td>{{$trademark->name}}</td>
                                 <td>{{ date('d/m/Y', strtotime($trademark->created_at)) }}</td>
+                                @if(\Illuminate\Support\Facades\Auth::user()->role == 0)
                                 <td>
                                     <a href="{{route('backend.trademark.edit', ['id' => $trademark->id])}}" class=" badge btn btn-success"><i class="material-icons">edit</i></a>
                                     <form action="{{route('backend.trademark.destroy', ['id' => $trademark->id])}}" method="POST" class="d-inline-block">
@@ -72,6 +75,7 @@ Thương hiệu
                                         <button class="delete_confirm badge btn btn-danger"><i class="material-icons">delete</i></button>
                                     </form>
                                 </td>
+                                @endif
                             </tr>
                             @php
                                 $i++;

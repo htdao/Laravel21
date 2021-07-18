@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 @section('title')
-    Admin
+    Trang chủ
 @endsection
 @section('css')
 
@@ -31,6 +31,7 @@
             <div class="row">
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
+                    @if(\Illuminate\Support\Facades\Auth::user()->role == 0)
                     <div class="small-box bg-info">
                         <div class="inner">
                             <h3>{{count(\App\Models\Order::all())}}</h3>
@@ -42,6 +43,20 @@
                         </div>
                         <a href="#" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
+                    @endif
+                    @if(\Illuminate\Support\Facades\Auth::user()->role == 1)
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>{{count(\App\Models\Trademark::all())}}</h3>
+
+                                <p>Thương hiệu</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    @endif
                 </div>
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
@@ -61,6 +76,7 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
+                    @if(\Illuminate\Support\Facades\Auth::user()->role ==0)
                     <div class="small-box bg-warning">
                         <div class="inner">
                             <h3>{{ count($users) }}</h3>
@@ -72,13 +88,28 @@
                         </div>
                         <a href="#" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
+                    @endif
+                    @if(\Illuminate\Support\Facades\Auth::user()->role ==1)
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                                <h3>{{ count(\App\Models\Category::all()) }}</h3>
+
+                                <p>Danh mục</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person-add"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    @endif
                 </div>
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
+                    @if(\Illuminate\Support\Facades\Auth::user()->role == 0)
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>{{number_format($revenue)}}đ</h3>
+                            <h3>{{number_format($sumR,0,'.','.')}}đ</h3>
 
                             <p>Doanh thu</p>
                         </div>
@@ -87,6 +118,20 @@
                         </div>
                         <a href="#" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
+                    @endif
+                    @if(\Illuminate\Support\Facades\Auth::user()->role == 1)
+                        <div class="small-box bg-danger">
+                            <div class="inner">
+                                <h3>{{count(\App\Models\Order::all())}}</h3>
+
+                                <p>Đơn hàng</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    @endif
                 </div>
                 <!-- ./col -->
             </div>
@@ -96,19 +141,6 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Sản phẩm mới</h3>
-                            <form action="{{route('backend.user.index')}}" method="get"
-                                  class="d-inline-block float-right col-9">
-                                <div class="card-tools row float-right">
-                                    <div class="input-group input-group-sm" style="padding: 0">
-                                        <input type="text" name="search" class="col-8 form-control float-left"
-                                               placeholder="Tìm kiếm">
-                                        <div class="input-group-append col-4" style="padding: 0">
-                                            <button type="submit" class="btn btn-default"><i class="fas fa-search"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body table-responsive p-0">
@@ -143,7 +175,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{route('backend.product.show', ['id' => $product->id])}}">{{ $product->name }}</a>
+                                            <a href="{{route('frontend.product.show', ['id' => $product->id])}}">{{ $product->name }}</a>
                                         </td>
                                         <td>{{ $product->category->name }}</td>
                                         <td>
@@ -154,7 +186,7 @@
                                         </td>
                                         <td>{{ date('d/m/Y', strtotime($product->created_at)) }}</td>
                                         <td>
-                                            @if($product->status == 0)
+                                            @if($product->status == -1)
                                                 <span
                                                     class="badge bg-warning widspan">{{ $product->status_text }}</span>
                                             @elseif($product->status == 1)
@@ -175,20 +207,6 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Danh mục mới</h3>
-
-                            <form action="{{route('backend.user.index')}}" method="get"
-                                  class="d-inline-block float-right col-9">
-                                <div class="card-tools row float-right">
-                                    <div class="input-group input-group-sm" style="padding: 0">
-                                        <input type="text" name="search" class="col-8 form-control float-left"
-                                               placeholder="Tìm kiếm">
-                                        <div class="input-group-append col-4" style="padding: 0">
-                                            <button type="submit" class="btn btn-default"><i class="fas fa-search"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body table-responsive p-0">
@@ -208,7 +226,7 @@
                                 @foreach($categories as $cate)
                                     <tr>
                                         <td>{{$i}}</td>
-                                        <td><a href="">{{$cate->name}}</a></td>
+                                        <td><a href="{{route('backend.category.show', $cate->id)}}">{{$cate->name}}</a></td>
                                         <td>
                                             @if($cate->parent_id==0)
                                                 <div class="col-md-10">

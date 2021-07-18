@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Product;
@@ -24,31 +25,40 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+        $key = '';
         $search = $request->input('search');
         $trademark = $request->input('trademark');
         $category = $request->input('category');
+        $status = $request->input('status');
+
         $trademarks = Trademark::all();
         $categories = Category::all();
         if(!empty($search)){
+            $key = $request->get('search');
             $products = Product::query()
                 ->where('name', 'LIKE', "%{$search}%")
                 ->orderBy('updated_at', 'desc')->paginate(10);
         }elseif (!empty($trademark)){
             $products = Product::query()
-                ->where('trademark_id', 'LIKE', "%{$trademark}%")
+                ->where('trademark_id', $trademark)
                 ->orderBy('updated_at', 'desc')->paginate(10);
         }elseif (!empty($category)){
             $products = Product::query()
-                ->where('category_id', 'LIKE', "%{$category}%")
+                ->where('category_id', $category)
                 ->orderBy('updated_at', 'desc')->paginate(10);
-        }
-        else{
+        }elseif (!empty($status)){
+            $products = Product::query()
+                ->where('status', $status)
+                ->orderBy('updated_at', 'desc')->paginate(10);
+        }else{
             $products = Product::orderBy('updated_at', 'desc')->paginate(10);
         }
+
         return view('backend.products.index', [
             'products'=>$products,
             'trademarks' => $trademarks,
             'categories' => $categories,
+            'key' => $key,
         ]);
     }
 
@@ -167,7 +177,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
 //        $product = Product::find($id);
 

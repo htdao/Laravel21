@@ -13,10 +13,14 @@ Trang chủ
 @section('banner')
 <section class="bg-light">
   <div class="main-slider dots-style theme1">
-    <div class="slider-item bg-img bg-img1">
+      @php
+      $k =1;
+      @endphp
+      @foreach($slides as $slide)
+    <div class="slider-item bg-img bg-img{{$k}}">
         <style>
-            .bg-img1{
-                background-image: url("/frontend/images/slide1.jpg");
+            .bg-img{{$k}}{
+                background-image: url("/storage/{{$slide->image}}");
             }
         </style>
       <div class="container">
@@ -24,102 +28,31 @@ Trang chủ
           <div class="col-12">
             <div class="slider-content">
               <p class="text animated" data-animation-in="fadeInDown" data-delay-in=".300">
-                Face Makeup Brush
+                {{$slide->description}}
               </p>
               <h2 class="title animated">
-                <span class="animated d-block" data-animation-in="fadeInLeft" data-delay-in=".800">Skincare Brush Set</span>
-                <span class="animated font-weight-bold" data-animation-in="fadeInRight" data-delay-in="1.5">Sale 30% Off</span>
+                <span class="animated d-block" data-animation-in="fadeInLeft" data-delay-in=".800">{{$slide->title}}</span>
+                <span class="animated font-weight-bold" data-animation-in="fadeInRight" data-delay-in="1.5">{{$slide->content}}</span>
               </h2>
-              <a href="shop-grid-4-column.html" class="btn btn-outline-primary btn--lg animated mt-45 mt-sm-25" data-animation-in="fadeInLeft" data-delay-in="1.9">Shop now</a>
             </div>
           </div>
         </div>
       </div>
     </div>
+      @php
+          $k++;
+      @endphp
+  @endforeach
     <!-- slider-item end -->
-    <div class="slider-item bg-img bg-img2">
-        <style>
-            .bg-img1{
-                background-image: url("/frontend/images/slide2.jpg");
-            }
-        </style>
-      <div class="container">
-        <div class="row align-items-center slider-height">
-          <div class="col-12">
-            <div class="slider-content">
-              <p class="text animated" data-animation-in="fadeInLeft" data-delay-in=".300">
-                Morneva Shampoo
-              </p>
 
-              <h2 class="title">
-                <span class="animated d-block" data-animation-in="fadeInRight" data-delay-in=".800">scalpcare Shampoo</span>
-                <span class="animated font-weight-bold" data-animation-in="fadeInUp" data-delay-in="1.5">Sale 40% Off</span>
-              </h2>
-              <a href="shop-grid-4-column.html" class="btn btn-outline-primary btn--lg animated mt-45 mt-sm-25" data-animation-in="fadeInLeft" data-delay-in="1.9">Shop now</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- slider-item end -->
-    <div class="slider-item bg-img bg-img3">
-        <style>
-            .bg-img1{
-                background-image: url("/frontend/images/slide3.jpg");
-            }
-        </style>
-      <div class="container">
-        <div class="row align-items-center slider-height">
-          <div class="col-12">
-            <div class="slider-content">
-              <p class="text animated" data-animation-in="fadeInLeft" data-delay-in=".300">
-                Runway Lip Palette red
-              </p>
-              <h2 class="title">
-                <span class="animated d-block" data-animation-in="fadeInRight" data-delay-in=".800">Lipscare Lipsticks</span>
-                <span class="animated font-weight-bold" data-animation-in="fadeInUp" data-delay-in="1.5">Sale 60% Off</span>
-              </h2>
-              <a href="shop-grid-4-column.html" class="btn btn-outline-primary btn--lg animated mt-45 mt-sm-25" data-animation-in="fadeInLeft" data-delay-in="1.9">Shop now</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <!-- slider-item end -->
   </div>
 </section>
-<div style="margin-top: 20px" class="common-banner bg-white">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 mb-30">
-        <div class="banner-thumb">
-          <a href="shop-grid-4-column.html" class="zoom-in d-block overflow-hidden">
-            <img src="/frontend/images/1_2.jpg" alt="banner-thumb-naile">
-          </a>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6 mb-30">
-        <div class="banner-thumb">
-          <a href="shop-grid-4-column.html" class="zoom-in d-block overflow-hidden">
-            <img src="/frontend/images/2_1.jpg" alt="banner-thumb-naile">
-          </a>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6 mb-30">
-        <div class="banner-thumb">
-          <a href="shop-grid-4-column.html" class="zoom-in d-block overflow-hidden">
-            <img src="/frontend/images/3_2.jpg" alt="banner-thumb-naile">
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 @endsection
 
 @section('content')
 
-    <section class="bg-white theme1 pb-80">
+    <section class="bg-white theme1 pb-80" style="margin-top: 50px">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -131,7 +64,7 @@ Trang chủ
                         </p>
                     </div>
                     <!-- section-title end -->
-                    <div class="product-slider-init theme1 slick-nav"">
+                    <div class="product-slider-init theme1 slick-nav">
                         @foreach($productSelling as $value)
                         <div class="slider-item">
                             <div class="card product-card">
@@ -163,18 +96,19 @@ Trang chủ
                                                     <a href="">{{$value->name}}</a>
                                                 </h3>
                                                 <div class="star-rating">
-                                                    <span class="ion-ios-star"></span>
-                                                    <span class="ion-ios-star"></span>
-                                                    <span class="ion-ios-star"></span>
-                                                    <span class="ion-ios-star"></span>
-                                                    <span class="ion-ios-star de-selected"></span>
+{{--                                                    <span class="ion-ios-star"></span>--}}
+{{--                                                    <span class="ion-ios-star"></span>--}}
+{{--                                                    <span class="ion-ios-star"></span>--}}
+{{--                                                    <span class="ion-ios-star"></span>--}}
+{{--                                                    <span class="ion-ios-star de-selected"></span>--}}
+                                                    Đã bán: {{$value->quan_sold}}
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <span class="product-price">
                                                         <del class="del">
-                                                            @if($value->sale_price != $value->origin_price)
-                                                                {{number_format($value->origin_price,0,'.','.')}}
-                                                            @endif
+{{--                                                            @if($value->sale_price != $value->origin_price)--}}
+{{--                                                                {{number_format($value->origin_price,0,'.','.')}}--}}
+{{--                                                            @endif--}}
                                                         </del>
                                                         <span class="onsale">{{number_format($value->sale_price,0,'.','.')}}đ</span>
                                                     </span>
@@ -196,30 +130,6 @@ Trang chủ
     </section>
 <!-- product tab end -->
 <!-- common banner  start -->
-<div class="common-banner bg-white pb-50">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-3 col-md-6 mb-30">
-        <div class="banner-thumb">
-          <a class="zoom-in d-block overflow-hidden position-relative" href="shop-grid-4-column.html">
-              <img src="/frontend/images/5.jpg" alt="banner-thumb-naile"></a>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 mb-30">
-        <div class="banner-thumb">
-          <a class="zoom-in d-block overflow-hidden position-relative" href="shop-grid-4-column.html">
-            <img src="/frontend/images/6.jpg" alt="banner-thumb-naile"></a>
-          </div>
-        </div>
-        <div class="col-lg-6 col-md-12 mb-30">
-          <div class="banner-thumb">
-            <a class="zoom-in d-block overflow-hidden position-relative" href="shop-grid-4-column.html">
-              <img src="/frontend/images/4_2.jpg" alt="banner-thumb-naile"></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <!-- common banner  end -->
     <!-- product tab repetation start -->
     <section class="bg-white theme1 pb-80">
@@ -254,18 +164,19 @@ Trang chủ
                                                 <a href="">{{$value->name}}</a>
                                             </h3>
                                             <div class="star-rating">
-                                                <span class="ion-ios-star"></span>
-                                                <span class="ion-ios-star"></span>
-                                                <span class="ion-ios-star"></span>
-                                                <span class="ion-ios-star"></span>
-                                                <span class="ion-ios-star de-selected"></span>
+{{--                                                <span class="ion-ios-star"></span>--}}
+{{--                                                <span class="ion-ios-star"></span>--}}
+{{--                                                <span class="ion-ios-star"></span>--}}
+{{--                                                <span class="ion-ios-star"></span>--}}
+{{--                                                <span class="ion-ios-star de-selected"></span>--}}
+                                                Đã bán: {{$value->quan_sold}}
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <span class="product-price">
                                                         <del class="del">
-                                                            @if($value->sale_price != $value->origin_price)
-                                                                {{number_format($value->origin_price,0,'.','.')}}
-                                                            @endif
+{{--                                                            @if($value->sale_price != $value->origin_price)--}}
+{{--                                                                {{number_format($value->origin_price,0,'.','.')}}--}}
+{{--                                                            @endif--}}
                                                         </del>
                                                         <span class="onsale">{{number_format($value->sale_price,0,'.','.')}}đ</span>
                                                     </span>
@@ -285,30 +196,7 @@ Trang chủ
         </div>
       </div>
     </section>
-    <div class="common-banner bg-white pb-50">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 mb-30">
-                    <div class="banner-thumb">
-                        <a class="zoom-in d-block overflow-hidden position-relative" href="shop-grid-4-column.html">
-                            <img src="/frontend/images/5.jpg" alt="banner-thumb-naile"></a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-30">
-                    <div class="banner-thumb">
-                        <a class="zoom-in d-block overflow-hidden position-relative" href="shop-grid-4-column.html">
-                            <img src="/frontend/images/6.jpg" alt="banner-thumb-naile"></a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-12 mb-30">
-                    <div class="banner-thumb">
-                        <a class="zoom-in d-block overflow-hidden position-relative" href="shop-grid-4-column.html">
-                            <img src="/frontend/images/4_2.jpg" alt="banner-thumb-naile"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 <section class="bg-white theme1 pb-80">
     <div class="container">
         <div class="row">
@@ -342,18 +230,19 @@ Trang chủ
                                                     <a href="">{{$value->name}}</a>
                                                 </h3>
                                                 <div class="star-rating">
-                                                    <span class="ion-ios-star"></span>
-                                                    <span class="ion-ios-star"></span>
-                                                    <span class="ion-ios-star"></span>
-                                                    <span class="ion-ios-star"></span>
-                                                    <span class="ion-ios-star de-selected"></span>
+{{--                                                    <span class="ion-ios-star"></span>--}}
+{{--                                                    <span class="ion-ios-star"></span>--}}
+{{--                                                    <span class="ion-ios-star"></span>--}}
+{{--                                                    <span class="ion-ios-star"></span>--}}
+{{--                                                    <span class="ion-ios-star de-selected"></span>--}}
+                                                    Đã bán: {{$value->quan_sold}}
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <span class="product-price">
                                                         <del class="del">
-                                                            @if($value->sale_price != $value->origin_price)
-                                                                {{number_format($value->origin_price,0,'.','.')}}
-                                                            @endif
+{{--                                                            @if($value->sale_price != $value->origin_price)--}}
+{{--                                                                {{number_format($value->origin_price,0,'.','.')}}--}}
+{{--                                                            @endif--}}
                                                         </del>
                                                         <span class="onsale">{{number_format($value->sale_price,0,'.','.')}}đ</span>
                                                     </span>
@@ -373,77 +262,5 @@ Trang chủ
         </div>
     </div>
 </section>
-    <!-- product tab repetation end -->
-
-    <!-- blog-section start -->
-
-    <!-- blog-section end -->
-    <!-- brand slider start -->
-    <div class="brand-slider-section theme1 bg-white">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <div class="brand-init border-top py-35 slick-nav-brand">
-              <div class="slider-item">
-                <div class="single-brand">
-                  <a href="https://themeforest.net/user/hastech" class="brand-thumb">
-                    <img src="/frontend/images/1.jpg" alt="brand-thumb-nail">
-                  </a>
-                </div>
-              </div>
-              <!-- slider-item end -->
-              <div class="slider-item">
-                <div class="single-brand">
-                  <a href="https://themeforest.net/user/hastech" class="brand-thumb">
-                    <img src="/frontend/images/2.jpg" alt="brand-thumb-nail">
-                  </a>
-                </div>
-              </div>
-              <!-- slider-item end -->
-              <div class="slider-item">
-                <div class="single-brand">
-                  <a href="https://themeforest.net/user/hastech" class="brand-thumb">
-                    <img src="/frontend/images/3_1.jpg" alt="brand-thumb-nail">
-                  </a>
-                </div>
-              </div>
-              <!-- slider-item end -->
-              <div class="slider-item">
-                <div class="single-brand">
-                  <a href="https://themeforest.net/user/hastech" class="brand-thumb">
-                    <img src="/frontend/images/4_1.jpg" alt="brand-thumb-nail">
-                  </a>
-                </div>
-              </div>
-              <!-- slider-item end -->
-              <div class="slider-item">
-                <div class="single-brand">
-                  <a href="https://themeforest.net/user/hastech" class="brand-thumb">
-                    <img src="/frontend/images/5_1.jpg" alt="brand-thumb-nail">
-                  </a>
-                </div>
-              </div>
-              <!-- slider-item end -->
-              <div class="slider-item">
-                <div class="single-brand">
-                  <a href="https://themeforest.net/user/hastech" class="brand-thumb">
-                    <img src="/frontend/images/2.jpg" alt="brand-thumb-nail">
-                  </a>
-                </div>
-              </div>
-              <!-- slider-item end -->
-              <div class="slider-item">
-                <div class="single-brand">
-                  <a href="https://themeforest.net/user/hastech" class="brand-thumb">
-                    <img src="/frontend/images/3_1.jpg" alt="brand-thumb-nail">
-                  </a>
-                </div>
-              </div>
-              <!-- slider-item end -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
         @endsection
 

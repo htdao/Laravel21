@@ -62,12 +62,6 @@
                         <input name="phone" type="text" value="{{\Illuminate\Support\Facades\Auth::user()->phone}}">
                     </div>
                 </div>
-                <div class="additional-info-wrap">
-                    <h4 class="title">Lời nhắn</h4>
-                    <div class="additional-info">
-                        <textarea placeholder="Nhập lời nhắn của bạn cho người bán..." name="message"></textarea>
-                    </div>
-                </div>
             </div>
 {{--          </form>--}}
         </div>
@@ -103,7 +97,7 @@
                 <ul>
                   <li class="order-total">Tổng tiền</li>
                     <input name="total_price" value="{{\Gloudemans\Shoppingcart\Facades\Cart::total()}}" hidden>
-                  <li>{{\Gloudemans\Shoppingcart\Facades\Cart::total()}}</li>
+                  <li>{{number_format( \Gloudemans\Shoppingcart\Facades\Cart::total(),0,',','.')}}</li>
                 </ul>
               </div>
             </div>

@@ -59,14 +59,23 @@
                                 <div class="login-register-form">
                                     <form action="{{ route('login.store') }}" method="post">
                                         @csrf
-                                        <input type="email" name="email" placeholder="Email">
-                                        <input type="password" name="password" placeholder="Mật khẩu">
+                                        <input type="email" name="email" placeholder="Email" value="{{old('email')}}">
+                                        @error('email')
+                                        <div style="color: red">{{ $message }}</div>
+                                        @enderror
+                                        <input type="password" name="password" placeholder="Mật khẩu" value="{{old('password')}}">
+                                        @error('password')
+                                        <div style="color: red">{{ $message }}</div>
+                                        @enderror
                                         <div class="button-box">
                                             <div class="login-toggle-btn">
                                                 <input id="remember" name="remember" type="checkbox">
                                                 <label for="remember">Nhớ tài khoản</label>
                                                 <a href="#">Quên mật khẩu?</a>
                                             </div>
+                                            @error('login')
+                                            <div style="color: red">{{ $message }}</div>
+                                            @enderror
                                             <button type="submit" class="btn btn-dark btn--md">
                                                 <span>Đăng nhập</span>
                                             </button>

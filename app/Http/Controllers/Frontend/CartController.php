@@ -78,6 +78,17 @@ class CartController extends Controller
 
             ]);
         }
+
+        //Thay đổi số lượng và đã bán Sản phẩm
+        $q = 0;
+        $products = $order->products;
+        foreach ($products as $product){
+            $q += $product->pivot->quality;
+            $product->amount -= $product->pivot->quality;
+            $product->quan_sold += $product->pivot->quality;
+            $product->save();
+        }
+
         Cart::destroy();
         if($order){
             return redirect()->route('frontend.account',['id' => Auth::user()->id])->with("success", "Đặt hàng thành công!");

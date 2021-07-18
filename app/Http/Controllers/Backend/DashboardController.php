@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Revenue;
 use App\Models\Trademark;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -24,13 +26,17 @@ class DashboardController extends Controller
         $users = User::all();
         $categories = Category::all();
         $trademarks = Trademark::all();
-        $revenue = session('revenue');
+        $revenues = Revenue:: whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->orderBy('created_at', 'ASC')->get();
+        $sumR = 0;
+        foreach ($revenues as $revenue){
+            $sumR += $revenue->total_price;
+        }
         return view('backend.dashboard')->with([
             'users'         => $users,
             'products'      => $products,
             'categories'    => $categories,
             'trademarks'    => $trademarks,
-            'revenue'       => $revenue,
+            'sumR'       => $sumR,
         ]);
     }
 

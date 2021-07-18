@@ -27,9 +27,9 @@ class Product extends Model
         'amount'
     ];
 
-    const STATUS_INIT = 0;
+    const STATUS_INIT = -1;
     const STATUS_BUY = 1;
-    const STATUS_STOP = -1;
+    const STATUS_STOP = 2;
 
     public static $status_text = [
         self::STATUS_INIT => 'Đang nhập',
@@ -38,7 +38,7 @@ class Product extends Model
     ];
 
     public function getStatusTextAttribute(){
-        if ($this->status == 0){
+        if ($this->status == -1){
             return 'Đang nhập';
         } elseif ($this->status == 1){
             return 'Đang bán';

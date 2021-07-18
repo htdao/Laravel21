@@ -24,11 +24,10 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:5|max:30',
-            'avatar' => 'required',
-            'email' => 'required|min:15|max:30',
-            'password' => 'required|min:6|max:20',
-            'phone' => 'required|min:9|max:11',
+            'name' => 'required|min:6|max:30',
+            'email' => 'required|unique:users,email|email|regex:/(.+)@(.+)\.(.+)/i',
+            'password' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/',
+            'phone' => 'required|regex:/(0)[0-9]{9}/|unique:users,phone|max:10',
             'address' => 'required|min:20|max:100',
         ];
     }
@@ -38,23 +37,24 @@ class StoreUserRequest extends FormRequest
 
         return[
             'name.required' => 'Không được để trống!',
-            'name.min' => 'Tên phải có ít nhất 5 kí tự!',
+            'name.min' => 'Tên phải có ít nhất 6 kí tự!',
             'name.max' => 'Tên có tối đa 30 kí tự!',
 
-            'avatar.required' => 'Không được để trống!',
 
             'email.required' => 'Không được để trống!',
-            'email.min' => 'Email phải có ít nhất 15 kí tự!',
-            'email.max' => 'Email tối đa 30 kí tự!',
+            'email.email' => 'Không đúng định dạng!',
+            'email.unique' => 'Email đã được sử dụng!',
+            'email.regex' => 'Không đúng định dạng!',
+
 
             'password.required' => 'Không được để trống!',
             'password.min' => 'Mật khẩu phải có ít nhất 6 kí tự!',
-            'password.max' => 'Mật khẩu tối đa 20 kí tự!',
+            'password.regex' => 'Mật khẩu phải gồm chữ in hoa, chữ thường, số và kí tự đặc biệt!',
 
             'phone.required' => 'Không được để trống!',
-            'phone.min' => 'Không phải số điện thoại!',
-            'phone.max' => 'Không phải số điện thoại!',
-//            'phone.numeric' => 'Không phải số điện thoại!',
+            'phone.regex' => 'Số điện thoại không đúng!',
+            'phone.unique' => 'Số điện thoại đã được sử dụng!',
+            'phone.max' => 'Số điện thoại không đúng!',
 
             'address.required' => 'Không được để trống!',
             'address.min' => 'Địa chỉ phải có ít nhất 20 kí tự!',
@@ -65,9 +65,9 @@ class StoreUserRequest extends FormRequest
     public function attributes(){
         return [
             'name' => 'họ tên',
-            'avatar' => 'ảnh đại diện',
             'email' => 'email',
             'password' => 'mật khẩu',
+            'password_confirmation' => 'Mật khẩu',
             'phone' => 'số điện thoại',
             'address' => 'địa chỉ',
         ];

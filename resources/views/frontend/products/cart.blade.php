@@ -42,7 +42,7 @@ Giỏ hàng
                 <th class="text-center" scope="col">Số lượng</th>
                 <th class="text-center" scope="col">Tổng tiền</th>
                 <th class="text-center" scope="col">Xoá</th>
-                <th class="text-center" scope="col">Chọn</th>
+{{--                <th class="text-center" scope="col">Chọn</th>--}}
               </tr>
             </thead>
             <tbody>
@@ -55,7 +55,7 @@ Giỏ hàng
                   <span class="whish-title">{{$item->name}}</span>
                 </td>
                 <td class="text-center">
-                  {{$item->price}}
+                  {{number_format($item->price,0,'.','.')}}
                 </td>
                 <td class="text-center">
                   <div class="product-count style">
@@ -77,7 +77,7 @@ Giỏ hàng
                   </div>
                 </td>
                 <td class="text-center">
-                  <span class="whish-list-price"> {{$item->price*$item->qty}} </span>
+                  <span class="whish-list-price"> {{number_format( $item->price*$item->qty,0,'.','.')}} </span>
                 </td>
 
                 <td class="text-center">
@@ -85,9 +85,9 @@ Giỏ hàng
                     <span class="trash"><i class="fas fa-trash-alt"></i> </span>
                   </a>
                 </td>
-                <td class="text-center">
-                    <input type="checkbox" id="20820">
-                </td>
+{{--                <td class="text-center">--}}
+{{--                    <input type="checkbox" id="20820">--}}
+{{--                </td>--}}
               </tr>
             @endforeach
             </tbody>
@@ -116,7 +116,7 @@ Giỏ hàng
               <div class="your-order-total mb-0">
                 <ul>
                   <li class="order-total">Tổng tiền</li>
-                  <li>{{\Gloudemans\Shoppingcart\Facades\Cart::total()}}đ</li>
+                  <li>{{number_format(\Gloudemans\Shoppingcart\Facades\Cart::total(),0,'.','.')}}đ</li>
                 </ul>
               </div>
             </div>

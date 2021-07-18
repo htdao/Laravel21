@@ -25,6 +25,8 @@ Route::group([
     //Trang chủ
     Route::get('/', 'HomeController@index')->name('frontend.home');
     Route::get('/contact', 'HomeController@contact')->name('frontend.home.contact');
+    Route::get('/trademark/{id}', 'HomeController@trademark')->name('frontend.trademark');
+    Route::get('/category/{id}', 'HomeController@category')->name('frontend.category');
 
     //Sản Phẩm
     Route::get('/products', 'ProductController@index')->name('frontend.product.index');
@@ -46,6 +48,12 @@ Route::group([
     Route::post('/login', 'AccountController@login')->name('frontend.login');
     Route::get('/register', 'AccountController@registerForm')->name('frontend.register');
     Route::get('/account/{id}', 'AccountController@index')->name('frontend.account');
+    Route::post('/account/update/{id}', 'AccountController@update')->name('frontend.account.update');
+    Route::post('/account/updateP/{id}', 'AccountController@updateP')->name('frontend.account.updateP');
+
+    //Đánh giá
+    Route::get('/rating/{id}', 'RatingController@index')->name('frontend.rating.index');
+    Route::post('/rating/store/{id}', 'RatingController@store')->name('frontend.rating.store');
 
 
 });
@@ -54,6 +62,7 @@ Route::group([
 Route::get('admin/login', 'Auth\LoginController@showLoginForm')->name('login.form');
 Route::post('/', 'Auth\LoginController@login')->name('login.store');
 Route::get('admin/logout', 'Auth\LogoutController@logout')->name('logout');
+//Route::get('admin/test', 'Auth\LogoutController@logout')->name('login');
 
 //Đăng nhập-Đăng ký trang người dùng
 Route::get('/login', 'Auth\LoginController@showLoginFormUser')->name('user.login.form');
@@ -92,13 +101,13 @@ Route::group([
         Route::get('/', 'UserController@index')->name('backend.user.index');
         Route::get('/create', 'UserController@create')->name('backend.user.create');
         Route::post('/', 'UserController@store')->name('backend.user.store');
-        Route::get('/edit/{user}', 'UserController@edit')->name('backend.user.edit')
-            ->middleware('can:update,user');
-        Route::post('/{user}', 'UserController@update')->name('backend.user.update');
+        Route::get('/edit/{user}', 'UserController@edit')->name('backend.user.edit');
+        Route::post('/{id}', 'UserController@updateAcc')->name('backend.user.updateAcc');
         Route::delete('/delete/{user}', 'UserController@destroy')->name('backend.user.destroy')
             ->middleware('can:delete,user');
         Route::get('/show/{id}', 'UserController@show')->name('backend.user.show');
         Route::get('/account/{id}', 'UserController@account')->name('backend.user.account');
+        Route::post('/updatep/{id}', 'UserController@updatePass')->name('backend.user.updatePass');
         Route::get('/{id}/product', 'UserController@showProducts')->name('backend.user.product');
     });
 
@@ -131,6 +140,30 @@ Route::group([
         Route::get('/edit/{id}', 'OrderController@edit')->name('backend.order.edit');
         Route::post('/update/{id}', 'OrderController@update')->name('backend.order.update');
         Route::post('/status/{id}', 'OrderController@status')->name('backend.order.status');
+        Route::post('/cancellationOrder/{id}', 'OrderController@cancellationOrder')->name('backend.order.cancellationOrder');
+        Route::post('/cancellation/{id}', 'OrderController@cancellation')->name('backend.order.cancellation');
+
+    });
+
+    //Thống kê
+    Route::group(['prefix' => 'statisticals'], function(){
+        Route::get('/', 'StatisticalController@index')->name('backend.statistical.index');
+        Route::post('/filterByDate', 'StatisticalController@filterByDate')->name('backend.statistical.filterByDate');
+        Route::post('/dayOrder', 'StatisticalController@dayOrder')->name('backend.statistical.dayOrder');
+        Route::post('/filterAll', 'StatisticalController@filterAll')->name('backend.statistical.filterAll');
+
+
+    });
+
+    //Quản lý giao diện
+    Route::group(['prefix' => 'home'], function(){
+        Route::get('/', 'HomeController@index')->name('backend.home.index');
+        Route::get('/create', 'HomeController@create')->name('backend.home.create');
+        Route::post('/store', 'HomeController@store')->name('backend.home.store');
+        Route::get('/edit/{id}', 'HomeController@edit')->name('backend.home.edit');
+        Route::post('/update/{id}', 'HomeController@update')->name('backend.home.update');
+        Route::get('/show/{id}', 'HomeController@show')->name('backend.home.show');
+        Route::delete('/destroy/{id}', 'HomeController@destroy')->name('backend.home.destroy');
     });
 });
 

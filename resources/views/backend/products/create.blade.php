@@ -141,8 +141,8 @@ Thêm sản phẩm mới
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label>Giá khuyến mại</label>
-                                        <input value="{{ old('sale_price') }}" type="text" name="sale_price" class="form-control" placeholder="Điền giá khuyến mại">
+                                        <label>Giá bán</label>
+                                        <input value="{{ old('sale_price') }}" type="text" name="sale_price" class="form-control" placeholder="Điền giá bán">
                                         @error('sale_price')
                                         <div style="color: red">{{ $message }}</div>
                                         @enderror
