@@ -100,6 +100,7 @@ class ProductController extends Controller
 
         $data['slug'] = Str::slug($request->get('name'));
         $data['user_id'] = Auth::user()->id;
+        $data['quan_sold'] = 0;
         $data['created_at'] = Carbon::now();
 
         $product = Product::create($data);
