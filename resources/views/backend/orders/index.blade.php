@@ -33,25 +33,25 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Danh sách đơn hàng</h3>
-                        <form action="{{route('backend.product.index')}}" method="get" class="d-inline-block float-right col-9">
+                        <form action="{{route('backend.order.index')}}" method="get" class="d-inline-block float-right col-9">
                             <div class="card-tools row float-right">
-                                <div class="input-group input-group-sm col-6">
-                                    <select name="trademark" class="col-8 form-control select2" style="width: 100%; padding: 0" >
+                                <div class="input-group input-group-sm">
+                                    <select name="status" class="col-8 form-control select2" style="width: 100%; padding: 0" >
                                         <option value="0">Chọn trạng thái</option>
-{{--                                        @foreach($trademarks as $trademark)--}}
-{{--                                            <option value="{{$trademark->id}}">{{$trademark->name}}</option>--}}
-{{--                                        @endforeach--}}
+                                        @foreach(\App\Models\Order::$order_status as $key => $value)
+                                            <option value="{{$key}}">{{ $value }}</option>
+                                        @endforeach
                                     </select>
                                     <div class="input-group-append col-4" style="padding: 0">
                                         <button type="submit" class="btn btn-default">Lọc</button>
                                     </div>
                                 </div>
-                                <div class="input-group input-group-sm col-6" style="padding: 0">
-                                    <input type="text" name="search" class="col-8 form-control float-left" placeholder="Tìm kiếm">
-                                    <div class="input-group-append col-4" style="padding: 0">
-                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
+{{--                                <div class="input-group input-group-sm col-6" style="padding: 0">--}}
+{{--                                    <input type="text" name="search" class="col-8 form-control float-left" placeholder="Tìm kiếm">--}}
+{{--                                    <div class="input-group-append col-4" style="padding: 0">--}}
+{{--                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                             </div>
                         </form>
                     </div>

@@ -132,70 +132,70 @@ Trang chủ
 <!-- common banner  start -->
     <!-- common banner  end -->
     <!-- product tab repetation start -->
-    <section class="bg-white theme1 pb-80">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <!-- section-title start -->
-            <div class="section-title text-center">
-              <h2 class="title pb-3 mb-3">Sản phẩm khuyến mại</h2>
-              <p class="text">
-              </p>
-            </div>
-            <!-- section-title end -->
-            <div class="product-slider-init theme1 slick-nav">
-                @foreach($productSelling as $value)
-                    <div class="slider-item">
-                        <div class="card product-card">
-                            <div class="card-body p-0">
-                                <div class="media flex-column">
-                                    <div class="product-thumbnail position-relative">
-                                        <a href="{{route('frontend.product.show',['id' => $value->id])}}">
-                                            @if(count($value->images) > 0)
-                                                <img src="{{$value->images[0]->image_url}}">
-                                            @endif
-                                        </a>
-                                        <!-- product links -->
-                                        <!-- product links end-->
-                                    </div>
-                                    <div class="media-body">
-                                        <div class="product-desc">
-                                            <h3 class="title h1">
-                                                <a href="">{{$value->name}}</a>
-                                            </h3>
-                                            <div class="star-rating">
+{{--    <section class="bg-white theme1 pb-80">--}}
+{{--      <div class="container">--}}
+{{--        <div class="row">--}}
+{{--          <div class="col-12">--}}
+{{--            <!-- section-title start -->--}}
+{{--            <div class="section-title text-center">--}}
+{{--              <h2 class="title pb-3 mb-3">Sản phẩm khuyến mại</h2>--}}
+{{--              <p class="text">--}}
+{{--              </p>--}}
+{{--            </div>--}}
+{{--            <!-- section-title end -->--}}
+{{--            <div class="product-slider-init theme1 slick-nav">--}}
+{{--                @foreach($productSelling as $value)--}}
+{{--                    <div class="slider-item">--}}
+{{--                        <div class="card product-card">--}}
+{{--                            <div class="card-body p-0">--}}
+{{--                                <div class="media flex-column">--}}
+{{--                                    <div class="product-thumbnail position-relative">--}}
+{{--                                        <a href="{{route('frontend.product.show',['id' => $value->id])}}">--}}
+{{--                                            @if(count($value->images) > 0)--}}
+{{--                                                <img src="{{$value->images[0]->image_url}}">--}}
+{{--                                            @endif--}}
+{{--                                        </a>--}}
+{{--                                        <!-- product links -->--}}
+{{--                                        <!-- product links end-->--}}
+{{--                                    </div>--}}
+{{--                                    <div class="media-body">--}}
+{{--                                        <div class="product-desc">--}}
+{{--                                            <h3 class="title h1">--}}
+{{--                                                <a href="">{{$value->name}}</a>--}}
+{{--                                            </h3>--}}
+{{--                                            <div class="star-rating">--}}
 {{--                                                <span class="ion-ios-star"></span>--}}
 {{--                                                <span class="ion-ios-star"></span>--}}
 {{--                                                <span class="ion-ios-star"></span>--}}
 {{--                                                <span class="ion-ios-star"></span>--}}
 {{--                                                <span class="ion-ios-star de-selected"></span>--}}
-                                                Đã bán: {{$value->quan_sold}}
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <span class="product-price">
-                                                        <del class="del">
+{{--                                                Đã bán: {{$value->quan_sold}}--}}
+{{--                                            </div>--}}
+{{--                                            <div class="d-flex align-items-center justify-content-between">--}}
+{{--                                                <span class="product-price">--}}
+{{--                                                        <del class="del">--}}
 {{--                                                            @if($value->sale_price != $value->origin_price)--}}
 {{--                                                                {{number_format($value->origin_price,0,'.','.')}}--}}
 {{--                                                            @endif--}}
-                                                        </del>
-                                                        <span class="onsale">{{number_format($value->sale_price,0,'.','.')}}đ</span>
-                                                    </span>
-                                                <a href="{{route('frontend.product.add', ['id' => $value->id])}}"><button class="pro-btn">
-                                                        <i class="icon-basket"></i>
-                                                    </button></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+{{--                                                        </del>--}}
+{{--                                                        <span class="onsale">{{number_format($value->sale_price,0,'.','.')}}đ</span>--}}
+{{--                                                    </span>--}}
+{{--                                                <a href="{{route('frontend.product.add', ['id' => $value->id])}}"><button class="pro-btn">--}}
+{{--                                                        <i class="icon-basket"></i>--}}
+{{--                                                    </button></a>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                @endforeach--}}
+{{--            </div>--}}
+{{--          </div>--}}
+{{--        </div>--}}
+{{--      </div>--}}
+{{--    </section>--}}
 
 <section class="bg-white theme1 pb-80">
     <div class="container">

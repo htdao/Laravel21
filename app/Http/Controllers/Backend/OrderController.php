@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Revenue;
 use App\Models\Statistic;
+use App\Models\Trademark;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -19,9 +20,16 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::orderBy('status', 'asc')->paginate(10);
+        $status = $request->input('status');
+        if(!empty($status)){
+            $orders = Order::query()
+                ->where('status', $status)
+                ->orderBy('updated_at', 'asc')->paginate(10);
+        }else {
+            $orders = Order::orderBy('status', 'asc')->paginate(10);
+        }
         return view('backend.orders.index',[
             'orders' => $orders,
         ]);

@@ -164,6 +164,7 @@ class CategoryController extends Controller
             $category = Category::find($id);
             $children = Category::where('parent_id', $category->id)->get();
             $products = Product::where('category_id', $category->id)->get();
+
             if (count($children) > 0) {
                 foreach ($children as $child) {
                     $child->parent_id = 0;

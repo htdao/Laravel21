@@ -142,6 +142,7 @@ Route::group([
         Route::post('/status/{id}', 'OrderController@status')->name('backend.order.status');
         Route::post('/cancellationOrder/{id}', 'OrderController@cancellationOrder')->name('backend.order.cancellationOrder');
         Route::post('/cancellation/{id}', 'OrderController@cancellation')->name('backend.order.cancellation');
+        Route::post('/search', 'OrderController@search')->name('backend.order.search');
 
     });
 

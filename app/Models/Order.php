@@ -24,17 +24,17 @@ class Order extends Model
     ];
 
     const WAITTING = 0;
-    const SHIPPING = 3;
-    const SUCCESS = 2;
     const PROGRESSING = 1;
+    const SUCCESS = 2;
+    const SHIPPING = 3;
     const CANCELLATION = 4;
 
 
     public static $order_status = [
         self::WAITTING => 'Chờ xử lý',
-        self::SHIPPING => 'Chờ giao hàng',
-        self::SUCCESS => 'Đã giao hàng',
         self::PROGRESSING => 'Yêu cầu huỷ',
+        self::SUCCESS => 'Đã giao hàng',
+        self::SHIPPING => 'Chờ giao hàng',
         self::CANCELLATION => 'Đã huỷ',
 
 
@@ -56,7 +56,7 @@ class Order extends Model
 
     public function getButtonTextAttribute($value){
         if($this->status == 0){
-            return "Xử lý";
+            return "Xác nhận";
         }elseif ($this->status == 1){
             return 'Huỷ';
         }elseif ($this->status == 2){
