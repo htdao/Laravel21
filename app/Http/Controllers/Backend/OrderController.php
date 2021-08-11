@@ -177,6 +177,8 @@ class OrderController extends Controller
                 $product->quan_sold -= $product->pivot->quality;
                 $product->save();
             }
+        }elseif ($order->status == 3){
+            $order->status = 5;
         }
         $order->save();
         return redirect()->route('backend.order.index');

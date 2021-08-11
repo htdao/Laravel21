@@ -81,14 +81,16 @@
                                     <td>
                                         @if($value->status == 0)
                                             <span class="badge bg-warning widspan">{{ $value->order_status }}</span>
-                                        @elseif($value->status == 3)
+                                        @elseif($value->status == 5)
                                             <span class="badge bg-info widspan">{{ $value->order_status }}</span>
                                         @elseif($value->status == 2)
                                             <span class="badge bg-success widspan">{{ $value->order_status }}</span>
                                         @elseif($value->status == 1)
                                             <span class="badge bg-danger widspan">{{ $value->order_status }}</span>
-                                        @else
+                                        @elseif($value->status == 4)
                                             <span class="badge bg-dark widspan">{{ $value->order_status }}</span>
+                                        @elseif($value->status == 3)
+                                            <span class="badge bg-primary widspan">{{ $value->order_status }}</span>
                                         @endif
                                     </td>
                                     <td>
@@ -100,17 +102,28 @@
                                                 }
                                             </style>
                                             {{ csrf_field() }}
+
+{{--                                            <select name="status" class="col-8 form-control select2" style="width: 100%; padding: 0" >--}}
+{{--                                                <option>Xử lý</option>--}}
+{{--                                                @foreach(\App\Models\Order::$order_status as $key=>$value)--}}
+{{--                                                <option value="{{$key}}">{{ $value->buton_text }}</option>--}}
+{{--                                                <option value="1">Huỷ</option>--}}
+{{--                                                @endforeach--}}
+{{--                                            </select>--}}
+
                                             <button type="submit" style="border: none; width: 100px; height: 35px; border-radius: 4px; line-height: 100%"
                                             @if($value->status == 0)
                                                 class="btn bg-warning"
-                                            @elseif($value->status == 3)
+                                            @elseif($value->status == 5)
                                                 class="bg-info opacity-1" disabled
                                             @elseif($value->status == 2)
                                                 class="bg-success"
                                             @elseif($value->status == 1)
                                                 class="bg-danger"
-                                            @else
+                                            @elseif($value->status == 4)
                                                 class="bg-dark opacity-1" disabled
+                                            @elseif($value->status == 3)
+                                                    class="bg-primary"
                                             @endif
                                             >
                                                 {{ $value->button_text }}

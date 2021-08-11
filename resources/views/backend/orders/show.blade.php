@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                         </form>
-                        @if($order->status == 2 || $order->status == 0)
+                        @if($order->status == 2 || $order->status == 0 || $order->status == 3)
                             <form action="{{route('backend.order.cancellation', ['id' => $order->id])}}" method="post" class="d-inline-block float-left col-2">
                                 @csrf
                                 &nbsp;<button type="submit" style="border: none; width: 50px; height: 30px; border-radius: 4px; line-height: 100%" class="bg-danger" >Huỷ</button>

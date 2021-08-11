@@ -58,7 +58,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('backend.product.create') }}" class="nav-link {{($route=='backend.product.create')?'active':''}}">
+                                <a href="{{ route('backend.product.create') }}" class="nav-link {{($route=='backend.category.index')?'active':''}}">
                                     <span style="margin-left: 25px"><i class='far fa-edit'></i></span>
                                     <p>Tạo mới</p>
                                 </a>
